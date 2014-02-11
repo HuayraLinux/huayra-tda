@@ -1,0 +1,15 @@
+Source: huayra-tda
+Section: video
+Priority: extra
+Maintainer: Miguel Angel Garcia <miguel.garcia@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+Homepage: git://github.com/HuayraLinux/huayra-tda.git
+Vcs-Git: git://github.com/HuayraLinux/huayra-tda.git
+Vcs-Browser: https://github.com/HuayraLinux/huayra-tda
+
+Package: huayra-tda-player
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-qt4, vlc
+Description: Reproductor de televisión digital
+ Sintoniza y reproduce canales de TDA.

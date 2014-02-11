@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Huayra Televisión Digital Abierta
+GenericName==Televisión Digital Abierta
+Comment=Visualizar Televisión Digital Abierta
+Exec=/usr/bin/huayra-tda-player
+Icon=tda
+Terminal=false
+Type=Application
+Categories=AudioVideo;Player;
+Keywords=Player;TDA;
