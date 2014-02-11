@@ -1,4 +1,10 @@
-huayra-tda (0.1.1) testing; urgency=low
+huayra-tda (0.1.2) unstable; urgency=low
+
+  * Reordenando el paquete
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Tue, 11 Feb 2014 16:25:23 -0300
+
+huayra-tda (0.1.1) unstable; urgency=low
 
   * Reordenando el paquete
 
