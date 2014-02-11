@@ -1,9 +1,8 @@
 #! /usr/bin/python
 
 #
-# Reproductor de TV Digital
-#
-# Copyright (C) 2014-2014 the Huayra GNU/Linux
+# Huayra TDA Player
+# Copyright (C) 2014-2014 Huayra GNU Linux
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,12 +24,12 @@ import user
 import vlc
 from PyQt4 import QtGui, QtCore
 
-class Player(QtGui.QMainWindow):
-    """A simple Media Player using VLC and Qt
+class HuayraTDAPlayer(QtGui.QMainWindow):
+    """TDA Player
     """
     def __init__(self, master=None):
         QtGui.QMainWindow.__init__(self, master)
-        self.setWindowTitle("Huayra TDA")
+        self.setWindowTitle("Huayra TDA Player")
 
         # creating a basic vlc instance
         self.instance = vlc.Instance()
@@ -38,7 +37,6 @@ class Player(QtGui.QMainWindow):
         self.mediaplayer = self.instance.media_player_new()
 
         self.createUI()
-        self.isPaused = False
         self.channels = self.readChannelsList("/etc/huayra/channels.conf")
         self.currentChannel = 0
 
@@ -94,13 +92,13 @@ class Player(QtGui.QMainWindow):
 
         self.widget.setLayout(self.vboxlayout)
 
-        scan = QtGui.QAction("&Scan Channels", self)
-        self.connect(scan, QtCore.SIGNAL("triggered()"), self.ScanChannels)
-        exit = QtGui.QAction("&Exit", self)
+        #scan = QtGui.QAction("&Scan Channels", self)
+        #self.connect(scan, QtCore.SIGNAL("triggered()"), self.ScanChannels)
+        exit = QtGui.QAction("&Salir", self)
         self.connect(exit, QtCore.SIGNAL("triggered()"), sys.exit)
         menubar = self.menuBar()
-        filemenu = menubar.addMenu("&File")
-        filemenu.addAction(scan)  
+        filemenu = menubar.addMenu("&Archivo")
+        #filemenu.addAction(scan)  
         filemenu.addSeparator()
         filemenu.addAction(exit)
 
@@ -110,16 +108,12 @@ class Player(QtGui.QMainWindow):
                      self.updateUI)
 
     def ChannelUp(self):
-        """Toggle play/pause status
-        """
         if self.currentChannel == len(self.channels) - 1:
             self.watch(0)
         else:
         	self.watch(self.currentChannel + 1)
 
     def ChannelDown(self):
-        """Toggle play/pause status
-        """
         if self.currentChannel == 0:
             self.watch(len(self.channels) - 1)
         else:
@@ -137,7 +131,7 @@ class Player(QtGui.QMainWindow):
         # parse the metadata of the file
         self.media.parse()
         # set the title of the track as window title
-        self.setWindowTitle("Huayra TDA - " + params[0].strip())
+        self.setWindowTitle("Huayra TDA Player - " + params[0].strip())
 
         # the media player has to be 'connected' to the QFrame
         # (otherwise a video would be displayed in it's own window)
@@ -157,31 +151,25 @@ class Player(QtGui.QMainWindow):
         """
         self.mediaplayer.audio_set_volume(Volume)
 
-    def setPosition(self, position):
-        """Set the position
-        """
-        # setting the position to where the slider was dragged
-        self.mediaplayer.set_position(position / 1000.0)
-        # the vlc MediaPlayer needs a float value between 0 and 1, Qt
-        # uses integer variables, so you need a factor; the higher the
-        # factor, the more precise are the results
-        # (1000 should be enough)
-
     def updateUI(self):
         """updates the user interface"""
-        # setting the slider to the desired position
         pass
 
     def ScanChannels(self, filename=None):
-        """Scan channels and create channels list
+        """Scan channels and create channels list: not yet implemented
         """
         return
 
+    def start(self):
+        if len(self.channels) > 0:
+            self.watch(0)
+
+
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
-    player = Player()
+    player = HuayraTDAPlayer()
     player.show()
     player.resize(640, 480)
     #if sys.argv[1:]:
-    player.watch(0)
+    player.start()
     sys.exit(app.exec_())
