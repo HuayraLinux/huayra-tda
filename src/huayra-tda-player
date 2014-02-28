@@ -62,7 +62,7 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
 
     def createMediaPlayer(self):
         # creating a basic vlc instance
-        self.instance = vlc.Instance()
+        self.instance = vlc.Instance("--video-title-show --video-title-timeout 1 --sub-source marq")
         # creating an empty vlc media player
         self.mediaplayer = self.instance.media_player_new()
         # the media player has to be 'connected' to the QFrame
@@ -96,6 +96,9 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         # set the title of the track as window title
         self.setWindowTitle("Huayra TDA Player - " + channel.name)
         self.mediaplayer.play()
+        self.mediaplayer.video_set_marquee_int(vlc.VideoMarqueeOption.Position, vlc.Position.Bottom)
+        self.mediaplayer.video_set_marquee_int(vlc.VideoMarqueeOption.Timeout, 5*1000)
+        self.mediaplayer.video_set_marquee_string(vlc.VideoMarqueeOption.Text, channel.name)
 
     def setVolume(self, Volume):
         """Set the volume
