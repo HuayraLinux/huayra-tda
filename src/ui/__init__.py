@@ -1,0 +1,2 @@
+from WidgetScanChannels import WidgetScanChannels
+from WidgetPlayer import WidgetPlayer
