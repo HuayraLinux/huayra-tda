@@ -54,8 +54,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/down.svg</normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/down.svg</iconset>
+        <iconset theme="down"/>
        </property>
       </widget>
      </item>
@@ -74,8 +73,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/up.svg</normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/up.svg</iconset>
+        <iconset theme="up"/>
        </property>
       </widget>
      </item>
@@ -104,8 +102,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/go-top.svg</normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/go-top.svg</iconset>
+        <iconset theme="go-top"/>
        </property>
       </widget>
      </item>
@@ -124,8 +121,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/view-fullscreen.svg</normaloff>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/view-fullscreen.svg</iconset>
+        <iconset theme="view-fullscreen"/>
        </property>
       </widget>
      </item>
