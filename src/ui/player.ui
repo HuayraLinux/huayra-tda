@@ -2,145 +2,252 @@
 <ui version="4.0">
  <class>frmPlayer</class>
  <widget class="QWidget" name="frmPlayer">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>596</width>
-    <height>364</height>
+    <width>818</width>
+    <height>741</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>100000</width>
+    <height>100000</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>BeboTV</string>
+   <string>Huayra - Television Digital Abierta </string>
   </property>
   <property name="toolTip">
-   <string>Aplicacion de Bebote</string>
+   <string>Visor de TDA Huayra</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#frmPlayer{
+}
+
+#framePlayer{
+background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fafafa, stop: 0.3 #f9f9f9, stop: 1 #e7e7e7);
+
+}
+
+#layoutVideo{
+	border: 1px solid #e9e9e9;
+	border-radius:6px;
+}
+
+#sldVolume::groove:horizontal {
+     border: 1px solid #999999;
+     height: 8px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
+     margin: 2px 0;
+	border-radius: 2px;
+ }
+
+#sldVolume::handle:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #4bd0d3, stop:0.2 #3b9b9e, stop:0.8 #4bd0d3, stop:1 #2b4040);
+     border: 1px solid #5c5c5c;
+     width: 18px;
+     margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+     border-radius: 5px;
+ }
+</string>
+  </property>
+  <widget class="QFrame" name="framePlayer">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>640</width>
+     <height>520</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>621</width>
+      <height>461</height>
+     </rect>
+    </property>
     <layout class="QHBoxLayout" name="layoutVideo">
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>200</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="btnChannelDown">
-       <property name="maximumSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Canal Abajo</string>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(125, 60, 255);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset theme="down"/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnChannelUp">
-       <property name="maximumSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Canal Arriba</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset theme="up"/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnShowChannelsList">
-       <property name="maximumSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset theme="go-top"/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnFullScreen">
-       <property name="maximumSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Pantalla Completa</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset theme="view-fullscreen"/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QSlider" name="sldVolume">
-     <property name="toolTip">
-      <string>Control de volumen</string>
+     <property name="spacing">
+      <number>0</number>
      </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QListView" name="listView"/>
-   </item>
-  </layout>
+     <property name="margin">
+      <number>0</number>
+     </property>
+    </layout>
+   </widget>
+   <widget class="QListView" name="listView">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>519</y>
+      <width>640</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnChannelUp">
+    <property name="geometry">
+     <rect>
+      <x>6</x>
+      <y>484</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>Canal Arriba</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/up.svg</normalon>
+     </iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnFullScreen">
+    <property name="geometry">
+     <rect>
+      <x>603</x>
+      <y>484</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>Pantalla Completa</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/view-fullscreen.svg</normalon>
+     </iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnChannelDown">
+    <property name="geometry">
+     <rect>
+      <x>42</x>
+      <y>484</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>Canal Abajo</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(125, 60, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/down.svg</normalon>
+     </iconset>
+    </property>
+   </widget>
+   <widget class="QSlider" name="sldVolume">
+    <property name="geometry">
+     <rect>
+      <x>138</x>
+      <y>491</y>
+      <width>401</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Control de volumen</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnShowChannelsList">
+    <property name="geometry">
+     <rect>
+      <x>569</x>
+      <y>484</y>
+      <width>30</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>30</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/top.svg</normalon>
+     </iconset>
+    </property>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>
