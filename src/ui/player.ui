@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>665</width>
-    <height>496</height>
+    <width>591</width>
+    <height>458</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -30,7 +30,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget#frmPlayer{
-background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00000, stop: 0.3 #00f000, stop: 1 #0000f0);
+background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f8f8f8, stop: 0.3 #f1f1f1, stop: 1 #e8e8e8);
 
 }
 
@@ -54,7 +54,28 @@ background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00000, 
      margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
      border-radius: 5px;
  }
-</string>
+
+#sldVolume::trough:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #4bd0d3, stop:0.2 #3b9b9e, stop:0.8 #4bd0d3, stop:1 #2b4040);
+     border: 1px solid #5c5c5c;
+     width: 18px;
+     margin: -2px 0; 
+     border-radius: 5px;
+ }
+
+#listViewChannels{
+	background-image:url(&quot;./imagenes/vaca.svg&quot;);
+}
+
+QPushButton{
+	border: 1px solid #c1c1c1;
+	border-radius:6px;
+	background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f8f8f8, stop: 0.3 #f1f1f1, stop: 1 #e8e8e8);
+	margin: 2px;
+	padding: 2px;
+	min-width: 24px;
+	min-height: 18px;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -98,6 +119,12 @@ background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00000, 
          <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/up.svg</normalon>
         </iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -122,10 +149,41 @@ background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00000, 
          <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/down.svg</normalon>
         </iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblVolumen">
+       <property name="toolTip">
+        <string>Volumen</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>imagenes/volumen.svg</pixmap>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QSlider" name="sldVolume">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>700</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string>Control de volumen</string>
        </property>
@@ -133,6 +191,29 @@ background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00000, 
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblVolumenVal">
+       <property name="text">
+        <string>30%</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <widget class="QPushButton" name="btnShowChannelsList">
@@ -149,6 +230,12 @@ background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00000, 
         <iconset>
          <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/top.svg</normalon>
         </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -170,6 +257,37 @@ background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00000, 
         <iconset>
          <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/view-fullscreen.svg</normalon>
         </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblHuayra">
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>imagenes/huayra-tda.svg</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
