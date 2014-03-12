@@ -40,27 +40,39 @@ background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f8f8f8, 
 }
 
 #sldVolume::groove:horizontal {
-     border: 1px solid #999999;
-     height: 8px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
-     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
-     margin: 2px 0;
-	border-radius: 2px;
+     border: 1px solid #b1b1b1;
+    height: 12px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+   background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
+   position: absolute;
+	left:4px; right:4px;
+	border-radius: 5px;
  }
 
 #sldVolume::handle:horizontal {
-     background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #4bd0d3, stop:0.2 #3b9b9e, stop:0.8 #4bd0d3, stop:1 #2b4040);
-     border: 1px solid #5c5c5c;
-     width: 18px;
-     margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #2b4040, stop:0.8 #4bd0d3, stop:1 #86F9FF);
+	/*image: url(&quot;./imagenes/handle.png&quot;);*/
+/*	background-image: url(&quot;./imagenes/handle.svg&quot;);*/
+     border: 1px solid #7c7c7c;
+     width: 12px;
+	height:12px;
+     margin: 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
      border-radius: 5px;
  }
 
-#sldVolume::trough:horizontal {
+#sldVolume::add-page:horizontal { /* color del slider ANTES que pase el handle*/
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #808080, stop:1 #c4c4c4);
+	padding: 2px;
+	margin: 2px;
+	border-radius: 5px;
+	/*border: 1px solid #5c5c5c;*/
+ }
+
+#sldVolume::sub-page:horizontal {/* color del slider DESPUES que pase el handle*/
      background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #4bd0d3, stop:0.2 #3b9b9e, stop:0.8 #4bd0d3, stop:1 #2b4040);
-     border: 1px solid #5c5c5c;
-     width: 18px;
-     margin: -2px 0; 
-     border-radius: 5px;
+	/*border:1px solid #5c5c5c;*/
+	border-radius: 5px;
+	padding: 2px;
+	margin: 2px;
  }
 
 #listViewChannels{
