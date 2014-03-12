@@ -40,6 +40,7 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         self.player.setGuide(guide)
         self.setWindowTitle("Huayra TDA Player")
         self.createUI()
+        self.updateChannelsList()
         self.createMediaPlayer()
         self.connect(self.player, QtCore.SIGNAL("channelChanged"), self.watch, QtCore.Qt.QueuedConnection)
 
@@ -50,8 +51,6 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
     def createUI(self):
         self.widget = WidgetPlayer()
         self.setCentralWidget(self.widget)
-        self.connect(self.widget.ui.btnChannelUp, QtCore.SIGNAL("clicked()"), self.channelUp)
-        self.connect(self.widget.ui.btnChannelDown, QtCore.SIGNAL("clicked()"), self.channelDown)
         exit = QtGui.QAction("&Salir", self)
         self.connect(exit, QtCore.SIGNAL("triggered()"), sys.exit)
         menubar = self.menuBar()
@@ -59,6 +58,8 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         #filemenu.addAction(scan)  
         filemenu.addSeparator()
         filemenu.addAction(exit)
+        self.channelsModel = QtGui.QStandardItemModel()
+        self.widget.ui.listViewChannels.setModel(self.channelsModel)
 
     def createMediaPlayer(self):
         # creating a basic vlc instance
@@ -77,12 +78,6 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         elif sys.platform == "darwin": # for MacOS
             self.mediaplayer.set_nsobject(self.widget.videoframe.winId())
 
-    def channelUp(self):
-        self.player.gotoChannelUp()
-
-    def channelDown(self):
-        self.player.gotoChannelDown()
-
     def watch(self, channel):
         self.mediaplayer.stop()
         self.currentChannel = channel
@@ -100,10 +95,10 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         self.mediaplayer.video_set_marquee_int(vlc.VideoMarqueeOption.Timeout, 5*1000)
         self.mediaplayer.video_set_marquee_string(vlc.VideoMarqueeOption.Text, channel.name)
 
-    def setVolume(self, Volume):
+    def setVolume(self, volume):
         """Set the volume
         """
-        self.mediaplayer.audio_set_volume(Volume)
+        self.mediaplayer.audio_set_volume(volume)
 
     def updateUI(self):
         """updates the user interface"""
@@ -113,6 +108,9 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         if self.player.currentChannel() is not None:
             self.watch(self.player.currentChannel())
 
+    def updateChannelsList(self):
+        for channel in self.player.guide().channels:
+            self.channelsModel.appendRow(QtGui.QStandardItem(channel.name))
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
