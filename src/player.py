@@ -5,6 +5,7 @@ class Player(QObject):
         QObject.__init__(self)
         self.currentChannelIndex = None
         self.setGuide(channelsGuide)
+        self.volume = 50
 
     def gotoChannelUp(self):
         if self.currentChannelIndex is None:
@@ -40,3 +41,7 @@ class Player(QObject):
     def setGuide(self, guide):
         self.channelsGuide = guide
         self.gotoChannel(0)
+
+    def setVolume(self, volume):
+        self.volume = volume
+        self.emit(SIGNAL("volumeChanged"), self.volume)

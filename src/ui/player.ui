@@ -199,6 +199,9 @@ QPushButton{
        <property name="toolTip">
         <string>Control de volumen</string>
        </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
