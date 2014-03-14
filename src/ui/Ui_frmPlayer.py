@@ -42,8 +42,8 @@ class Ui_frmPlayer(object):
 "\n"
 "#sldVolume::handle:horizontal {\n"
 "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #2b4040, stop:0.8 #4bd0d3, stop:1 #86F9FF);\n"
-"    /*image: url(\"./imagenes/handle.png\");*/\n"
-"/*    background-image: url(\"./imagenes/handle.svg\");*/\n"
+"    /*image: url(\"/usr/share/huayra-tda-player/ui/imagenes//handle.png\");*/\n"
+"/*    background-image: url(\"/usr/share/huayra-tda-player/ui/imagenes/handle.svg\");*/\n"
 "     border: 1px solid #7c7c7c;\n"
 "     width: 12px;\n"
 "    height:12px;\n"
@@ -68,7 +68,7 @@ class Ui_frmPlayer(object):
 " }\n"
 "\n"
 "#listViewChannels{\n"
-"    background-image:url(\"./imagenes/vaca.svg\");\n"
+"    background-image:url(\"/usr/share/huayra-tda-player/ui/imagenes/vaca.svg\");\n"
 "}\n"
 "\n"
 "QPushButton{\n"
@@ -94,7 +94,7 @@ class Ui_frmPlayer(object):
         self.btnChannelUp.setMaximumSize(QtCore.QSize(32, 32))
         self.btnChannelUp.setText(_fromUtf8(""))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/up.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/acciones/up.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnChannelUp.setIcon(icon)
         self.btnChannelUp.setIconSize(QtCore.QSize(16, 16))
         self.btnChannelUp.setObjectName(_fromUtf8("btnChannelUp"))
@@ -104,14 +104,14 @@ class Ui_frmPlayer(object):
         self.btnChannelDown.setStyleSheet(_fromUtf8("color: rgb(125, 60, 255);"))
         self.btnChannelDown.setText(_fromUtf8(""))
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/down.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/acciones/down.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnChannelDown.setIcon(icon1)
         self.btnChannelDown.setIconSize(QtCore.QSize(16, 16))
         self.btnChannelDown.setObjectName(_fromUtf8("btnChannelDown"))
         self.horizontalLayout.addWidget(self.btnChannelDown)
         self.lblVolumen = QtGui.QLabel(frmPlayer)
         self.lblVolumen.setText(_fromUtf8(""))
-        self.lblVolumen.setPixmap(QtGui.QPixmap(_fromUtf8("imagenes/volumen.svg")))
+        self.lblVolumen.setPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/huayra-tda-player/ui/imagenes/volumen.svg")))
         self.lblVolumen.setObjectName(_fromUtf8("lblVolumen"))
         self.horizontalLayout.addWidget(self.lblVolumen)
         self.sldVolume = QtGui.QSlider(frmPlayer)
@@ -134,7 +134,7 @@ class Ui_frmPlayer(object):
         self.btnShowChannelsList.setMaximumSize(QtCore.QSize(30, 32))
         self.btnShowChannelsList.setText(_fromUtf8(""))
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/top.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/acciones/top.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnShowChannelsList.setIcon(icon2)
         self.btnShowChannelsList.setIconSize(QtCore.QSize(16, 16))
         self.btnShowChannelsList.setObjectName(_fromUtf8("btnShowChannelsList"))
@@ -143,7 +143,7 @@ class Ui_frmPlayer(object):
         self.btnFullScreen.setMaximumSize(QtCore.QSize(32, 32))
         self.btnFullScreen.setText(_fromUtf8(""))
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/view-fullscreen.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/acciones/view-fullscreen.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnFullScreen.setIcon(icon3)
         self.btnFullScreen.setIconSize(QtCore.QSize(16, 16))
         self.btnFullScreen.setObjectName(_fromUtf8("btnFullScreen"))
@@ -152,7 +152,7 @@ class Ui_frmPlayer(object):
         self.lblHuayra.setMinimumSize(QtCore.QSize(20, 20))
         self.lblHuayra.setMaximumSize(QtCore.QSize(24, 24))
         self.lblHuayra.setText(_fromUtf8(""))
-        self.lblHuayra.setPixmap(QtGui.QPixmap(_fromUtf8("imagenes/huayra-tda.svg")))
+        self.lblHuayra.setPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/huayra-tda-player/ui/imagenes/huayra-tda.svg")))
         self.lblHuayra.setScaledContents(False)
         self.lblHuayra.setObjectName(_fromUtf8("lblHuayra"))
         self.horizontalLayout.addWidget(self.lblHuayra)

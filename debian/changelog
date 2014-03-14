@@ -1,3 +1,9 @@
+huayra-tda (0.2.0) unstable; urgency=low
+
+  * Nueva interfaz
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Fri, 14 Mar 2014 15:20:30 -0300
+
 huayra-tda (0.1.2) unstable; urgency=low
 
   * Reordenando el paquete
