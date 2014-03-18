@@ -23,7 +23,7 @@
    <string>Huayra - Television Digital Abierta </string>
   </property>
   <property name="toolTip">
-   <string>Visor de TDA Huayra</string>
+   <string/>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
