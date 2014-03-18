@@ -6,12 +6,13 @@ import vlc
 class WidgetPlayer(QtGui.QWidget):
     def __init__(self, player):
         QtGui.QWidget.__init__(self)
+        self.fullscreen = False
         self.player = player
         self.ui = Ui_frmPlayer()
         self.ui.setupUi(self)
         self.videoframe = self.createVideoFrame()
-        self.createMediaPlayer()
         self.ui.layoutVideo.addWidget(self.videoframe)
+        self.createMediaPlayer()
         self.connect(self.player, QtCore.SIGNAL("channelChanged"), self.watch, QtCore.Qt.QueuedConnection)
         self.connect(self.ui.btnShowChannelsList, QtCore.SIGNAL("clicked()"), self.showHideChannelsList)
         self.connect(self.ui.btnChannelUp, QtCore.SIGNAL("clicked()"), self.channelUp)
@@ -19,7 +20,10 @@ class WidgetPlayer(QtGui.QWidget):
         self.connect(self.player, QtCore.SIGNAL("channelChanged"), self.channelChanged, QtCore.Qt.QueuedConnection)
         self.connect(self.ui.sldVolume, QtCore.SIGNAL("valueChanged(int)"), self.setVolume)
         self.connect(self.player, QtCore.SIGNAL("volumeChanged"), self.updateVolume, QtCore.Qt.QueuedConnection)
-        self.connect(self.ui.btnFullScreen, QtCore.SIGNAL("clicked()"), self.fullscreen)
+        self.connect(self.ui.btnFullScreen, QtCore.SIGNAL("clicked()"), self.toggle_fullscreen)
+        self.ui.btnFullScreen.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
+        self.ui.btnChannelDown.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Down))
+        self.ui.btnChannelUp.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Up))
         self.channelsModel = QtGui.QStandardItemModel()
         self.ui.listViewChannels.setModel(self.channelsModel)
         self.connect(self.ui.listViewChannels.selectionModel(), 
@@ -27,6 +31,7 @@ class WidgetPlayer(QtGui.QWidget):
         self.updateChannelsList()
         self.showHideChannelsList()
         self.updateVolume()
+        self.i = 0
 
     def createVideoFrame(self):
         if sys.platform == "darwin": # for MacOS
@@ -38,7 +43,24 @@ class WidgetPlayer(QtGui.QWidget):
                                QtGui.QColor(0,0,0))
         videoframe.setPalette(palette)
         videoframe.setAutoFillBackground(True)
+        videoframe.setFocusPolicy(QtCore.Qt.StrongFocus)
+        videoframe.installEventFilter(self)
         return videoframe
+
+    def eventFilter(self, obj, event):
+        if event.type() == QtCore.QEvent.KeyPress:
+            if event.key() == QtCore.Qt.Key_Escape:
+                self.toggle_fullscreen()
+            if event.key() == QtCore.Qt.Key_Up:
+                self.channelUp()
+            if event.key() == QtCore.Qt.Key_Down:
+                self.channelDown()
+            if event.key() == QtCore.Qt.Key_Right:
+                self.volumeInc()
+            if event.key() == QtCore.Qt.Key_Left:
+                self.volumeDec()
+
+        return False
 
     def showHideChannelsList(self):
         if self.ui.listViewChannels.isHidden():
@@ -67,11 +89,10 @@ class WidgetPlayer(QtGui.QWidget):
         self.player.gotoChannel(idx1.row())
 
     def channelChanged(self, channel):
-#        self.ui.listViewChannels.selectionModel().setCurrentIndex(
-#            self.channelsModel.index(self.player.currentChannelIndex, 0),
-#            QtGui.QItemSelectionModel.SelectionFlags()
-#        )
-        pass
+        self.ui.listViewChannels.selectionModel().setCurrentIndex(
+            self.channelsModel.index(self.player.currentChannelIndex, 0),
+            QtGui.QItemSelectionModel.SelectionFlags()
+        )
 
     def setVolume(self, volume):
         self.player.setVolume(volume)
@@ -118,11 +139,34 @@ class WidgetPlayer(QtGui.QWidget):
         self.ui.lblVolumenVal.setText(str(self.player.volume) + ' %')
         self.ui.sldVolume.setValue(self.player.volume)
 
-    def fullscreen(self):
-        return        
-        self.fullframe = self.createVideoFrame()
-        self.mediaplayer.set_xwindow(self.fullframe.winId())    
-        #self.mediaplayer.set_fullscreen(True)
-        self.fullframe.showFullScreen()
-        
-#        self.mediaplayer.toggle_fullscreen()
+    def toggle_fullscreen(self):
+        self.fullscreen = not self.fullscreen
+        if self.fullscreen:
+            self.ui.btnChannelDown.hide()
+            self.ui.btnChannelUp.hide()
+            self.ui.lblVolumen.hide()
+            self.ui.sldVolume.hide()
+            self.ui.lblVolumenVal.hide()
+            self.ui.btnShowChannelsList.hide()
+            self.ui.btnFullScreen.hide()
+            self.ui.lblHuayra.hide()
+            self.ui.listViewChannels.hide()
+            self.emit(QtCore.SIGNAL("fullscreen"), self.fullscreen)
+        else:
+            self.ui.btnChannelDown.show()
+            self.ui.btnChannelUp.show()
+            self.ui.lblVolumen.show()
+            self.ui.sldVolume.show()
+            self.ui.lblVolumenVal.show()
+            self.ui.btnShowChannelsList.show()
+            self.ui.btnFullScreen.show()
+            self.ui.lblHuayra.show()
+            self.emit(QtCore.SIGNAL("fullscreen"), self.fullscreen)
+
+    def volumeInc(self):
+        self.player.volumeInc()
+
+    def volumeDec(self):
+        self.player.volumeDec()
+
+    

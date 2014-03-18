@@ -45,3 +45,13 @@ class Player(QObject):
     def setVolume(self, volume):
         self.volume = volume
         self.emit(SIGNAL("volumeChanged"), self.volume)
+
+    def volumeInc(self):
+        volume = self.volume + 5
+        if self.volume > 100: self.volume = 100
+        self.setVolume(volume)
+
+    def volumeDec(self):
+        volume = self.volume - 5
+        if self.volume < 0: self.volume = 0
+        self.setVolume(volume)
