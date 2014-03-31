@@ -1,3 +1,9 @@
+huayra-tda (0.2.1) unstable; urgency=low
+
+  * Soporte para scan de canales
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Mon, 31 Mar 2014 17:07:07 -0300
+
 huayra-tda (0.2.0) unstable; urgency=low
 
   * Nueva interfaz

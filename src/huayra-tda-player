@@ -51,12 +51,10 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
     def createUI(self):
         self.playerWidget = WidgetPlayer(self.player)
         self.setCentralWidget(self.playerWidget)
-        self.scanWidget = WidgetScanChannels(self.channels_scanner_class)
         exit = QtGui.QAction("&Salir", self)
         self.connect(exit, QtCore.SIGNAL("triggered()"), sys.exit)
         scan = QtGui.QAction("Scannear canales", self)
         self.connect(scan, QtCore.SIGNAL("triggered()"), self.scanChannels)
-        
         menubar = self.menuBar()
         filemenu = menubar.addMenu("&Archivo")
         filemenu.addAction(scan)  
@@ -83,7 +81,18 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
             self.showNormal()
 
     def scanChannels(self):
+        self.player.stop()
+        self.scanWidget = WidgetScanChannels(self.channels_scanner_class, self.config)
+        self.connect(self.scanWidget, QtCore.SIGNAL("back"), self.scanFinalized)
         self.setCentralWidget(self.scanWidget)
+
+    def scanFinalized(self):
+        guide = ChannelsGuide()
+        self.config.loadChannelsGuide(guide)
+        self.player.setGuide(guide)
+        self.playerWidget = WidgetPlayer(self.player)
+        self.setCentralWidget(self.playerWidget)
+        self.start()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

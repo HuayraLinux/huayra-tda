@@ -21,6 +21,8 @@ class WidgetPlayer(QtGui.QWidget):
         self.connect(self.ui.sldVolume, QtCore.SIGNAL("valueChanged(int)"), self.setVolume)
         self.connect(self.player, QtCore.SIGNAL("volumeChanged"), self.updateVolume, QtCore.Qt.QueuedConnection)
         self.connect(self.ui.btnFullScreen, QtCore.SIGNAL("clicked()"), self.toggle_fullscreen)
+        self.connect(self.player, QtCore.SIGNAL("play"), self.watch, QtCore.Qt.QueuedConnection)
+        self.connect(self.player, QtCore.SIGNAL("stop"), self.stop, QtCore.Qt.QueuedConnection)
         self.ui.btnFullScreen.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         self.ui.btnChannelDown.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Down))
         self.ui.btnChannelUp.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Up))
@@ -82,6 +84,7 @@ class WidgetPlayer(QtGui.QWidget):
         s.drawPrimitive(QtGui.QStyle.PE_Widget, opt, p, self)
 
     def updateChannelsList(self):
+        self.channelsModel.clear()
         for channel in self.player.guide().channels:
             self.channelsModel.appendRow(QtGui.QStandardItem(channel.name))
 
@@ -89,10 +92,11 @@ class WidgetPlayer(QtGui.QWidget):
         self.player.gotoChannel(idx1.row())
 
     def channelChanged(self, channel):
-        self.ui.listViewChannels.selectionModel().setCurrentIndex(
-            self.channelsModel.index(self.player.currentChannelIndex, 0),
-            QtGui.QItemSelectionModel.SelectionFlags()
-        )
+        if channel is not None:
+            self.ui.listViewChannels.selectionModel().setCurrentIndex(
+                self.channelsModel.index(self.player.currentChannelIndex, 0),
+                QtGui.QItemSelectionModel.SelectionFlags()
+            )
 
     def setVolume(self, volume):
         self.player.setVolume(volume)
@@ -117,6 +121,8 @@ class WidgetPlayer(QtGui.QWidget):
 
     def watch(self, channel):
         self.mediaplayer.stop()
+        if channel is None:
+            return
         self.currentChannel = channel
         # create the media
         self.media = self.instance.media_new('dvb-t://frequency=' + channel.frequency, 'program='+channel.program)
@@ -169,4 +175,5 @@ class WidgetPlayer(QtGui.QWidget):
     def volumeDec(self):
         self.player.volumeDec()
 
-    
+    def stop(self):
+        self.mediaplayer.stop()

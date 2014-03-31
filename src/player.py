@@ -6,6 +6,7 @@ class Player(QObject):
         self.currentChannelIndex = None
         self.setGuide(channelsGuide)
         self.volume = 50
+        self.playing = False
 
     def gotoChannelUp(self):
         if self.currentChannelIndex is None:
@@ -55,3 +56,12 @@ class Player(QObject):
         volume = self.volume - 5
         if self.volume < 0: self.volume = 0
         self.setVolume(volume)
+
+    def stop(self):
+        self.playing = False
+        self.emit(SIGNAL("stop"))
+
+    def play(self):
+        self.playing = True
+        self.emit(SIGNAL("play"), self.currentChannel())
+

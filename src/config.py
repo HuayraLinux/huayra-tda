@@ -2,12 +2,10 @@ import os
 from channel import Channel
 
 class Config:
-    CHANNELS_FILE = 'channels.conf'
+    CHANNELS_FILE = '.channels.conf'
 
     def __init__(self):
-        self.path = os.getenv('HOME') + '/.huayra-tda/'
-        if not os.path.isdir(self.path):
-            os.mkdir(self.path, 0700)
+        self.path = os.getenv('HOME') + '/'
 
     def loadChannelsGuide(self, guide):
         path = self.path + Config.CHANNELS_FILE
@@ -18,3 +16,9 @@ class Config:
             params = line.split(":")            
             channel = Channel(params[0].strip(), params[1].strip(), params[-1:][0].strip())
             guide.addChannel(channel)
+
+    def save(self, txt):
+        path = self.path + Config.CHANNELS_FILE
+        f = open(path, 'w')
+        f.write(txt)
+        f.close()

@@ -16,5 +16,5 @@ class ChannelsScannerProcess:
     
     def result(self):
         (data, err) = self.process.communicate()
-        print data
+        return data
 
