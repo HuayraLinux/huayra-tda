@@ -10,6 +10,9 @@ Vcs-Browser: https://github.com/HuayraLinux/huayra-tda
 
 Package: huayra-tda-player
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, python-qt4, vlc
+Depends: ${shlibs:Depends}, ${misc:Depends}, dvb-apps, python-qt4, vlc
+Provides: huayra-tda
+Conflicts: huayra-tda
+Replaces: huayra-tda
 Description: Reproductor de televisión digital
  Sintoniza y reproduce canales de TDA.

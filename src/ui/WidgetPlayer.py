@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt4 import QtCore, QtGui
 from Ui_frmPlayer import Ui_frmPlayer
 import sys

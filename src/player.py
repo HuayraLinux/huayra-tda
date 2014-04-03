@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt4.QtCore import QObject, SIGNAL
 
 class Player(QObject):

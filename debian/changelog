@@ -1,3 +1,15 @@
+huayra-tda (0.3.1) unstable; urgency=low
+
+  * Fix en scan de canales
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Tue, 01 Apr 2014 13:47:56 -0300
+
+huayra-tda (0.2.2) unstable; urgency=low
+
+  * Mejoras en empaquetado
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Tue, 01 Apr 2014 11:28:50 -0300
+
 huayra-tda (0.2.1) unstable; urgency=low
 
   * Soporte para scan de canales

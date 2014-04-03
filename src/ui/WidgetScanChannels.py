@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt4 import QtCore, QtGui
 from Ui_frmScanChannels import Ui_frmScan
 
@@ -18,7 +20,8 @@ class WidgetScanChannels(QtGui.QWidget):
         self.connect(self.ui.btnBack, QtCore.SIGNAL("clicked()"), self.goBack)  
         self.ui.btnStop.hide()
         self.config = config
-
+        self.ui.lblInfo.setText("Listo para escanear, hace click en \"Comenzar\" para generar la lista de canales !")
+        
     def updateUI(self):
         if self.scanRunning:
             if self.scanner.terminated():
@@ -35,22 +38,27 @@ class WidgetScanChannels(QtGui.QWidget):
                     self.ui.progressBar.setInvertedAppearance(True)
                     val = 100
             self.ui.progressBar.setValue(val)
+        else:
+            self.ui.progressBar.setValue(0)
 
     def scanFinalized(self):
         if not self.scanner.terminatedOk():
+            self.freeScan()
+            self.ui.lblInfo.setText("Ocurrieron errores en el escaneo de canales, hace click en \"Comenzar\" para volver a intentarlo.")
             return
         self.config.save(self.scanner.result())
         self.freeScan()
+        self.ui.lblInfo.setText("Finalizo el escaneo de canales, hace click en \"Volver\" para comenzar a ver los canales encontrados !")
         
     def terminateScan(self):
         self.scanner.cancel()
         self.freeScan()
+        self.ui.lblInfo.setText("Listo para escanear, hace click en \"Comenzar\" para generar la lista de canales !")
+        
 
     def freeScan(self):
         self.scanner = None
         self.scanRunning = False
-        self.ui.lblInfo.setText("listo para escanear !")
-        self.timer.stop()
         self.ui.progressBar.setValue(0)
         self.ui.progressBar.setInvertedAppearance(False)
         self.ui.btnStop.hide()
@@ -58,8 +66,8 @@ class WidgetScanChannels(QtGui.QWidget):
 
     def startScan(self):
         self.scanRunning = True
-        self.scanner = self.scanner_class("/etc/huayra-tda/isdb-t.txt")
-        self.ui.lblInfo.setText("escaneando !")
+        self.scanner = self.scanner_class("/etc/huayra-tda-player/isdb-t.txt")
+        self.ui.lblInfo.setText("Buscando canales ! Este proceso puede tomar varios minutos.")
         self.timer.start()
         self.ui.btnScan.hide()
         self.ui.btnStop.show()

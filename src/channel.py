@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Channel:
     def __init__(self, name=None, frequency=None, program=None):
         self.name = name

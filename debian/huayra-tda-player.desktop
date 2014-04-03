@@ -7,5 +7,5 @@ Exec=/usr/bin/huayra-tda-player
 Icon=tda
 Terminal=false
 Type=Application
-Categories=AudioVideo;Player;
+Categories=AudioVideo;Player;Huayra
 Keywords=Player;TDA;

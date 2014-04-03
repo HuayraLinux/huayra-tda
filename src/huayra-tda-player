@@ -1,4 +1,5 @@
 #! /usr/bin/python
+# -*- coding: utf-8 -*-
 
 #
 # Huayra TDA Player
@@ -91,6 +92,7 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         self.config.loadChannelsGuide(guide)
         self.player.setGuide(guide)
         self.playerWidget = WidgetPlayer(self.player)
+        self.connect(self.playerWidget, QtCore.SIGNAL("fullscreen"), self.toggle_fullscreen)
         self.setCentralWidget(self.playerWidget)
         self.start()
 
