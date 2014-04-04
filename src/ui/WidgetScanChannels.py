@@ -20,7 +20,7 @@ class WidgetScanChannels(QtGui.QWidget):
         self.connect(self.ui.btnBack, QtCore.SIGNAL("clicked()"), self.goBack)  
         self.ui.btnStop.hide()
         self.config = config
-        self.ui.lblInfo.setText("Listo para escanear, hace click en \"Comenzar\" para generar la lista de canales !")
+        self.ui.lblInfo.setText(u"Listo para escánear, hace click en \"Comenzar\" para generar la lista de canales !")
         
     def updateUI(self):
         if self.scanRunning:
@@ -53,7 +53,7 @@ class WidgetScanChannels(QtGui.QWidget):
     def terminateScan(self):
         self.scanner.cancel()
         self.freeScan()
-        self.ui.lblInfo.setText("Listo para escanear, hace click en \"Comenzar\" para generar la lista de canales !")
+        self.ui.lblInfo.setText(u"Listo para escánear, hace click en \"Comenzar\" para generar la lista de canales !")
         
 
     def freeScan(self):

@@ -1,3 +1,9 @@
+huayra-tda (0.3.2) unstable; urgency=low
+
+  * Mejoras esteticas
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Fri, 04 Apr 2014 16:54:53 -0300
+
 huayra-tda (0.3.1) unstable; urgency=low
 
   * Fix en scan de canales

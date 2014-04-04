@@ -173,7 +173,6 @@ class Ui_frmPlayer(object):
 
     def retranslateUi(self, frmPlayer):
         frmPlayer.setWindowTitle(QtGui.QApplication.translate("frmPlayer", "Huayra - Television Digital Abierta ", None, QtGui.QApplication.UnicodeUTF8))
-        frmPlayer.setToolTip(QtGui.QApplication.translate("frmPlayer", "Visor de TDA Huayra", None, QtGui.QApplication.UnicodeUTF8))
         self.btnChannelUp.setToolTip(QtGui.QApplication.translate("frmPlayer", "Canal Arriba", None, QtGui.QApplication.UnicodeUTF8))
         self.btnChannelDown.setToolTip(QtGui.QApplication.translate("frmPlayer", "Canal Abajo", None, QtGui.QApplication.UnicodeUTF8))
         self.lblVolumen.setToolTip(QtGui.QApplication.translate("frmPlayer", "Volumen", None, QtGui.QApplication.UnicodeUTF8))

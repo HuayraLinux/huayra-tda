@@ -54,7 +54,7 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         self.setCentralWidget(self.playerWidget)
         exit = QtGui.QAction("&Salir", self)
         self.connect(exit, QtCore.SIGNAL("triggered()"), sys.exit)
-        scan = QtGui.QAction("Scannear canales", self)
+        scan = QtGui.QAction(u"Escánear canales", self)
         self.connect(scan, QtCore.SIGNAL("triggered()"), self.scanChannels)
         menubar = self.menuBar()
         filemenu = menubar.addMenu("&Archivo")
