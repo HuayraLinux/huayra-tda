@@ -140,7 +140,7 @@ QPushButton{
        </property>
        <property name="icon">
         <iconset>
-         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/up.svg</normalon>
+         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/actions/up.svg</normalon>
         </iconset>
        </property>
        <property name="iconSize">
@@ -170,7 +170,7 @@ QPushButton{
        </property>
        <property name="icon">
         <iconset>
-         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/down.svg</normalon>
+         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/actions/down.svg</normalon>
         </iconset>
        </property>
        <property name="iconSize">
@@ -255,7 +255,7 @@ QPushButton{
        </property>
        <property name="icon">
         <iconset>
-         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/top.svg</normalon>
+         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/actions/top.svg</normalon>
         </iconset>
        </property>
        <property name="iconSize">
@@ -282,7 +282,7 @@ QPushButton{
        </property>
        <property name="icon">
         <iconset>
-         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/acciones/view-fullscreen.svg</normalon>
+         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/actions/view-fullscreen.svg</normalon>
         </iconset>
        </property>
        <property name="iconSize">
