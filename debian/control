@@ -2,15 +2,15 @@ Source: huayra-tda
 Section: video
 Priority: extra
 Maintainer: Miguel Angel Garcia <miguel.garcia@gmail.com>
-Build-Depends: debhelper (>= 8.0.0)
-Standards-Version: 3.9.3
-Homepage: git://github.com/HuayraLinux/huayra-tda.git
+Build-Depends: debhelper (>= 8.0.0), python-support (>= 0.90)
+Standards-Version: 3.9.5
+Homepage: http://github.com/HuayraLinux/huayra-tda
 Vcs-Git: git://github.com/HuayraLinux/huayra-tda.git
 Vcs-Browser: https://github.com/HuayraLinux/huayra-tda
 
 Package: huayra-tda-player
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, dvb-apps, python-qt4, vlc
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-support (>= 0.90), python, dvb-apps, python-qt4, vlc
 Provides: huayra-tda
 Conflicts: huayra-tda
 Replaces: huayra-tda

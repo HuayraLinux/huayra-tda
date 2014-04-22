@@ -1,3 +1,12 @@
+huayra-tda (0.3.5) unstable; urgency=medium
+
+  * Corrijo path acciones > actions.
+  * Corrijo errores de lintian.
+  * Agrego dependencias.
+  * Agrego licencias.
+
+ -- Mauro <mauro@krutt.org>  Tue, 22 Apr 2014 15:24:57 -0300
+
 huayra-tda (0.3.4) unstable; urgency=low
 
   * remove .pyc
