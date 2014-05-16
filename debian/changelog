@@ -1,6 +1,7 @@
 huayra-tda (0.3.6) unstable; urgency=low
 
   * Agrego icono a la aplicacion (Cierro: huayra-tda/issues/1)
+  * Agrego Manpage
 
  -- Mauro <mauro@krutt.org>  Fri, 16 May 2014 10:25:24 -0300
 
