@@ -43,6 +43,7 @@ class Player(QObject):
 
     def setGuide(self, guide):
         self.channelsGuide = guide
+        self.currentChannelIndex = None
         self.gotoChannel(0)
 
     def setVolume(self, volume):
