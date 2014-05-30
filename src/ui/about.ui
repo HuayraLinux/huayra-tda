@@ -23,7 +23,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>70</y>
+     <y>50</y>
      <width>361</width>
      <height>51</height>
     </rect>
@@ -58,13 +58,32 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>120</y>
+     <y>130</y>
      <width>361</width>
-     <height>131</height>
+     <height>71</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#737373;&quot;&gt;Desarrollado por CENITAL para Conectar Igualdad&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#737373;&quot;&gt;(c) 2014 Miguel García, Claudio Andaur&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#737373;&quot;&gt;Desarrollado por Huayra - Conectar Igualdad&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#737373;&quot;&gt;(c) 2014 Miguel García, Claudio Andaur&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>220</y>
+     <width>361</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#737373;&quot;&gt;Esta aplicación se distribuye bajo los términos &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#737373;&quot;&gt;de la Licencia Pública General (GNU GPL 2+)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="scaledContents">
     <bool>false</bool>
