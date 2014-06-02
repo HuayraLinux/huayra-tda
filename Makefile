@@ -1,3 +1,6 @@
+test_linux:
+	python src/huayra-tda-player
+
 ui:
 	pyuic4 src/ui/player.ui > src/ui/Ui_frmPlayer.py
 	pyuic4 src/ui/about.ui > src/ui/Ui_frmAbout.py
