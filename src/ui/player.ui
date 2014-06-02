@@ -125,33 +125,6 @@ QPushButton{
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="btnChannelUp">
-       <property name="maximumSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Canal Arriba</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/actions/up.svg</normalon>
-        </iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>16</width>
-         <height>16</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btnChannelDown">
        <property name="maximumSize">
         <size>
@@ -171,6 +144,33 @@ QPushButton{
        <property name="icon">
         <iconset>
          <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/actions/down.svg</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnChannelUp">
+       <property name="maximumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Canal Arriba</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>../../../../../../usr/share/icons/huayra-limbo/scalable/actions/up.svg</normalon>
         </iconset>
        </property>
        <property name="iconSize">
