@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'player.ui'
 #
-# Created: Mon Jun  2 13:10:48 2014
+# Created: Mon Jun  2 13:44:14 2014
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -100,7 +100,7 @@ class Ui_frmPlayer(object):
         self.btnChannelDown.setStyleSheet(_fromUtf8("color: rgb(125, 60, 255);"))
         self.btnChannelDown.setText(_fromUtf8(""))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/actions/down.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/actions/down.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnChannelDown.setIcon(icon)
         self.btnChannelDown.setIconSize(QtCore.QSize(16, 16))
         self.btnChannelDown.setObjectName(_fromUtf8("btnChannelDown"))
@@ -109,7 +109,7 @@ class Ui_frmPlayer(object):
         self.btnChannelUp.setMaximumSize(QtCore.QSize(32, 32))
         self.btnChannelUp.setText(_fromUtf8(""))
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/actions/up.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/actions/up.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnChannelUp.setIcon(icon1)
         self.btnChannelUp.setIconSize(QtCore.QSize(16, 16))
         self.btnChannelUp.setObjectName(_fromUtf8("btnChannelUp"))
@@ -139,7 +139,7 @@ class Ui_frmPlayer(object):
         self.btnShowChannelsList.setMaximumSize(QtCore.QSize(30, 32))
         self.btnShowChannelsList.setText(_fromUtf8(""))
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/actions/top.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/actions/top.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnShowChannelsList.setIcon(icon2)
         self.btnShowChannelsList.setIconSize(QtCore.QSize(16, 16))
         self.btnShowChannelsList.setObjectName(_fromUtf8("btnShowChannelsList"))
@@ -148,7 +148,7 @@ class Ui_frmPlayer(object):
         self.btnFullScreen.setMaximumSize(QtCore.QSize(32, 32))
         self.btnFullScreen.setText(_fromUtf8(""))
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/icons/huayra-limbo/scalable/actions/view-fullscreen.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../../usr/share/icons/huayra-limbo/scalable/actions/view-fullscreen.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.btnFullScreen.setIcon(icon3)
         self.btnFullScreen.setIconSize(QtCore.QSize(16, 16))
         self.btnFullScreen.setObjectName(_fromUtf8("btnFullScreen"))
@@ -166,6 +166,7 @@ class Ui_frmPlayer(object):
         self.listViewChannels.setEnabled(True)
         self.listViewChannels.setMaximumSize(QtCore.QSize(16777215, 200))
         self.listViewChannels.setAutoFillBackground(False)
+        self.listViewChannels.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.listViewChannels.setObjectName(_fromUtf8("listViewChannels"))
         self.verticalLayout.addWidget(self.listViewChannels)
 

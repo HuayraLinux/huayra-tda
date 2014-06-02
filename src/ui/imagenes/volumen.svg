@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Documento nuevo 1">
+   sodipodi:docname="volumen.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -48,7 +48,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
      inkscape:cx="25.198159"
-     inkscape:cy="-3.1835747"
+     inkscape:cy="18.244997"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -56,8 +56,8 @@
      fit-margin-top="2"
      fit-margin-bottom="2"
      fit-margin-right="2"
-     inkscape:window-width="1914"
-     inkscape:window-height="1030"
+     inkscape:window-width="1434"
+     inkscape:window-height="851"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1" />
@@ -69,7 +69,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -80,7 +80,7 @@
      transform="translate(-133.64552,-386.92821)">
     <path
        style="fill:none;stroke:#666666;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 149.44574,406.71925 0,-15.89283 27.5367,15.8983 -27.5367,0"
+       d="m 176.98244,406.71925 0,-15.89283 -27.5367,15.8983 27.5367,0"
        id="path3763"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
