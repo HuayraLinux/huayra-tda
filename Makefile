@@ -1,3 +1,7 @@
+all:
+	@echo "test_linux    - Ejecuta la aplicación."
+	@echo "ui            - Actualiza la interfaz."
+
 test_linux:
 	python src/huayra-tda-player
 
