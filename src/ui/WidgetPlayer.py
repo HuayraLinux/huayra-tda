@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+
 from PyQt4 import QtCore, QtGui
 from Ui_frmPlayer import Ui_frmPlayer
-import sys
 import vlc
 
 class WidgetPlayer(QtGui.QWidget):
@@ -15,6 +17,21 @@ class WidgetPlayer(QtGui.QWidget):
         self.videoframe = self.createVideoFrame()
         self.ui.layoutVideo.addWidget(self.videoframe)
         self.createMediaPlayer()
+
+        def convert_path(ruta_relativa):
+            this_dir = os.path.dirname(os.path.abspath(__file__))
+            abs_path = os.path.join(this_dir, ruta_relativa)
+            return abs_path
+
+
+        self.cambiar_icono(self.ui.btnChannelUp, "/usr/share/icons/huayra-limbo/scalable/actions/up.svg")
+        self.cambiar_icono(self.ui.btnChannelDown, "/usr/share/icons/huayra-limbo/scalable/actions/down.svg")
+        self.cambiar_icono(self.ui.btnShowChannelsList, "/usr/share/icons/huayra-limbo/scalable/actions/top.svg")
+        self.cambiar_icono(self.ui.btnFullScreen, "/usr/share/icons/huayra-limbo/scalable/actions/view-fullscreen.svg")
+
+        self.ui.lblHuayra.setPixmap(QtGui.QPixmap(convert_path("imagenes/huayra-tda.svg")))
+        self.ui.lblVolumen.setPixmap(QtGui.QPixmap(convert_path("imagenes/volumen.svg")))
+
         self.connect(self.player, QtCore.SIGNAL("channelChanged"), self.watch, QtCore.Qt.QueuedConnection)
         self.connect(self.ui.btnShowChannelsList, QtCore.SIGNAL("clicked()"), self.showHideChannelsList)
         self.connect(self.ui.btnChannelUp, QtCore.SIGNAL("clicked()"), self.channelUp)
@@ -30,12 +47,17 @@ class WidgetPlayer(QtGui.QWidget):
         self.ui.btnChannelUp.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Up))
         self.channelsModel = QtGui.QStandardItemModel()
         self.ui.listViewChannels.setModel(self.channelsModel)
-        self.connect(self.ui.listViewChannels.selectionModel(), 
+        self.connect(self.ui.listViewChannels.selectionModel(),
             QtCore.SIGNAL("currentRowChanged(QModelIndex,QModelIndex)"), self.channelSelectionChanged)
         self.updateChannelsList()
         self.showHideChannelsList()
         self.updateVolume()
         self.i = 0
+
+    def cambiar_icono(self, widget, path):
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(path), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        widget.setIcon(icon1)
 
     def createVideoFrame(self):
         if sys.platform == "darwin": # for MacOS
@@ -139,7 +161,7 @@ class WidgetPlayer(QtGui.QWidget):
         self.mediaplayer.video_set_marquee_int(vlc.VideoMarqueeOption.Position, vlc.Position.Bottom)
         self.mediaplayer.video_set_marquee_int(vlc.VideoMarqueeOption.Timeout, 5*1000)
         self.mediaplayer.video_set_marquee_string(vlc.VideoMarqueeOption.Text, channel.name)
-        
+
     def updateVolume(self):
         """Set the volume
         """
