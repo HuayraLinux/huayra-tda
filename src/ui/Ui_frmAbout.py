@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/ui/about.ui'
 #
-# Created: Fri May 30 13:14:24 2014
+# Created: Mon Jun  2 14:37:02 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -37,7 +37,7 @@ class Ui_frmAbout(object):
         self.label_2 = QtGui.QLabel(frmAbout)
         self.label_2.setGeometry(QtCore.QRect(10, 10, 341, 311))
         self.label_2.setText(_fromUtf8(""))
-        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8("/usr/share/huayra-tda-player/ui/imagenes/splash.png")))
+        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8("imagenes/splash.png")))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.label_3 = QtGui.QLabel(frmAbout)
         self.label_3.setGeometry(QtCore.QRect(340, 130, 361, 71))
