@@ -5,9 +5,11 @@ from channel import Channel
 
 # Canales sin nombres
 CANALES = {
-    '[e741]': 'TV Pública HD',
-    '[e758]': 'TV Pública SD',
-    '[e742]': 'TV Pública Móvil',
+    '[e741]': 'TV Publica HD',
+    '[e758]': 'TV Publica SD',
+    '[e742]': 'TV Publica Movil',
+    '[e880]': 'Canal 13 SD',
+    '[e881]': 'Canal 13 Prueba',
 }
 
 class Config:
@@ -30,8 +32,6 @@ class Config:
 
             channel = Channel(canal_nombre, canal_frecuencia, canal_id)
             guide.addChannel(channel)
-
-        raise
 
     def save(self, txt):
         path = self.path + Config.CHANNELS_FILE
