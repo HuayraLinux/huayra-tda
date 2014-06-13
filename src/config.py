@@ -24,10 +24,11 @@ class Config:
         for line in f.readlines():
             params = line.split(":")
 
-            print params[0].strip(), params[1].strip(), params[-1:][0].strip()
+            canal_nombre = CANALES.get(params[0].strip(), params[0].strip())
+            canal_frecuencia = params[1].strip()
+            canal_id = params[-1:][0].strip() # No sé el nombre de este valor
 
-
-            channel = Channel(params[0].strip(), params[1].strip(), params[-1:][0].strip())
+            channel = Channel(canal_nombre, canal_frecuencia, canal_id)
             guide.addChannel(channel)
 
         raise
