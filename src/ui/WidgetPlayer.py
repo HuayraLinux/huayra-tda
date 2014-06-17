@@ -130,6 +130,10 @@ class WidgetPlayer(QtGui.QWidget):
         self.instance = vlc.Instance("--video-title-show --video-title-timeout 1 --sub-source marq")
         # creating an empty vlc media player
         self.mediaplayer = self.instance.media_player_new()
+        # Activando el desentrelazado. Esto no es lo mejor, debería usarse un menú para elegir entre los modos
+        # FIXME: Buscar una forma mejor de habilitar esto, usar el deinterlace en modo automático (por ejemplo)
+        #        o usar un menú para que el usuario seleccione el filtro (si ve la imagen está entrelazada)
+        vlc.libvlc_video_set_deinterlace(self.mediaplayer, "x") # x funciona bastante decente en mi netbook
         # the media player has to be 'connected' to the QFrame
         # (otherwise a video would be displayed in it's own window)
         # this is platform specific!
