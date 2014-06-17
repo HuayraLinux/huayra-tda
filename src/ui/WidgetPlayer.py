@@ -162,6 +162,16 @@ class WidgetPlayer(QtGui.QWidget):
         self.mediaplayer.video_set_marquee_int(vlc.VideoMarqueeOption.Timeout, 5*1000)
         self.mediaplayer.video_set_marquee_string(vlc.VideoMarqueeOption.Text, channel.name)
 
+    def setDeinterlace(self, enabled, mode='linear'):
+        '''
+            Modos de desentrelazado:
+                blend, bob, discard, linear, mean, x, yadif, yadif2x
+        '''
+        if enabled:
+            vlc.libvlc_video_set_deinterlace(self.mediaplayer, mode)
+        else:
+            vlc.libvlc_video_set_deinterlace(self.mediaplayer, None)
+
     def updateVolume(self):
         """Set the volume
         """

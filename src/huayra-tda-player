@@ -58,9 +58,18 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         self.connect(scan, QtCore.SIGNAL("triggered()"), self.scanChannels)
         menubar = self.menuBar()
         filemenu = menubar.addMenu("&Archivo")
-        filemenu.addAction(scan)  
+        filemenu.addAction(scan)
         filemenu.addSeparator()
         filemenu.addAction(exit)
+
+
+        options_menu = menubar.addMenu("&Opciones")
+        self.options_deinterlace = options_deinterlace = QtGui.QAction("&Desentrelazar", self, checkable=True)
+        self.connect(self.options_deinterlace, QtCore.SIGNAL("triggered()"), self.optionsDeinterlace)
+
+        options_menu.addAction(self.options_deinterlace)
+
+
         helpmenu = menubar.addMenu("A&yuda")
         about = QtGui.QAction("&Acerca de Huayra TDA", self)
         self.connect(about, QtCore.SIGNAL("triggered()"), self.showAbout)
@@ -72,6 +81,12 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
 
     def showAbout(self):
         self.about.exec_()
+
+    def optionsDeinterlace(self):
+        if self.options_deinterlace.isChecked():
+            self.playerWidget.setDeinterlace(True, 'x')
+        else:
+            self.playerWidget.setDeinterlace(False)
 
     def toggle_fullscreen(self, fullscreen):
         if fullscreen:

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'src/ui/about.ui'
 #
-# Created: Mon Jun  2 14:37:02 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Tue Jun 17 13:37:56 2014
+#      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,16 +12,7 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+    _fromUtf8 = lambda s: s
 
 class Ui_frmAbout(object):
     def setupUi(self, frmAbout):
@@ -54,8 +45,8 @@ class Ui_frmAbout(object):
         QtCore.QMetaObject.connectSlotsByName(frmAbout)
 
     def retranslateUi(self, frmAbout):
-        frmAbout.setWindowTitle(_translate("frmAbout", "Acerca de Huayra TDA (Bebote V)", None))
-        self.label.setText(_translate("frmAbout", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Huayra TDA </span></p><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Sintonizador de Television Digital Abierta</span></p></body></html>", None))
-        self.label_3.setText(_translate("frmAbout", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Desarrollado por Huayra - Conectar Igualdad</span></p><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">(c) 2014 Miguel García, Claudio Andaur</span></p></body></html>", None))
-        self.label_4.setText(_translate("frmAbout", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Esta aplicación se distribuye bajo los términos </span></p><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">de la Licencia Pública General (GNU GPL 2+)</span></p></body></html>", None))
+        frmAbout.setWindowTitle(QtGui.QApplication.translate("frmAbout", "Acerca de Huayra TDA (Bebote V)", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("frmAbout", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Huayra TDA </span></p><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Sintonizador de Television Digital Abierta</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_3.setText(QtGui.QApplication.translate("frmAbout", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Desarrollado por Huayra - Conectar Igualdad</span></p><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">(c) 2014 Miguel García, Claudio Andaur</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_4.setText(QtGui.QApplication.translate("frmAbout", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">Esta aplicación se distribuye bajo los términos </span></p><p align=\"center\"><span style=\" font-size:11pt; color:#737373;\">de la Licencia Pública General (GNU GPL 2+)</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'src/ui/player.ui'
 #
-# Created: Mon Jun  2 14:37:02 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Tue Jun 17 13:37:56 2014
+#      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,16 +12,7 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+    _fromUtf8 = lambda s: s
 
 class Ui_frmPlayer(object):
     def setupUi(self, frmPlayer):
@@ -183,11 +174,11 @@ class Ui_frmPlayer(object):
         QtCore.QMetaObject.connectSlotsByName(frmPlayer)
 
     def retranslateUi(self, frmPlayer):
-        frmPlayer.setWindowTitle(_translate("frmPlayer", "Huayra - Television Digital Abierta ", None))
-        self.btnChannelDown.setToolTip(_translate("frmPlayer", "Canal Abajo", None))
-        self.btnChannelUp.setToolTip(_translate("frmPlayer", "Canal Arriba", None))
-        self.lblVolumen.setToolTip(_translate("frmPlayer", "Volumen", None))
-        self.sldVolume.setToolTip(_translate("frmPlayer", "Control de volumen", None))
-        self.lblVolumenVal.setText(_translate("frmPlayer", "30%", None))
-        self.btnFullScreen.setToolTip(_translate("frmPlayer", "Pantalla Completa", None))
+        frmPlayer.setWindowTitle(QtGui.QApplication.translate("frmPlayer", "Huayra - Television Digital Abierta ", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnChannelDown.setToolTip(QtGui.QApplication.translate("frmPlayer", "Canal Abajo", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnChannelUp.setToolTip(QtGui.QApplication.translate("frmPlayer", "Canal Arriba", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblVolumen.setToolTip(QtGui.QApplication.translate("frmPlayer", "Volumen", None, QtGui.QApplication.UnicodeUTF8))
+        self.sldVolume.setToolTip(QtGui.QApplication.translate("frmPlayer", "Control de volumen", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblVolumenVal.setText(QtGui.QApplication.translate("frmPlayer", "30%", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnFullScreen.setToolTip(QtGui.QApplication.translate("frmPlayer", "Pantalla Completa", None, QtGui.QApplication.UnicodeUTF8))
 

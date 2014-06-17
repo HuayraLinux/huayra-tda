@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'src/ui/scan_channels.ui'
 #
-# Created: Mon Jun  2 14:37:02 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Tue Jun 17 13:37:56 2014
+#      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,16 +12,7 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+    _fromUtf8 = lambda s: s
 
 class Ui_frmScan(object):
     def setupUi(self, frmScan):
@@ -61,8 +52,8 @@ class Ui_frmScan(object):
         QtCore.QMetaObject.connectSlotsByName(frmScan)
 
     def retranslateUi(self, frmScan):
-        frmScan.setWindowTitle(_translate("frmScan", "Form", None))
-        self.btnScan.setText(_translate("frmScan", "Comenzar", None))
-        self.btnStop.setText(_translate("frmScan", "Detener", None))
-        self.btnBack.setText(_translate("frmScan", "Volver", None))
+        frmScan.setWindowTitle(QtGui.QApplication.translate("frmScan", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnScan.setText(QtGui.QApplication.translate("frmScan", "Comenzar", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnStop.setText(QtGui.QApplication.translate("frmScan", "Detener", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnBack.setText(QtGui.QApplication.translate("frmScan", "Volver", None, QtGui.QApplication.UnicodeUTF8))
 

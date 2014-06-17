@@ -1,3 +1,21 @@
+huayra-tda (0.3.8.4) unstable; urgency=low
+
+  * Opción de desentrelazar en el menú "Opciones"
+
+ -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Tue, 17 Jun 2014 13:39:48 -0300
+
+huayra-tda (0.3.8.3) unstable; urgency=low
+
+  * Bugs de íconos
+
+ -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Tue, 17 Jun 2014 12:38:53 -0300
+
+huayra-tda (0.3.8.2) unstable; urgency=low
+
+  * Diccionario con nombre de canales para los mismos.
+
+ -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Tue, 17 Jun 2014 11:13:41 -0300
+
 huayra-tda (0.3.8.1) unstable; urgency=medium
 
   * Rebuild de UI
