@@ -213,11 +213,6 @@ class WidgetPlayer(QtGui.QWidget):
         self.ui.lblVolumenVal.setText(str(self.player.volume) + ' %')
         self.ui.sldVolume.setValue(self.player.volume)
 
-        if self.player.volume > 50:
-            self.mostrar_video(False)
-        else:
-            self.mostrar_video(True)
-
     def toggle_fullscreen(self):
         self.fullscreen = not self.fullscreen
         if self.fullscreen:
