@@ -32,7 +32,6 @@ class WidgetPlayer(QtGui.QWidget):
 
         self.ui.paginador.setCurrentIndex(2)
 
-
         def convert_path(ruta_relativa):
             this_dir = os.path.dirname(os.path.abspath(__file__))
             abs_path = os.path.join(this_dir, ruta_relativa)
@@ -92,7 +91,7 @@ class WidgetPlayer(QtGui.QWidget):
 
 
     def mostrar_video(self, estado):
-        self.current_timer = QTimer()
+        self.current_timer = QtCore.QTimer()
 
         if estado:
             self.current_timer.timeout.connect(mostrar)
