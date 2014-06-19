@@ -13,7 +13,7 @@ def mostrar():
 
 def ocultar():
     print "Ocultar"
-    
+
 
 class WidgetPlayer(QtGui.QWidget):
     def __init__(self, player):
@@ -92,12 +92,15 @@ class WidgetPlayer(QtGui.QWidget):
 
 
     def mostrar_video(self, estado):
-
+        self.current_timer = QTimer()
 
         if estado:
-            self.timer = QtCore.QTimer.singleShot(0, mostrar)
+            self.current_timer.timeout.connect(mostrar)
         else:
-            self.timer = QtCore.QTimer.singleShot(0, ocultar)
+            self.current_timer.timeout.connect(ocultar)
+
+        self.current_timer.setSingleShot(True)
+        self.current_timer.start(3000)
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.KeyPress:
