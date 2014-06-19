@@ -1,3 +1,17 @@
+huayra-tda (0.3.8.6) unstable; urgency=low
+
+  * Soporte de Control + C para cerrar la aplicación.
+  * Si no hay lista de canales, al iniciar la aplicación, se pide el escaneo
+    de señales.
+
+ -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Thu, 19 Jun 2014 12:25:19 -0300
+
+huayra-tda (0.3.8.5) unstable; urgency=low
+
+  * Soporte para varios tipos de desentrelazado y aspectos
+
+ -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Tue, 17 Jun 2014 16:32:46 -0300
+
 huayra-tda (0.3.8.4) unstable; urgency=low
 
   * Opción de desentrelazar en el menú "Opciones"
