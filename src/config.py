@@ -5,24 +5,25 @@ from channel import Channel
 
 # Canales sin nombres
 CANALES = {
-    '[e741]': 'TV Publica HD',
-    '[e758]': 'TV Publica SD',
-    '[e742]': 'TV Publica Movil',
-    '[e880]': 'Canal 13 SD',
-    '[e881]': 'Canal 13 Prueba',
+    '[e741]': u'TV Pública HD',
+    '[e758]': u'TV Pública Movil',
+    '[e742]': u'TV Pública SD',
+    '[e880]': u'Canal 13 SD',
+    '[e881]': u'Canal 13 Prueba',
 }
 
 class Config:
     CHANNELS_FILE = '.channels.conf'
 
     def __init__(self):
-        self.path = os.getenv('HOME') + '/'
+        self.path = os.path.join(os.getenv('HOME'), self.CHANNELS_FILE)
+        self.no_config = False if os.path.exists(self.path) else True
 
     def loadChannelsGuide(self, guide):
-        path = self.path + Config.CHANNELS_FILE
-        if not os.path.exists(path):
+        if self.no_config:
             return
-        f = open(path, 'r')
+
+        f = open(self.path, 'r')
         for line in f.readlines():
             params = line.split(":")
 
@@ -34,7 +35,6 @@ class Config:
             guide.addChannel(channel)
 
     def save(self, txt):
-        path = self.path + Config.CHANNELS_FILE
-        f = open(path, 'w')
+        f = open(self.path, 'w')
         f.write(txt)
         f.close()

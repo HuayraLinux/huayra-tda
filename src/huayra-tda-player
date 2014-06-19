@@ -28,6 +28,11 @@ from channel import ChannelsGuide
 from scan import ChannelsScannerProcess
 from PyQt4 import QtGui, QtCore
 from ui import WidgetPlayer, WidgetAbout, WidgetScanChannels
+import functools
+import signal
+
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+
 
 class HuayraTDAPlayer(QtGui.QMainWindow):
     """TDA Player
@@ -45,6 +50,9 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         self.about = WidgetAbout()
         self.connect(self.playerWidget, QtCore.SIGNAL("fullscreen"), self.toggle_fullscreen)
 
+        if config.no_config:
+            self.scanChannels()
+
     def resize(self, width, height):
         QtGui.QMainWindow.resize(self, width, height)
         self.centralWidget().resize(width, height)
@@ -54,7 +62,7 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         self.setCentralWidget(self.playerWidget)
         exit = QtGui.QAction("&Salir", self)
         self.connect(exit, QtCore.SIGNAL("triggered()"), sys.exit)
-        scan = QtGui.QAction(u"Escánear canales", self)
+        scan = QtGui.QAction(u"Escanear canales", self)
         self.connect(scan, QtCore.SIGNAL("triggered()"), self.scanChannels)
         menubar = self.menuBar()
         filemenu = menubar.addMenu("&Archivo")
@@ -63,11 +71,45 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
         filemenu.addAction(exit)
 
 
-        options_menu = menubar.addMenu("&Opciones")
-        self.options_deinterlace = options_deinterlace = QtGui.QAction("&Desentrelazar", self, checkable=True)
-        self.connect(self.options_deinterlace, QtCore.SIGNAL("triggered()"), self.optionsDeinterlace)
+        opt_menu = menubar.addMenu("&Opciones")
 
-        options_menu.addAction(self.options_deinterlace)
+        opt_deinterlace_submenu = opt_menu.addMenu("Desentrelazado")
+        opt_deinterlace_group = QtGui.QActionGroup(opt_deinterlace_submenu, exclusive=True)
+
+        a = opt_deinterlace_group.addAction(QtGui.QAction('Ninguno', self, checkable=True, checked=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsDeinterlace, None))
+        opt_deinterlace_submenu.addAction(a)
+
+        a = opt_deinterlace_group.addAction(QtGui.QAction('Blend', self, checkable=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsDeinterlace, 'blend'))
+        opt_deinterlace_submenu.addAction(a)
+
+        a = opt_deinterlace_group.addAction(QtGui.QAction('Linear', self, checkable=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsDeinterlace, 'linear'))
+        opt_deinterlace_submenu.addAction(a)
+
+        a = opt_deinterlace_group.addAction(QtGui.QAction('X', self, checkable=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsDeinterlace, 'x'))
+        opt_deinterlace_submenu.addAction(a)
+
+        opt_aspect_submenu = opt_menu.addMenu("Aspecto")
+        opt_aspect_group = QtGui.QActionGroup(opt_aspect_submenu, exclusive=True)
+
+        a = opt_aspect_group.addAction(QtGui.QAction('Por defecto', self, checkable=True, checked=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsAspect, None))
+        opt_aspect_submenu.addAction(a)
+
+        a = opt_aspect_group.addAction(QtGui.QAction('4:3', self, checkable=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsAspect, '4:3'))
+        opt_aspect_submenu.addAction(a)
+
+        a = opt_aspect_group.addAction(QtGui.QAction('16:9', self, checkable=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsAspect, '16:9'))
+        opt_aspect_submenu.addAction(a)
+
+        a = opt_aspect_group.addAction(QtGui.QAction('16:10', self, checkable=True))
+        self.connect(a, QtCore.SIGNAL("triggered()"), functools.partial(self.optionsAspect, '16:10'))
+        opt_aspect_submenu.addAction(a)
 
 
         helpmenu = menubar.addMenu("A&yuda")
@@ -82,11 +124,11 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
     def showAbout(self):
         self.about.exec_()
 
-    def optionsDeinterlace(self):
-        if self.options_deinterlace.isChecked():
-            self.playerWidget.setDeinterlace(True, 'x')
-        else:
-            self.playerWidget.setDeinterlace(False)
+    def optionsDeinterlace(self, option):
+        self.playerWidget.setDeinterlace(option)
+
+    def optionsAspect(self, option):
+        self.playerWidget.setAspect(option)
 
     def toggle_fullscreen(self, fullscreen):
         if fullscreen:
