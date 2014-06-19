@@ -2,10 +2,12 @@
 
 import os
 import sys
+import ctypes
 
 from PyQt4 import QtCore, QtGui
 from Ui_frmPlayer import Ui_frmPlayer
 import vlc
+
 
 class WidgetPlayer(QtGui.QWidget):
     def __init__(self, player):
@@ -16,16 +18,13 @@ class WidgetPlayer(QtGui.QWidget):
         self.ui.setupUi(self)
 
         self.ui.page_3 = QtGui.QWidget()
-        self.ui.paginador.addWidget(self.ui.page_3)
-
-        print dir(self.ui.paginador)
-
         self.videoframe = self.createVideoFrame(self.ui.page_3)
-        self.videoframe.resize(250, 250)
+
+        self.ui.paginador.addWidget(self.ui.page_3)
 
         self.createMediaPlayer()
 
-        self.ui.paginador.setCurrentIndex(1)
+        self.ui.paginador.setCurrentIndex(2)
 
 
         def convert_path(ruta_relativa):
@@ -70,19 +69,27 @@ class WidgetPlayer(QtGui.QWidget):
         widget.setIcon(icon1)
 
     def createVideoFrame(self, parent):
-        if sys.platform == "darwin": # for MacOS
-            videoframe = QtGui.QMacCocoaViewContainer(0)
-        else:
-            videoframe = QtGui.QFrame(parent)
+        videoframe = QtGui.QFrame(parent)
 
         palette = videoframe.palette()
-        palette.setColor (QtGui.QPalette.Window,
-                               QtGui.QColor(0,0,0))
+        palette.setColor(QtGui.QPalette.Window, QtGui.QColor(0,0,0))
         videoframe.setPalette(palette)
         videoframe.setAutoFillBackground(True)
         videoframe.setFocusPolicy(QtCore.Qt.StrongFocus)
         videoframe.installEventFilter(self)
+
+        #videoframe.setGeometry(QtCore.QRect(0, 0, 251, 171))
         return videoframe
+
+    def do_resize(self, width, height):
+        print width
+        self.videoframe.resize(width, height)
+
+    def mostrar_video(self, estado):
+        if estado:
+            self.ui.paginador.setCurrentIndex(2)
+        else:
+            self.ui.paginador.setCurrentIndex(0)
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.KeyPress:
@@ -154,6 +161,13 @@ class WidgetPlayer(QtGui.QWidget):
             self.mediaplayer.set_nsobject(self.videoframe.winId())
         self.updateVolume()
 
+        self.eventManager = self.mediaplayer.event_manager()
+        self.eventManager.event_attach(vlc.EventType.MediaPlayerOpening, self.SongFinished, 1)
+
+    @vlc.callbackmethod
+    def SongFinished(self, data):
+        print data
+
     def watch(self, channel):
         self.mediaplayer.stop()
         if channel is None:
@@ -193,6 +207,11 @@ class WidgetPlayer(QtGui.QWidget):
         self.mediaplayer.audio_set_volume(self.player.volume)
         self.ui.lblVolumenVal.setText(str(self.player.volume) + ' %')
         self.ui.sldVolume.setValue(self.player.volume)
+
+        if self.player.volume > 50:
+            self.mostrar_video(False)
+        else:
+            self.mostrar_video(True)
 
     def toggle_fullscreen(self):
         self.fullscreen = not self.fullscreen
