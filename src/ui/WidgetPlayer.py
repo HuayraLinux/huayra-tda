@@ -162,11 +162,16 @@ class WidgetPlayer(QtGui.QWidget):
         self.updateVolume()
 
         self.eventManager = self.mediaplayer.event_manager()
-        self.eventManager.event_attach(vlc.EventType.MediaPlayerOpening, self.SongFinished, 1)
+        self.eventManager.event_attach(vlc.EventType.MediaPlayerOpening, self.sintonizando)
+        self.eventManager.event_attach(vlc.EventType.MediaPlayerPlaying, self.sintonizado)
 
     @vlc.callbackmethod
-    def SongFinished(self, data):
-        print data
+    def sintonizando(self, data):
+        self.mostrar_video(False)
+
+    @vlc.callbackmethod
+    def sintonizado(self, data):
+        self.mostrar_video(True)
 
     def watch(self, channel):
         self.mediaplayer.stop()
