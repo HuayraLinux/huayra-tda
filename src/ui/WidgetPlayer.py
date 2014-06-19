@@ -86,10 +86,19 @@ class WidgetPlayer(QtGui.QWidget):
         self.videoframe.resize(width, height)
 
     def mostrar_video(self, estado):
-        if estado:
+
+
+        def mostrar():
             self.ui.paginador.setCurrentIndex(2)
-        else:
+
+        def ocultar():
             self.ui.paginador.setCurrentIndex(0)
+
+
+        if estado:
+            QtCore.QTimer.singleShot(0, mostrar)
+        else:
+            QtCore.QTimer.singleShot(0, ocultar)
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.KeyPress:
