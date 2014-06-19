@@ -8,6 +8,12 @@ from PyQt4 import QtCore, QtGui
 from Ui_frmPlayer import Ui_frmPlayer
 import vlc
 
+def mostrar():
+    print "Mostrar"
+
+def ocultar():
+    print "Ocultar"
+    
 
 class WidgetPlayer(QtGui.QWidget):
     def __init__(self, player):
@@ -84,13 +90,9 @@ class WidgetPlayer(QtGui.QWidget):
     def do_resize(self, width, height):
         self.videoframe.resize(width, height)
 
+
     def mostrar_video(self, estado):
 
-        def mostrar():
-            self.ui.paginador.setCurrentIndex(2)
-
-        def ocultar():
-            self.ui.paginador.setCurrentIndex(0)
 
         if estado:
             self.timer = QtCore.QTimer.singleShot(0, mostrar)
