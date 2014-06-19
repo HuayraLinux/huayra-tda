@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/ui/player.ui'
 #
-# Created: Tue Jun 17 13:37:56 2014
+# Created: Thu Jun 19 14:49:33 2014
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -18,7 +18,7 @@ class Ui_frmPlayer(object):
     def setupUi(self, frmPlayer):
         frmPlayer.setObjectName(_fromUtf8("frmPlayer"))
         frmPlayer.setEnabled(True)
-        frmPlayer.resize(591, 458)
+        frmPlayer.resize(609, 601)
         frmPlayer.setMaximumSize(QtCore.QSize(100000, 100000))
         frmPlayer.setToolTip(_fromUtf8(""))
         frmPlayer.setAutoFillBackground(False)
@@ -92,6 +92,18 @@ class Ui_frmPlayer(object):
         self.layoutVideo.setObjectName(_fromUtf8("layoutVideo"))
         spacerItem = QtGui.QSpacerItem(0, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.layoutVideo.addItem(spacerItem)
+        self.paginador = QtGui.QStackedWidget(frmPlayer)
+        self.paginador.setObjectName(_fromUtf8("paginador"))
+        self.page_1 = QtGui.QWidget()
+        self.page_1.setObjectName(_fromUtf8("page_1"))
+        self.label = QtGui.QLabel(self.page_1)
+        self.label.setGeometry(QtCore.QRect(230, 170, 141, 16))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.paginador.addWidget(self.page_1)
+        self.page_3 = QtGui.QWidget()
+        self.page_3.setObjectName(_fromUtf8("page_3"))
+        self.paginador.addWidget(self.page_3)
+        self.layoutVideo.addWidget(self.paginador)
         self.verticalLayout.addLayout(self.layoutVideo)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -171,10 +183,12 @@ class Ui_frmPlayer(object):
         self.verticalLayout.addWidget(self.listViewChannels)
 
         self.retranslateUi(frmPlayer)
+        self.paginador.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(frmPlayer)
 
     def retranslateUi(self, frmPlayer):
         frmPlayer.setWindowTitle(QtGui.QApplication.translate("frmPlayer", "Huayra - Television Digital Abierta ", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("frmPlayer", "Sintonizando....", None, QtGui.QApplication.UnicodeUTF8))
         self.btnChannelDown.setToolTip(QtGui.QApplication.translate("frmPlayer", "Canal Abajo", None, QtGui.QApplication.UnicodeUTF8))
         self.btnChannelUp.setToolTip(QtGui.QApplication.translate("frmPlayer", "Canal Arriba", None, QtGui.QApplication.UnicodeUTF8))
         self.lblVolumen.setToolTip(QtGui.QApplication.translate("frmPlayer", "Volumen", None, QtGui.QApplication.UnicodeUTF8))

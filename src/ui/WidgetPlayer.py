@@ -14,9 +14,19 @@ class WidgetPlayer(QtGui.QWidget):
         self.player = player
         self.ui = Ui_frmPlayer()
         self.ui.setupUi(self)
-        self.videoframe = self.createVideoFrame()
-        self.ui.layoutVideo.addWidget(self.videoframe)
+
+        self.ui.page_3 = QtGui.QWidget()
+        self.ui.paginador.addWidget(self.ui.page_3)
+
+        print dir(self.ui.paginador)
+
+        self.videoframe = self.createVideoFrame(self.ui.page_3)
+        self.videoframe.resize(250, 250)
+
         self.createMediaPlayer()
+
+        self.ui.paginador.setCurrentIndex(1)
+
 
         def convert_path(ruta_relativa):
             this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -59,11 +69,12 @@ class WidgetPlayer(QtGui.QWidget):
         icon1.addPixmap(QtGui.QPixmap(path), QtGui.QIcon.Normal, QtGui.QIcon.On)
         widget.setIcon(icon1)
 
-    def createVideoFrame(self):
+    def createVideoFrame(self, parent):
         if sys.platform == "darwin": # for MacOS
             videoframe = QtGui.QMacCocoaViewContainer(0)
         else:
-            videoframe = QtGui.QFrame()
+            videoframe = QtGui.QFrame(parent)
+
         palette = videoframe.palette()
         palette.setColor (QtGui.QPalette.Window,
                                QtGui.QColor(0,0,0))

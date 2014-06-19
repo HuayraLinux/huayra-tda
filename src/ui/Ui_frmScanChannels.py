@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/ui/scan_channels.ui'
 #
-# Created: Tue Jun 17 13:37:56 2014
+# Created: Thu Jun 19 14:49:33 2014
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
