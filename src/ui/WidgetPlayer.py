@@ -9,6 +9,11 @@ from Ui_frmPlayer import Ui_frmPlayer
 import vlc
 
 from idle_queue import idle_loop
+def mostrar():
+    print "Mostrar"
+
+def ocultar():
+    print "Ocultar"
 
 
 class WidgetPlayer(QtGui.QWidget):
@@ -27,7 +32,6 @@ class WidgetPlayer(QtGui.QWidget):
         self.createMediaPlayer()
 
         self.ui.paginador.setCurrentIndex(2)
-
 
         def convert_path(ruta_relativa):
             this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -84,8 +88,19 @@ class WidgetPlayer(QtGui.QWidget):
         return videoframe
 
     def do_resize(self, width, height):
-        print width
         self.videoframe.resize(width, height)
+
+
+    def mostrar_video__(self, estado):
+        self.current_timer = QtCore.QTimer()
+
+        if estado:
+            self.current_timer.timeout.connect(mostrar)
+        else:
+            self.current_timer.timeout.connect(ocultar)
+
+        self.current_timer.setSingleShot(True)
+        self.current_timer.start(3000)
 
     def mostrar_video(self, estado):
         if estado:
