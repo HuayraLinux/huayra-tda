@@ -8,6 +8,8 @@ from PyQt4 import QtCore, QtGui
 from Ui_frmPlayer import Ui_frmPlayer
 import vlc
 
+from idle_queue import idle_loop
+
 
 class WidgetPlayer(QtGui.QWidget):
     def __init__(self, player):
@@ -167,11 +169,11 @@ class WidgetPlayer(QtGui.QWidget):
 
     @vlc.callbackmethod
     def sintonizando(self, data):
-        self.mostrar_video(False)
+        idle_loop.put(self.mostrar_video(False))
 
     @vlc.callbackmethod
     def sintonizado(self, data):
-        self.mostrar_video(True)
+        idle_loop.put(self.mostrar_video(True))
 
     def watch(self, channel):
         self.mediaplayer.stop()

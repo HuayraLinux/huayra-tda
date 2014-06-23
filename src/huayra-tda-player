@@ -28,6 +28,7 @@ from channel import ChannelsGuide
 from scan import ChannelsScannerProcess
 from PyQt4 import QtGui, QtCore
 from ui import WidgetPlayer, WidgetAbout, WidgetScanChannels
+from idle_queue_dispacher import ThreadDispacher
 import functools
 import signal
 
@@ -39,6 +40,10 @@ class HuayraTDAPlayer(QtGui.QMainWindow):
     """
     def __init__(self, player, config, channels_scanner_class, master=None):
         QtGui.QMainWindow.__init__(self, master)
+
+        self.dispacher = ThreadDispacher(self)
+        self.dispacher.start()
+
         self.player = player
         self.config = config
         self.channels_scanner_class = channels_scanner_class
@@ -164,3 +169,4 @@ if __name__ == "__main__":
     ui.resize(640, 480)
     ui.start()
     sys.exit(app.exec_())
+    ui.dispacher.stop()
