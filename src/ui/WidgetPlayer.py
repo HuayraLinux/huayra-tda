@@ -43,8 +43,8 @@ class WidgetPlayer(QtGui.QWidget):
         self.connect(self.player, QtCore.SIGNAL("play"), self.watch, QtCore.Qt.QueuedConnection)
         self.connect(self.player, QtCore.SIGNAL("stop"), self.stop, QtCore.Qt.QueuedConnection)
         self.ui.btnFullScreen.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
-        self.ui.btnChannelDown.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Down))
-        self.ui.btnChannelUp.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Up))
+        self.ui.btnChannelDown.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Up))
+        self.ui.btnChannelUp.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Down))
         self.channelsModel = QtGui.QStandardItemModel()
         self.ui.listViewChannels.setModel(self.channelsModel)
         self.connect(self.ui.listViewChannels.selectionModel(),
@@ -77,9 +77,9 @@ class WidgetPlayer(QtGui.QWidget):
         if event.type() == QtCore.QEvent.KeyPress:
             if event.key() == QtCore.Qt.Key_Escape:
                 self.toggle_fullscreen()
-            if event.key() == QtCore.Qt.Key_Up:
-                self.channelUp()
             if event.key() == QtCore.Qt.Key_Down:
+                self.channelUp()
+            if event.key() == QtCore.Qt.Key_Up:
                 self.channelDown()
             if event.key() == QtCore.Qt.Key_Right:
                 self.volumeInc()

@@ -1,5 +1,12 @@
+huayra-tda (0.3.8.9) unstable; urgency=medium
+
+  * Quito tildes y mergeo codigos que se habian bifurcado. (!?)
+
+ -- Mauro <mauro@krutt.org>  Wed, 02 Jul 2014 14:18:04 -0300
+
 huayra-tda (0.3.8.8) unstable; urgency=medium
 
+  * La lista de canales baja y sube correctamente usando al teclado.
   * Fix para mostrar imagen en el "Acerca de".
 
  -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Mon, 23 Jun 2014 14:11:11 -0300
