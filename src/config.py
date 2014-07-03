@@ -5,9 +5,9 @@ from channel import Channel
 
 # Canales sin nombres
 CANALES = {
-    '[e741]': u'TV Pública HD',
-    '[e758]': u'TV Pública Movil',
-    '[e742]': u'TV Pública SD',
+    '[e741]': u'TV Publica HD',
+    '[e758]': u'TV Publica Movil',
+    '[e742]': u'TV Publica SD',
     '[e880]': u'Canal 13 SD',
     '[e881]': u'Canal 13 Prueba',
 }
