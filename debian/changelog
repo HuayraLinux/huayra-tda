@@ -1,8 +1,8 @@
-huayra-tda (0.3.8.7) UNRELEASED; urgency=medium
+huayra-tda (0.3.8.8) unstable; urgency=medium
 
   * Fix para mostrar imagen en el "Acerca de".
 
- -- Mauro <mauro@krutt.org>  Thu, 19 Jun 2014 15:17:24 -0300
+ -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Mon, 23 Jun 2014 14:11:11 -0300
 
 huayra-tda (0.3.8.6) unstable; urgency=low
 
