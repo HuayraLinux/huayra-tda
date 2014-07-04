@@ -56,17 +56,25 @@ class MainFrame(wx.Frame):
         #panel_control.SetBackgroundColour(wx.RED) # Para ver el panel
 
         # Botones de control
-        channel_list = wx.Button(parent=panel_control, label=u'Lista de canales')
+        channel_list = wx.BitmapButton(parent=panel_control,
+            bitmap=wx.ArtProvider.GetBitmap('gtk-justify-fill')
+        )
         channel_up = wx.BitmapButton(parent=panel_control,
             bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_UP),
         )
 
         channel_down = wx.BitmapButton(parent=panel_control,
-            bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_DOWN),
+            bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_DOWN)
         )
-        volume_mute = wx.Button(parent=panel_control, label=u'Silenciar')
-        full_screen = wx.Button(parent=panel_control, label=u'Pantalla completa')
-        take_picture = wx.Button(parent=panel_control, label=u'Foto')
+        volume_mute = wx.BitmapButton(parent=panel_control,
+            bitmap=wx.ArtProvider.GetBitmap('audio-volume-muted')
+        )
+        full_screen = wx.BitmapButton(parent=panel_control,
+            bitmap=wx.ArtProvider.GetBitmap('view-fullscreen')
+        )
+        take_picture = wx.BitmapButton(parent=panel_control,
+            bitmap=wx.ArtProvider.GetBitmap('camera-photo-symbolic')
+        )
 
         # Tooltips
         channel_list.SetToolTip(wx.ToolTip(u'Lista de canales'))
