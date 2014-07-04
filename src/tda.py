@@ -82,7 +82,7 @@ class MainFrame(wx.Frame):
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.panel_video, 1, flag=wx.EXPAND)
-        sizer.Add(panel_control, flag=wx.EXPAND|wx.TOP, border=2)
+        sizer.Add(panel_control, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=2)
         self.SetSizer(sizer)
 
 
