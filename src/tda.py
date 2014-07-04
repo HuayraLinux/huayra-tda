@@ -57,8 +57,13 @@ class MainFrame(wx.Frame):
 
         # Botones de control
         channel_list = wx.Button(parent=panel_control, label=u'Lista de canales')
-        channel_up = wx.Button(parent=panel_control, label=u'Subir canal')
-        channel_down = wx.Button(parent=panel_control, label=u'Bajar canal')
+        channel_up = wx.BitmapButton(parent=panel_control,
+            bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_UP),
+        )
+
+        channel_down = wx.BitmapButton(parent=panel_control,
+            bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_DOWN),
+        )
         volume_mute = wx.Button(parent=panel_control, label=u'Silenciar')
         full_screen = wx.Button(parent=panel_control, label=u'Pantalla completa')
         take_picture = wx.Button(parent=panel_control, label=u'Foto')
@@ -71,6 +76,7 @@ class MainFrame(wx.Frame):
         full_screen.SetToolTip(wx.ToolTip(u'Pantalla completa'))
         take_picture.SetToolTip(wx.ToolTip(u'Sacar foto'))
 
+        # Sizers
         szr_control = wx.BoxSizer(wx.HORIZONTAL)
         szr_control.Add(volume_mute, flag=wx.RIGHT, border=2)
         szr_control.Add(take_picture, flag=wx.RIGHT, border=2)
