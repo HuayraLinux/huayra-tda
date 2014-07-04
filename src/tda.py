@@ -14,6 +14,7 @@ class MainFrame(wx.Frame):
         )
 
         self.status_bar = self.CreateStatusBar()
+        self.status_bar.SetFields((u'', u'Canal: ', u'Señal: '))
 
         # Menú archivo
         file_menu = wx.Menu()
@@ -52,19 +53,31 @@ class MainFrame(wx.Frame):
 
         # Panel de control
         panel_control = wx.Panel(parent=self)
-        panel_control.SetBackgroundColour(wx.RED)
+        #panel_control.SetBackgroundColour(wx.RED) # Para ver el panel
 
         # Botones de control
+        channel_list = wx.Button(parent=panel_control, label=u'Lista de canales')
         channel_up = wx.Button(parent=panel_control, label=u'Subir canal')
         channel_down = wx.Button(parent=panel_control, label=u'Bajar canal')
-        volume_mute = wx.Button(parent=panel_control, label=u'Silencio')
+        volume_mute = wx.Button(parent=panel_control, label=u'Silenciar')
+        full_screen = wx.Button(parent=panel_control, label=u'Pantalla completa')
         take_picture = wx.Button(parent=panel_control, label=u'Foto')
 
+        # Tooltips
+        channel_list.SetToolTip(wx.ToolTip(u'Lista de canales'))
+        channel_up.SetToolTip(wx.ToolTip(u'Subir canal'))
+        channel_down.SetToolTip(wx.ToolTip(u'Bajar canal'))
+        volume_mute.SetToolTip(wx.ToolTip(u'Silenciar'))
+        full_screen.SetToolTip(wx.ToolTip(u'Pantalla completa'))
+        take_picture.SetToolTip(wx.ToolTip(u'Sacar foto'))
+
         szr_control = wx.BoxSizer(wx.HORIZONTAL)
-        szr_control.Add(channel_down, flag=wx.RIGHT, border=2)
-        szr_control.Add(channel_up, flag=wx.RIGHT, border=2)
         szr_control.Add(volume_mute, flag=wx.RIGHT, border=2)
         szr_control.Add(take_picture, flag=wx.RIGHT, border=2)
+        szr_control.Add(full_screen, flag=wx.RIGHT, border=2)
+        szr_control.Add(channel_list, flag=wx.RIGHT, border=2)
+        szr_control.Add(channel_down, flag=wx.RIGHT, border=2)
+        szr_control.Add(channel_up, flag=wx.RIGHT, border=2)
         panel_control.SetSizer(szr_control)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
