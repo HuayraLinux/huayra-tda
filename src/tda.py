@@ -75,6 +75,13 @@ class MainFrame(wx.Frame):
         take_picture = wx.BitmapButton(parent=panel_control,
             bitmap=wx.ArtProvider.GetBitmap('camera-photo-symbolic')
         )
+        volume_slider = wx.Slider(
+            parent=panel_control,
+            value=0,
+            minValue=0,
+            maxValue=100,
+            size=(100, -1)
+        )
 
         # Tooltips
         channel_list.SetToolTip(wx.ToolTip(u'Lista de canales'))
@@ -87,7 +94,8 @@ class MainFrame(wx.Frame):
         # Sizers
         szr_control = wx.BoxSizer(wx.HORIZONTAL)
         szr_control.Add(volume_mute, flag=wx.RIGHT, border=2)
-        szr_control.Add(take_picture, flag=wx.RIGHT, border=2)
+        szr_control.Add(volume_slider, flag=wx.TOP, border=6)
+        szr_control.Add(take_picture, flag=wx.LEFT|wx.RIGHT, border=2)
         szr_control.Add(full_screen, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_list, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_down, flag=wx.RIGHT, border=2)
