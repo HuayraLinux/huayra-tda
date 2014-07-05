@@ -63,31 +63,31 @@ class MainFrame(wx.Frame):
         self.panel_video.SetBackgroundColour(wx.BLACK)
 
         # Panel de control
-        panel_control = wx.Panel(parent=self)
-        #panel_control.SetBackgroundColour(wx.RED) # Para ver el panel
+        self.panel_control = wx.Panel(parent=self)
+        #self.panel_control.SetBackgroundColour(wx.RED) # Para ver el panel
 
         # Botones de control
-        channel_list = wx.BitmapButton(parent=panel_control,
+        channel_list = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap('gtk-justify-fill')
         )
-        channel_up = wx.BitmapButton(parent=panel_control,
+        channel_up = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_UP),
         )
 
-        channel_down = wx.BitmapButton(parent=panel_control,
+        channel_down = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_DOWN)
         )
-        volume_mute = wx.BitmapButton(parent=panel_control,
+        volume_mute = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap('stock_volume-mute')
         )
-        self.full_screen = wx.BitmapButton(parent=panel_control,
+        self.full_screen = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap('view-fullscreen')
         )
-        take_picture = wx.BitmapButton(parent=panel_control,
+        take_picture = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap('camera-photo')
         )
         volume_slider = wx.Slider(
-            parent=panel_control,
+            parent=self.panel_control,
             value=0,
             minValue=0,
             maxValue=100,
@@ -111,11 +111,11 @@ class MainFrame(wx.Frame):
         szr_control.Add(channel_list, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_down, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_up, flag=wx.RIGHT, border=2)
-        panel_control.SetSizer(szr_control)
+        self.panel_control.SetSizer(szr_control)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.panel_video, 1, flag=wx.EXPAND)
-        sizer.Add(panel_control, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=2)
+        sizer.Add(self.panel_control, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=2)
         self.SetSizer(sizer)
 
         self.SetMinSize((450, 300))
@@ -125,10 +125,35 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnTune, btn_scan)
         self.Bind(wx.EVT_MENU, self.OnExit, id=wx.ID_EXIT)
         self.Bind(wx.EVT_BUTTON, self.OnStop, channel_up)
-        self.Bind(wx.EVT_BUTTON, self.OnFullScreen, self.full_screen)
+        self.Bind(wx.EVT_BUTTON, self.OnToggleFullScreen, self.full_screen)
+
+        # Bindeos de teclas
+        self.id_ESC = wx.NewId()
+        self.id_LEFT = wx.NewId()
+        self.id_RIGHT = wx.NewId()
+        self.id_UP = wx.NewId()
+        self.id_DOWN = wx.NewId()
+
+        self.Bind(wx.EVT_MENU, self.OnChannelUp, id=self.id_UP)
+        self.Bind(wx.EVT_MENU, self.OnChannelDown, id=self.id_DOWN)
+        self.Bind(wx.EVT_MENU, self.OnVolumeUp, id=self.id_RIGHT)
+        self.Bind(wx.EVT_MENU, self.OnVolumeDown, id=self.id_LEFT)
+
+        self.SetAcceleratorTable(
+            wx.AcceleratorTable(
+                [
+                    (wx.ACCEL_NORMAL,  wx.WXK_ESCAPE, self.id_ESC),
+                    (wx.ACCEL_NORMAL,  wx.WXK_LEFT, self.id_LEFT),
+                    (wx.ACCEL_NORMAL,  wx.WXK_RIGHT, self.id_RIGHT),
+                    (wx.ACCEL_NORMAL,  wx.WXK_UP, self.id_UP),
+                    (wx.ACCEL_NORMAL,  wx.WXK_DOWN, self.id_DOWN),
+                ]
+            )
+        )
 
         self.vlc_instance = vlc.Instance(' '.join(VLC_SETTINGS))
         self.player = self.vlc_instance.media_player_new()
+        self.panel_video.SetFocus()
 
     def OnExit(self, evt):
         self.Close()
@@ -146,13 +171,33 @@ class MainFrame(wx.Frame):
     def OnStop(self, evt):
         self.player.stop()
 
-    def OnFullScreen(self, evt):
+    def OnToggleFullScreen(self, evt):
         if self.IsFullScreen():
+            self.Unbind(wx.EVT_MENU, id=self.id_ESC)
+
             self.ShowFullScreen(False)
             self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-fullscreen'))
+            self.panel_control.Show()
+
         else:
+            self.Bind(wx.EVT_MENU, self.OnToggleFullScreen, id=self.id_ESC)
+
             self.ShowFullScreen(True)
             self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-restore'))
+            self.panel_control.Hide()
+            self.panel_video.SetFocus()
+
+    def OnChannelUp(self, evt):
+        print 'subir canal'
+
+    def OnChannelDown(self, evt):
+        print 'bajar canal'
+
+    def OnVolumeUp(self, evt):
+        print 'subir volumen'
+
+    def OnVolumeDown(self, evt):
+        print 'bajar volumen'
 
 
 class HuayraTDA(wx.App):
