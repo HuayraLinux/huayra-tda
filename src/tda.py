@@ -2,8 +2,19 @@
 # -*- coding: utf-8 -*-
 
 import wx
+import vlc
 
+VIDEO = 'example/video.mp4'
 
+VLC_SETTINGS = [
+    '--video-title-show',
+    '--video-title-timeout 1',
+    '--video-title-position 4',
+    '--disable-screensaver',
+    '--drop-late-frames',
+    '--skip-frames',
+    '--overlay',
+]
 
 class MainFrame(wx.Frame):
     def __init__(self):
@@ -18,7 +29,7 @@ class MainFrame(wx.Frame):
 
         # Menú archivo
         file_menu = wx.Menu()
-        file_menu.Append(id=-1, text=u'Escanear canales')
+        btn_scan = file_menu.Append(id=-1, text=u'Escanear canales')
         file_menu.AppendSeparator()
         file_menu.Append(wx.ID_EXIT)
 
@@ -67,13 +78,13 @@ class MainFrame(wx.Frame):
             bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_DOWN)
         )
         volume_mute = wx.BitmapButton(parent=panel_control,
-            bitmap=wx.ArtProvider.GetBitmap('audio-volume-muted')
+            bitmap=wx.ArtProvider.GetBitmap('stock_volume-mute')
         )
-        full_screen = wx.BitmapButton(parent=panel_control,
+        self.full_screen = wx.BitmapButton(parent=panel_control,
             bitmap=wx.ArtProvider.GetBitmap('view-fullscreen')
         )
         take_picture = wx.BitmapButton(parent=panel_control,
-            bitmap=wx.ArtProvider.GetBitmap('camera-photo-symbolic')
+            bitmap=wx.ArtProvider.GetBitmap('camera-photo')
         )
         volume_slider = wx.Slider(
             parent=panel_control,
@@ -88,7 +99,7 @@ class MainFrame(wx.Frame):
         channel_up.SetToolTip(wx.ToolTip(u'Subir canal'))
         channel_down.SetToolTip(wx.ToolTip(u'Bajar canal'))
         volume_mute.SetToolTip(wx.ToolTip(u'Silenciar'))
-        full_screen.SetToolTip(wx.ToolTip(u'Pantalla completa'))
+        self.full_screen.SetToolTip(wx.ToolTip(u'Pantalla completa'))
         take_picture.SetToolTip(wx.ToolTip(u'Sacar foto'))
 
         # Sizers
@@ -96,7 +107,7 @@ class MainFrame(wx.Frame):
         szr_control.Add(volume_mute, flag=wx.RIGHT, border=2)
         szr_control.Add(volume_slider, flag=wx.TOP, border=6)
         szr_control.Add(take_picture, flag=wx.LEFT|wx.RIGHT, border=2)
-        szr_control.Add(full_screen, flag=wx.RIGHT, border=2)
+        szr_control.Add(self.full_screen, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_list, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_down, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_up, flag=wx.RIGHT, border=2)
@@ -107,12 +118,41 @@ class MainFrame(wx.Frame):
         sizer.Add(panel_control, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=2)
         self.SetSizer(sizer)
 
-
-
+        self.SetMinSize((450, 300))
         self.Center()
+
+        # Bindeos
+        self.Bind(wx.EVT_MENU, self.OnTune, btn_scan)
+        self.Bind(wx.EVT_MENU, self.OnExit, id=wx.ID_EXIT)
+        self.Bind(wx.EVT_BUTTON, self.OnStop, channel_up)
+        self.Bind(wx.EVT_BUTTON, self.OnFullScreen, self.full_screen)
+
+        self.vlc_instance = vlc.Instance(' '.join(VLC_SETTINGS))
+        self.player = self.vlc_instance.media_player_new()
 
     def OnExit(self, evt):
         self.Close()
+
+    def OnTune(self, evt):
+        self.Media = self.vlc_instance.media_new(VIDEO)
+        self.player.set_media(self.Media)
+
+        title = self.player.get_title() if self.player.get_title() != -1 else u'Sin nombre'
+
+        self.status_bar.SetStatusText(u'Canal: %s' % title, 1)
+        self.player.set_xwindow(self.panel_video.GetHandle())
+        self.player.play()
+
+    def OnStop(self, evt):
+        self.player.stop()
+
+    def OnFullScreen(self, evt):
+        if self.IsFullScreen():
+            self.ShowFullScreen(False)
+            self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-fullscreen'))
+        else:
+            self.ShowFullScreen(True)
+            self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-restore'))
 
 
 class HuayraTDA(wx.App):
