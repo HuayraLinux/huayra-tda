@@ -14,16 +14,19 @@ class Channel(object):
 class ChannelGuide(object):
     def __init__(self, *args, **kwargs):
         self._channels = []
+        self._path = os.path.join(os.getenv('HOME'), 'channels.conf')
+
         self._load()
 
     def _load(self):
-        with open('~/.channels.conf', 'r') as fd:
+        with open(self._path, 'r') as fd:
             for line in fd.readlines():
                 params = line.split(':')
+
                 self._channels.append(Channel({
-                    'name': self.name,
-                    'frequency': self.frequency,
-                    'program': self.program
+                    'name': params[0].strip(),
+                    'frequency': params[1].strip(),
+                    'program': params[-1:][0].strip()
                 }))
 
     @property
