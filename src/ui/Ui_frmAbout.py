@@ -2,13 +2,12 @@
 
 # Form implementation generated from reading ui file 'src/ui/about.ui'
 #
-# Created: Tue Jun 17 13:37:56 2014
+# Created: Mon Jul  7 15:21:18 2014
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-import os
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -17,12 +16,6 @@ except AttributeError:
 
 class Ui_frmAbout(object):
     def setupUi(self, frmAbout):
-
-        def convert_path(ruta_relativa):
-            this_dir = os.path.dirname(os.path.abspath(__file__))
-            abs_path = os.path.join(this_dir, ruta_relativa)
-            return abs_path
-
         frmAbout.setObjectName(_fromUtf8("frmAbout"))
         frmAbout.setWindowModality(QtCore.Qt.ApplicationModal)
         frmAbout.resize(708, 321)
@@ -35,7 +28,7 @@ class Ui_frmAbout(object):
         self.label_2 = QtGui.QLabel(frmAbout)
         self.label_2.setGeometry(QtCore.QRect(10, 10, 341, 311))
         self.label_2.setText(_fromUtf8(""))
-        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8(convert_path("imagenes/splash.png"))))
+        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8("imagenes/splash.png")))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.label_3 = QtGui.QLabel(frmAbout)
         self.label_3.setGeometry(QtCore.QRect(340, 130, 361, 71))

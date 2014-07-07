@@ -2,6 +2,8 @@
 
 from PyQt4 import QtCore, QtGui
 from Ui_frmScanChannels import Ui_frmScan
+import simplejson
+import random
 
 class WidgetScanChannels(QtGui.QWidget):
     def __init__(self, scanner_class, config):
@@ -10,18 +12,42 @@ class WidgetScanChannels(QtGui.QWidget):
         self.ui.setupUi(self)
         self.timer = QtCore.QTimer(self)
         self.timer.setInterval(200)
-        self.connect(self.timer, QtCore.SIGNAL("timeout()"),
-                     self.updateUI)
+        self.connect(self.timer, QtCore.SIGNAL("timeout()"), self.updateUI)
+
+        self.timer2 = QtCore.QTimer(self)
+        self.timer2.setInterval(15 * 1000)
+        self.connect(self.timer2, QtCore.SIGNAL("timeout()"), self.updateMensajes)
+
         self.scanner_class = scanner_class
         self.scanner = None
         self.scanRunning = False
         self.connect(self.ui.btnScan, QtCore.SIGNAL("clicked()"), self.startScan)
         self.connect(self.ui.btnStop, QtCore.SIGNAL("clicked()"), self.terminateScan)
-        self.connect(self.ui.btnBack, QtCore.SIGNAL("clicked()"), self.goBack)  
+        self.connect(self.ui.btnBack, QtCore.SIGNAL("clicked()"), self.goBack)
         self.ui.btnStop.hide()
         self.config = config
         self.ui.lblInfo.setText(u"Listo para escanear, hace click en \"Comenzar\" para generar la lista de canales !")
-        
+
+        self.mensajes = []
+
+        try:
+            with open('mensajes.json', 'r') as fd:
+                self.mensajes.extend(simplejson.loads(fd.read()))
+            random.shuffle(self.mensajes)
+
+        except:
+            pass
+
+    def updateMensajes(self):
+        if self.scanRunning:
+            try:
+                mensaje = self.mensajes.pop()
+
+            except IndexError:
+                pass
+
+            self.ui.lblInfo.setText(mensaje)
+
     def updateUI(self):
         if self.scanRunning:
             if self.scanner.terminated():
@@ -49,12 +75,12 @@ class WidgetScanChannels(QtGui.QWidget):
         self.config.save(self.scanner.result())
         self.freeScan()
         self.ui.lblInfo.setText("Finalizo el escaneo de canales, hace click en \"Volver\" para comenzar a ver los canales encontrados !")
-        
+
     def terminateScan(self):
         self.scanner.cancel()
         self.freeScan()
         self.ui.lblInfo.setText(u"Listo para escanear, hace click en \"Comenzar\" para generar la lista de canales !")
-        
+
 
     def freeScan(self):
         self.scanner = None
@@ -69,6 +95,7 @@ class WidgetScanChannels(QtGui.QWidget):
         self.scanner = self.scanner_class("/etc/huayra-tda-player/isdb-t.txt")
         self.ui.lblInfo.setText("Buscando canales ! Este proceso puede tomar varios minutos.")
         self.timer.start()
+        self.timer2.start()
         self.ui.btnScan.hide()
         self.ui.btnStop.show()
 

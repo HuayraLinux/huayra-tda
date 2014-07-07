@@ -144,6 +144,11 @@ class WidgetPlayer(QtGui.QWidget):
         self.updateVolume()
 
     def watch(self, channel):
+        #print '--> ', channel.frequency
+        #print '--> ', channel.info
+        #print '--> ', channel.name
+        #print '--> ', channel.program
+
         self.mediaplayer.stop()
         if channel is None:
             return
