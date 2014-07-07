@@ -30,7 +30,7 @@ class WidgetPlayer(QtGui.QWidget):
         self.cambiar_icono(self.ui.btnFullScreen, "/usr/share/icons/huayra-limbo/scalable/actions/view-fullscreen.svg")
 
         self.ui.lblHuayra.setPixmap(QtGui.QPixmap(convert_path("imagenes/huayra-tda.svg")))
-        self.ui.lblVolumen.setPixmap(QtGui.QPixmap(convert_path("imagenes/volumen.svg")))
+        self.cambiar_icono(self.ui.btnMute, convert_path("imagenes/volumen.svg"))
 
         self.connect(self.player, QtCore.SIGNAL("channelChanged"), self.watch, QtCore.Qt.QueuedConnection)
         self.connect(self.ui.btnShowChannelsList, QtCore.SIGNAL("clicked()"), self.showHideChannelsList)
@@ -42,6 +42,7 @@ class WidgetPlayer(QtGui.QWidget):
         self.connect(self.ui.btnFullScreen, QtCore.SIGNAL("clicked()"), self.toggle_fullscreen)
         self.connect(self.player, QtCore.SIGNAL("play"), self.watch, QtCore.Qt.QueuedConnection)
         self.connect(self.player, QtCore.SIGNAL("stop"), self.stop, QtCore.Qt.QueuedConnection)
+        self.connect(self.player, QtCore.SIGNAL("muteChanged"), self.updateMuted, QtCore.Qt.QueuedConnection)
         self.ui.btnFullScreen.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         self.ui.btnChannelDown.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Up))
         self.ui.btnChannelUp.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Down))
@@ -49,6 +50,7 @@ class WidgetPlayer(QtGui.QWidget):
         self.ui.listViewChannels.setModel(self.channelsModel)
         self.connect(self.ui.listViewChannels.selectionModel(),
             QtCore.SIGNAL("currentRowChanged(QModelIndex,QModelIndex)"), self.channelSelectionChanged)
+		self.connect(self.ui.btnMute, QtCore.SIGNAL("clicked()"), self.muteClicked)
         self.updateChannelsList()
         self.showHideChannelsList()
         self.updateVolume()
@@ -124,6 +126,9 @@ class WidgetPlayer(QtGui.QWidget):
 
     def setVolume(self, volume):
         self.player.setVolume(volume)
+
+    def updateMuted(self, muted):
+        self.mediaplayer.audio_set_mute(muted):
 
     def createMediaPlayer(self):
         # creating a basic vlc instance
@@ -220,3 +225,6 @@ class WidgetPlayer(QtGui.QWidget):
 
     def stop(self):
         self.mediaplayer.stop()
+
+    def muteClicked(self):
+        self.player.toggleMute()

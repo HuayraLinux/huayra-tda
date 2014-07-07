@@ -182,15 +182,26 @@ QPushButton{
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lblVolumen">
-       <property name="toolTip">
-        <string>Volumen</string>
-       </property>
+      <widget class="QPushButton" name="btnMute">
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>imagenes/volumen.svg</pixmap>
+       <property name="icon">
+        <iconset>
+         <normaloff>imagenes/volumen.svg</normaloff>
+         <normalon>imagenes/volumen.svg</normalon>imagenes/volumen.svg</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
