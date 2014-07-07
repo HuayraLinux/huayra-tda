@@ -50,7 +50,7 @@ class WidgetPlayer(QtGui.QWidget):
         self.ui.listViewChannels.setModel(self.channelsModel)
         self.connect(self.ui.listViewChannels.selectionModel(),
             QtCore.SIGNAL("currentRowChanged(QModelIndex,QModelIndex)"), self.channelSelectionChanged)
-		self.connect(self.ui.btnMute, QtCore.SIGNAL("clicked()"), self.muteClicked)
+        self.connect(self.ui.btnMute, QtCore.SIGNAL("clicked()"), self.muteClicked)
         self.updateChannelsList()
         self.showHideChannelsList()
         self.updateVolume()
@@ -128,7 +128,7 @@ class WidgetPlayer(QtGui.QWidget):
         self.player.setVolume(volume)
 
     def updateMuted(self, muted):
-        self.mediaplayer.audio_set_mute(muted):
+        self.mediaplayer.audio_set_mute(muted)
 
     def createMediaPlayer(self):
         # creating a basic vlc instance
