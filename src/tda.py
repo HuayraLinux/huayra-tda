@@ -124,7 +124,8 @@ class MainFrame(wx.Frame):
         # Bindeos
         self.Bind(wx.EVT_MENU, self.OnTune, btn_scan)
         self.Bind(wx.EVT_MENU, self.OnExit, id=wx.ID_EXIT)
-        self.Bind(wx.EVT_BUTTON, self.OnStop, channel_up)
+        self.Bind(wx.EVT_BUTTON, self.OnChannelUp, channel_up)
+        self.Bind(wx.EVT_BUTTON, self.OnChannelDown, channel_down)
         self.Bind(wx.EVT_BUTTON, self.OnToggleFullScreen, self.full_screen)
 
         # Bindeos de teclas
