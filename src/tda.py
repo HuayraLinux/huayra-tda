@@ -4,6 +4,8 @@
 import wx
 import vlc
 
+from channel import ChannelGuide
+
 VIDEO = 'example/video.mp4'
 
 VLC_SETTINGS = [
@@ -23,6 +25,8 @@ class MainFrame(wx.Frame):
             id=-1,
             title=u'Huayra TDA',
         )
+
+        self._guide = ChannelGuide()
 
         self.status_bar = self.CreateStatusBar()
         self.status_bar.SetFields((u'', u'Canal: ', u'Señal: '))
@@ -122,7 +126,7 @@ class MainFrame(wx.Frame):
         self.Center()
 
         # Bindeos
-        self.Bind(wx.EVT_MENU, self.OnTune, btn_scan)
+        #self.Bind(wx.EVT_MENU, self.OnTune, btn_scan)
         self.Bind(wx.EVT_MENU, self.OnExit, id=wx.ID_EXIT)
         self.Bind(wx.EVT_BUTTON, self.OnChannelUp, channel_up)
         self.Bind(wx.EVT_BUTTON, self.OnChannelDown, channel_down)
@@ -159,11 +163,17 @@ class MainFrame(wx.Frame):
     def OnExit(self, evt):
         self.Close()
 
-    def OnTune(self, evt):
-        self.Media = self.vlc_instance.media_new(VIDEO)
+    def OnTune(self, channel):
+        self.player.stop()
+
+        self.Media = self.vlc_instance.media_new(
+            'dvb-t://frequency=%s' % channel.frequency,
+            'program=%s'  % channel.program
+        )
+
         self.player.set_media(self.Media)
 
-        title = self.player.get_title() if self.player.get_title() != -1 else u'Sin nombre'
+        title = self.player.get_title() if self.player.get_title() != -1 else channel.name
 
         self.status_bar.SetStatusText(u'Canal: %s' % title, 1)
         self.player.set_xwindow(self.panel_video.GetHandle())
@@ -189,9 +199,11 @@ class MainFrame(wx.Frame):
             self.panel_video.SetFocus()
 
     def OnChannelUp(self, evt):
+        self.OnTune(self._guide.next())
         print 'subir canal'
 
     def OnChannelDown(self, evt):
+        self.OnTune(self._guide.previous())
         print 'bajar canal'
 
     def OnVolumeUp(self, evt):

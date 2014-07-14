@@ -18,6 +18,9 @@ class ChannelGuide(object):
 
         self._load()
 
+        self._current_index = 0
+        self._max_index = len(self._channels) - 1
+
     def _load(self):
         with open(self._path, 'r') as fd:
             for line in fd.readlines():
@@ -32,5 +35,18 @@ class ChannelGuide(object):
     @property
     def channels(self):
         return self._channels
+
+    def previous(self):
+        tmp = self._current_index - 1
+        self._current_index = self._max_index if tmp < 0 else tmp
+
+        return self._channels[self._current_index]
+
+    def next(self):
+        tmp = self._current_index + 1
+        self._current_index = 0 if tmp > self._max_index else tmp
+
+        return self._channels[self._current_index]
+
 
 
