@@ -175,8 +175,24 @@ class MainFrame(wx.Frame):
         self.player = self.vlc_instance.media_player_new()
         self.panel_video.SetFocus()
 
+        self.vlc_events = self.player.event_manager()
+        self.vlc_events.event_attach(
+            vlc.EventType.MediaPlayerOpening,
+            self.test
+        )
+
+        self.vlc_events.event_attach(
+            vlc.EventType.MediaPlayerPlaying,
+            self.test1
+        )
+
+
+
     def test(self, evt):
-        print dir(evt)
+        print 'Sintonizando'
+
+    def test1(self, evt):
+        print 'Reproduciendo'
 
     def OnExit(self, evt):
         self.Close()
