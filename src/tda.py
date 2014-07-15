@@ -75,6 +75,7 @@ class MainFrame(wx.Frame):
         # Panel de video
         self.panel_video = wx.Panel(parent=self)
         self.panel_video.SetBackgroundColour(wx.BLACK)
+        self.panel_video.Bind(wx.EVT_LEFT_DCLICK, self.OnToggleFullScreen)
 
         # Panel de control
         self.panel_control = wx.Panel(parent=self)
@@ -211,11 +212,9 @@ class MainFrame(wx.Frame):
 
     def OnChannelUp(self, evt):
         self.OnTune(self._guide.next())
-        print 'subir canal'
 
     def OnChannelDown(self, evt):
         self.OnTune(self._guide.previous())
-        print 'bajar canal'
 
     def OnVolumeUp(self, evt):
         print 'subir volumen'
@@ -242,16 +241,16 @@ class MainFrame(wx.Frame):
             self.player.video_set_deinterlace('x')
 
     def OnAspect(self, evt):
-        if evt.Id == self.opt_asp_none:
+        if evt.Id == self.opt_asp_none.Id:
             self.player.video_set_aspect_ratio(None)
 
-        elif evt.Id == self.opt_asp_43:
+        elif evt.Id == self.opt_asp_43.Id:
             self.player.video_set_aspect_ratio('4:3')
 
-        elif evt.Id == self.opt_asp_169:
+        elif evt.Id == self.opt_asp_169.Id:
             self.player.video_set_aspect_ratio('16:9')
 
-        elif evt.Id == self.opt_asp_1610:
+        elif evt.Id == self.opt_asp_1610.Id:
             self.player.video_set_aspect_ratio('16:10')
 
 
