@@ -14,7 +14,7 @@ class Channel(object):
 class ChannelGuide(object):
     def __init__(self, *args, **kwargs):
         self._channels = []
-        self._path = os.path.join(os.getenv('HOME'), 'channels.conf')
+        self._path = os.path.join(os.getenv('HOME'), '.channels.conf')
 
         self._load()
 
