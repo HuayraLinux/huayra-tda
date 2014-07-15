@@ -103,13 +103,17 @@ class MainFrame(wx.Frame):
         take_picture = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap('camera-photo')
         )
-        volume_slider = wx.Slider(
+        self.volume_slider = wx.Slider(
             parent=self.panel_control,
-            value=0,
+            value=50,
             minValue=0,
             maxValue=100,
             size=(100, -1)
         )
+
+        self.volume_slider.Bind(wx.EVT_SCROLL_PAGEUP, self.OnVolumeChange)
+        self.volume_slider.Bind(wx.EVT_SCROLL_PAGEDOWN, self.OnVolumeChange)
+        self.volume_slider.Bind(wx.EVT_SCROLL_THUMBRELEASE, self.OnVolumeChange)
 
         # Tooltips
         channel_list.SetToolTip(wx.ToolTip(u'Lista de canales'))
@@ -122,7 +126,7 @@ class MainFrame(wx.Frame):
         # Sizers
         szr_control = wx.BoxSizer(wx.HORIZONTAL)
         szr_control.Add(volume_mute, flag=wx.RIGHT, border=2)
-        szr_control.Add(volume_slider, flag=wx.TOP, border=6)
+        szr_control.Add(self.volume_slider, flag=wx.TOP, border=6)
         szr_control.Add(take_picture, flag=wx.LEFT|wx.RIGHT, border=2)
         szr_control.Add(self.full_screen, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_list, flag=wx.RIGHT, border=2)
@@ -173,6 +177,9 @@ class MainFrame(wx.Frame):
         self.player = self.vlc_instance.media_player_new()
         self.panel_video.SetFocus()
 
+    def test(self, evt):
+        print dir(evt)
+
     def OnExit(self, evt):
         self.Close()
 
@@ -192,8 +199,9 @@ class MainFrame(wx.Frame):
         self.player.set_xwindow(self.panel_video.GetHandle())
         self.player.play()
 
-    def OnVolume(self, volume):
-        self.player.audio_set_volume(volume)
+    def OnVolume(self):
+        self.player.audio_set_volume(self._volume.current)
+        self.volume_slider.SetValue(self._volume.current)
 
     def OnStop(self, evt):
         self.player.stop()
@@ -221,10 +229,16 @@ class MainFrame(wx.Frame):
         self.OnTune(self._guide.previous())
 
     def OnVolumeUp(self, evt):
-        self.OnVolume(self._volume.up())
+        self._volume.up()
+        self.OnVolume()
 
     def OnVolumeDown(self, evt):
-        self.OnVolume(self._volume.down())
+        self._volume.down()
+        self.OnVolume()
+
+    def OnVolumeChange(self, evt):
+        self._volume.current = self.volume_slider.GetValue()
+        self.OnVolume()
 
     def OnDeinterlace(self, evt):
         '''
