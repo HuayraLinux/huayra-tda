@@ -5,6 +5,7 @@ import wx
 import vlc
 
 from channel import ChannelGuide
+from audio import Volume
 
 VIDEO = 'example/video.mp4'
 
@@ -27,6 +28,7 @@ class MainFrame(wx.Frame):
         )
 
         self._guide = wx.GetApp().guide
+        self._volume= wx.GetApp().volume
 
         self.status_bar = self.CreateStatusBar()
         self.status_bar.SetFields((u'', u'Canal: ', u'Señal: '))
@@ -190,6 +192,9 @@ class MainFrame(wx.Frame):
         self.player.set_xwindow(self.panel_video.GetHandle())
         self.player.play()
 
+    def OnVolume(self, volume):
+        self.player.audio_set_volume(volume)
+
     def OnStop(self, evt):
         self.player.stop()
 
@@ -216,10 +221,10 @@ class MainFrame(wx.Frame):
         self.OnTune(self._guide.previous())
 
     def OnVolumeUp(self, evt):
-        print 'subir volumen'
+        self.OnVolume(self._volume.up())
 
     def OnVolumeDown(self, evt):
-        print 'bajar volumen'
+        self.OnVolume(self._volume.down())
 
     def OnDeinterlace(self, evt):
         '''
@@ -256,6 +261,7 @@ class MainFrame(wx.Frame):
 class HuayraTDA(wx.App):
     def __init__(self):
         self.guide = ChannelGuide()
+        self.volume = Volume()
         super(HuayraTDA, self).__init__(redirect=False)
 
     def OnInit(self):
