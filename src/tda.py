@@ -183,7 +183,6 @@ class MainFrame(wx.Frame):
         )
 
         self.player.set_media(self.Media)
-        self.player.parse()
 
         title = self.player.get_title() if self.player.get_title() != -1 else channel.name
 
