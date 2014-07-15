@@ -111,9 +111,7 @@ class MainFrame(wx.Frame):
             size=(100, -1)
         )
 
-        self.volume_slider.Bind(wx.EVT_SCROLL_PAGEUP, self.OnVolumeChange)
-        self.volume_slider.Bind(wx.EVT_SCROLL_PAGEDOWN, self.OnVolumeChange)
-        self.volume_slider.Bind(wx.EVT_SCROLL_THUMBRELEASE, self.OnVolumeChange)
+        self.volume_slider.Bind(wx.EVT_SCROLL, self.OnVolumeChange)
 
         # Tooltips
         channel_list.SetToolTip(wx.ToolTip(u'Lista de canales'))
