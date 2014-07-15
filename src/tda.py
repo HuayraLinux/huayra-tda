@@ -26,7 +26,7 @@ class MainFrame(wx.Frame):
             title=u'Huayra TDA',
         )
 
-        self._guide = ChannelGuide()
+        self._guide = wx.GetApp().guide
 
         self.status_bar = self.CreateStatusBar()
         self.status_bar.SetFields((u'', u'Canal: ', u'Señal: '))
@@ -39,17 +39,27 @@ class MainFrame(wx.Frame):
 
             # Submenú desentrelazado
         opt_deinterlace_menu = wx.Menu()
-        opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'Ninguno')
-        opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'Blend')
-        opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'Linear')
-        opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'X')
+        self.opt_deint_none = opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'Ninguno')
+        self.opt_deint_blend = opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'Blend')
+        self.opt_deint_linear = opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'Linear')
+        self.opt_deint_x = opt_deinterlace_menu.AppendRadioItem(id=-1, text=u'X')
+
+        self.Bind(wx.EVT_MENU, self.OnDeinterlace, self.opt_deint_none)
+        self.Bind(wx.EVT_MENU, self.OnDeinterlace, self.opt_deint_blend)
+        self.Bind(wx.EVT_MENU, self.OnDeinterlace, self.opt_deint_linear)
+        self.Bind(wx.EVT_MENU, self.OnDeinterlace, self.opt_deint_x)
 
             # Submenú aspecto
         opt_aspect_menu = wx.Menu()
-        opt_aspect_menu.AppendRadioItem(id=-1, text=u'Ninguno')
-        opt_aspect_menu.AppendRadioItem(id=-1, text=u'4:3')
-        opt_aspect_menu.AppendRadioItem(id=-1, text=u'16:9')
-        opt_aspect_menu.AppendRadioItem(id=-1, text=u'16:10')
+        self.opt_asp_none = opt_aspect_menu.AppendRadioItem(id=-1, text=u'Ninguno')
+        self.opt_asp_43 = opt_aspect_menu.AppendRadioItem(id=-1, text=u'4:3')
+        self.opt_asp_169 = opt_aspect_menu.AppendRadioItem(id=-1, text=u'16:9')
+        self.opt_asp_1610 = opt_aspect_menu.AppendRadioItem(id=-1, text=u'16:10')
+
+        self.Bind(wx.EVT_MENU, self.OnAspect, self.opt_asp_none)
+        self.Bind(wx.EVT_MENU, self.OnAspect, self.opt_asp_43)
+        self.Bind(wx.EVT_MENU, self.OnAspect, self.opt_asp_169)
+        self.Bind(wx.EVT_MENU, self.OnAspect, self.opt_asp_1610)
 
         # Menú opciones
         options_menu = wx.Menu()
@@ -172,6 +182,7 @@ class MainFrame(wx.Frame):
         )
 
         self.player.set_media(self.Media)
+        self.player.parse()
 
         title = self.player.get_title() if self.player.get_title() != -1 else channel.name
 
@@ -212,9 +223,41 @@ class MainFrame(wx.Frame):
     def OnVolumeDown(self, evt):
         print 'bajar volumen'
 
+    def OnDeinterlace(self, evt):
+        '''
+            Modos de desentrelazado:
+                blend, bob, discard, linear, mean, x, yadif, yadif2x
+        '''
+
+        if evt.Id == self.opt_deint_none.Id:
+            self.player.video_set_deinterlace(None)
+
+        elif evt.Id == self.opt_deint_blend.Id:
+            self.player.video_set_deinterlace('blend')
+
+        elif evt.Id == self.opt_deint_linear.Id:
+            self.player.video_set_deinterlace('linear')
+
+        elif evt.Id == self.opt_deint_x.Id:
+            self.player.video_set_deinterlace('x')
+
+    def OnAspect(self, evt):
+        if evt.Id == self.opt_asp_none:
+            self.player.video_set_aspect_ratio(None)
+
+        elif evt.Id == self.opt_asp_43:
+            self.player.video_set_aspect_ratio('4:3')
+
+        elif evt.Id == self.opt_asp_169:
+            self.player.video_set_aspect_ratio('16:9')
+
+        elif evt.Id == self.opt_asp_1610:
+            self.player.video_set_aspect_ratio('16:10')
+
 
 class HuayraTDA(wx.App):
     def __init__(self):
+        self.guide = ChannelGuide()
         super(HuayraTDA, self).__init__(redirect=False)
 
     def OnInit(self):
