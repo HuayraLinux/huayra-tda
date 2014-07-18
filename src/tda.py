@@ -6,6 +6,7 @@ import vlc
 
 from channel import ChannelGuide
 from audio import Volume
+from preferences import Preferences
 
 VIDEO = 'example/video.mp4'
 
@@ -27,6 +28,7 @@ class MainFrame(wx.Frame):
             title=u'Huayra TDA',
         )
 
+        self._pref= wx.GetApp().preferences
         self._guide = wx.GetApp().guide
         self._volume= wx.GetApp().volume
 
@@ -94,8 +96,8 @@ class MainFrame(wx.Frame):
         channel_down = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_DOWN)
         )
-        volume_mute = wx.BitmapButton(parent=self.panel_control,
-            bitmap=wx.ArtProvider.GetBitmap('stock_volume-mute')
+        self.volume_mute = wx.BitmapButton(parent=self.panel_control,
+            bitmap=wx.ArtProvider.GetBitmap('stock_volume-0')
         )
         self.full_screen = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap('view-fullscreen')
@@ -117,13 +119,13 @@ class MainFrame(wx.Frame):
         channel_list.SetToolTip(wx.ToolTip(u'Lista de canales'))
         channel_up.SetToolTip(wx.ToolTip(u'Subir canal'))
         channel_down.SetToolTip(wx.ToolTip(u'Bajar canal'))
-        volume_mute.SetToolTip(wx.ToolTip(u'Silenciar'))
+        self.volume_mute.SetToolTip(wx.ToolTip(u'Silenciar'))
         self.full_screen.SetToolTip(wx.ToolTip(u'Pantalla completa'))
         take_picture.SetToolTip(wx.ToolTip(u'Sacar foto'))
 
         # Sizers
         szr_control = wx.BoxSizer(wx.HORIZONTAL)
-        szr_control.Add(volume_mute, flag=wx.RIGHT, border=2)
+        szr_control.Add(self.volume_mute, flag=wx.RIGHT, border=2)
         szr_control.Add(self.volume_slider, flag=wx.TOP, border=6)
         szr_control.Add(take_picture, flag=wx.LEFT|wx.RIGHT, border=2)
         szr_control.Add(self.full_screen, flag=wx.RIGHT, border=2)
@@ -146,7 +148,8 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnChannelUp, channel_up)
         self.Bind(wx.EVT_BUTTON, self.OnChannelDown, channel_down)
         self.Bind(wx.EVT_BUTTON, self.OnToggleFullScreen, self.full_screen)
-        self.Bind(wx.EVT_BUTTON, self.OnSnapshot, take_picture)
+        take_picture.Bind(wx.EVT_BUTTON, self.OnSnapshot)
+        self.volume_mute.Bind(wx.EVT_BUTTON, self.OnMute)
 
         # Bindeos de teclas
         self.id_ESC = wx.NewId()
@@ -255,6 +258,19 @@ class MainFrame(wx.Frame):
         self._volume.current = self.volume_slider.GetValue()
         self.OnVolume()
 
+    def OnMute(self, evt):
+        tmp = self.player.audio_get_mute()
+        print tmp
+
+        if tmp:
+            self.player.audio_set_mute(True)
+            self.volume_mute.bitmap = wx.ArtProvider.GetBitmap('stock_volume-mute')
+
+        else:
+            self.player.audio_set_mute(False)
+            self.volume_mute.bitmap = wx.ArtProvider.GetBitmap('stock_volume-0')
+
+
     def OnDeinterlace(self, evt):
         '''
             Modos de desentrelazado:
@@ -287,14 +303,15 @@ class MainFrame(wx.Frame):
             self.player.video_set_aspect_ratio('16:10')
 
     def OnSnapshot(self, evt):
-        print 1
-        self.player.video_take_snapshot(0, '/home/alumno/Imágenes/', 0, 0)
+        self.player.video_take_snapshot(0, self._pref.picture_path, 0, 0)
 
 
 class HuayraTDA(wx.App):
     def __init__(self):
+        self.preferences = Preferences()
         self.guide = ChannelGuide()
         self.volume = Volume()
+
         super(HuayraTDA, self).__init__(redirect=False)
 
     def OnInit(self):
