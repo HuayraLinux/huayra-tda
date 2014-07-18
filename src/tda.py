@@ -146,6 +146,7 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnChannelUp, channel_up)
         self.Bind(wx.EVT_BUTTON, self.OnChannelDown, channel_down)
         self.Bind(wx.EVT_BUTTON, self.OnToggleFullScreen, self.full_screen)
+        self.Bind(wx.EVT_BUTTON, self.OnSnapshot, take_picture)
 
         # Bindeos de teclas
         self.id_ESC = wx.NewId()
@@ -284,6 +285,10 @@ class MainFrame(wx.Frame):
 
         elif evt.Id == self.opt_asp_1610.Id:
             self.player.video_set_aspect_ratio('16:10')
+
+    def OnSnapshot(self, evt):
+        print 1
+        self.player.video_take_snapshot(0, '/home/alumno/Imágenes/', 0, 0)
 
 
 class HuayraTDA(wx.App):
