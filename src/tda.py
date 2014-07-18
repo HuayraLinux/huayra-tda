@@ -157,11 +157,13 @@ class MainFrame(wx.Frame):
         self.id_RIGHT = wx.NewId()
         self.id_UP = wx.NewId()
         self.id_DOWN = wx.NewId()
+        self.id_M = wx.NewId()
 
         self.Bind(wx.EVT_MENU, self.OnChannelUp, id=self.id_UP)
         self.Bind(wx.EVT_MENU, self.OnChannelDown, id=self.id_DOWN)
         self.Bind(wx.EVT_MENU, self.OnVolumeUp, id=self.id_RIGHT)
         self.Bind(wx.EVT_MENU, self.OnVolumeDown, id=self.id_LEFT)
+        self.Bind(wx.EVT_MENU, self.OnMute, id=self.id_M)
 
         self.SetAcceleratorTable(
             wx.AcceleratorTable(
@@ -171,6 +173,7 @@ class MainFrame(wx.Frame):
                     (wx.ACCEL_NORMAL,  wx.WXK_RIGHT, self.id_RIGHT),
                     (wx.ACCEL_NORMAL,  wx.WXK_UP, self.id_UP),
                     (wx.ACCEL_NORMAL,  wx.WXK_DOWN, self.id_DOWN),
+                    (wx.ACCEL_NORMAL,  ord('M'), self.id_M),
                 ]
             )
         )
