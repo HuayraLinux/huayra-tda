@@ -97,7 +97,7 @@ class MainFrame(wx.Frame):
             bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_DOWN)
         )
         self.volume_mute = wx.BitmapButton(parent=self.panel_control,
-            bitmap=wx.ArtProvider.GetBitmap('stock_volume-0')
+            bitmap=wx.ArtProvider.GetBitmap('stock_volume-med')
         )
         self.full_screen = wx.BitmapButton(parent=self.panel_control,
             bitmap=wx.ArtProvider.GetBitmap('view-fullscreen')
@@ -259,16 +259,13 @@ class MainFrame(wx.Frame):
         self.OnVolume()
 
     def OnMute(self, evt):
-        tmp = self.player.audio_get_mute()
-        print tmp
-
-        if tmp:
+        if self.player.audio_get_mute() == 0:
             self.player.audio_set_mute(True)
-            self.volume_mute.bitmap = wx.ArtProvider.GetBitmap('stock_volume-mute')
+            self.volume_mute.SetBitmapLabel(wx.ArtProvider.GetBitmap('stock_volume-mute'))
 
         else:
             self.player.audio_set_mute(False)
-            self.volume_mute.bitmap = wx.ArtProvider.GetBitmap('stock_volume-0')
+            self.volume_mute.SetBitmapLabel(wx.ArtProvider.GetBitmap('stock_volume-med'))
 
 
     def OnDeinterlace(self, evt):
