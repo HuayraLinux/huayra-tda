@@ -32,6 +32,9 @@ class MainFrame(wx.Frame):
         self._guide = wx.GetApp().guide
         self._volume= wx.GetApp().volume
 
+        self.timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.HidePanel, self.timer)
+
         self.status_bar = self.CreateStatusBar()
         self.status_bar.SetFields((u'', u'Canal: ', u'Señal: '))
 
@@ -173,7 +176,7 @@ class MainFrame(wx.Frame):
                     (wx.ACCEL_NORMAL,  wx.WXK_RIGHT, self.id_RIGHT),
                     (wx.ACCEL_NORMAL,  wx.WXK_UP, self.id_UP),
                     (wx.ACCEL_NORMAL,  wx.WXK_DOWN, self.id_DOWN),
-                    (wx.ACCEL_NORMAL,  ord('M'), self.id_M),
+                    (wx.ACCEL_NORMAL,  ord('m'), self.id_M),
                 ]
             )
         )
@@ -229,7 +232,9 @@ class MainFrame(wx.Frame):
 
     def OnToggleFullScreen(self, evt):
         if self.IsFullScreen():
+            self.timer.Stop()
             self.Unbind(wx.EVT_MENU, id=self.id_ESC)
+            self.panel_video.Unbind(wx.EVT_MOTION)
 
             self.ShowFullScreen(False)
             self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-fullscreen'))
@@ -237,6 +242,7 @@ class MainFrame(wx.Frame):
 
         else:
             self.Bind(wx.EVT_MENU, self.OnToggleFullScreen, id=self.id_ESC)
+            self.panel_video.Bind(wx.EVT_MOTION, self.OnMouseMove)
 
             self.ShowFullScreen(True)
             self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-restore'))
@@ -305,6 +311,21 @@ class MainFrame(wx.Frame):
     def OnSnapshot(self, evt):
         self.player.video_take_snapshot(0, self._pref.picture_path, 0, 0)
 
+    def OnMouseMove(self, evt):
+        pc_w, pc_h = self.panel_control.GetSize()
+        pv_w, pv_h = self.panel_video.GetSize()
+
+        x = (pv_w / 2) - (pc_w / 2)
+        y = pv_h - (2 * pc_h)
+
+        self.panel_control.SetPosition((x, y))
+        self.panel_control.Show()
+
+        self.timer.Start(5000)
+
+    def HidePanel(self, evt):
+        self.timer.Stop()
+        self.panel_control.Hide()
 
 class HuayraTDA(wx.App):
     def __init__(self):
