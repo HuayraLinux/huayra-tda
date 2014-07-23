@@ -12,9 +12,11 @@ class Channel(object):
 
 
 class ChannelGuide(object):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, pref, *args, **kwargs):
+        self._pref = pref
+
         self._channels = []
-        self._path = os.path.join(os.getenv('HOME'), '.channels.conf')
+        self._path = os.path.join(self._pref.user_path, '.channels.conf')
 
         self._load()
 
@@ -47,6 +49,4 @@ class ChannelGuide(object):
         self._current_index = 0 if tmp > self._max_index else tmp
 
         return self._channels[self._current_index]
-
-
 

@@ -330,7 +330,7 @@ class MainFrame(wx.Frame):
 class HuayraTDA(wx.App):
     def __init__(self):
         self.preferences = Preferences()
-        self.guide = ChannelGuide()
+        self.guide = ChannelGuide(self.preferences)
         self.volume = Volume()
 
         super(HuayraTDA, self).__init__(redirect=False)
