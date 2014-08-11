@@ -12,7 +12,6 @@ import re
 class Preferences(object):
     def __init__(self, *args, **kwargs):
         self.user_path = os.path.expanduser('~')
-
         self._load_pictures_path()
 
     def _load_pictures_path(self):

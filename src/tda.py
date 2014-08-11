@@ -4,11 +4,11 @@
 import wx
 import vlc
 
-from channel import ChannelGuide
-from audio import Volume
-from preferences import Preferences
+from models.channel import ChannelGuide
+from models.audio import Volume
+from models.preferences import Preferences
 
-VIDEO = 'example/video.mp4'
+from views.scan import ChannelScan
 
 VLC_SETTINGS = [
     '--video-title-show',
@@ -55,6 +55,8 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnDeinterlace, self.opt_deint_blend)
         self.Bind(wx.EVT_MENU, self.OnDeinterlace, self.opt_deint_linear)
         self.Bind(wx.EVT_MENU, self.OnDeinterlace, self.opt_deint_x)
+
+        self.Bind(wx.EVT_MENU, self.OnScan, btn_scan)
 
             # Submenú aspecto
         opt_aspect_menu = wx.Menu()
@@ -203,6 +205,10 @@ class MainFrame(wx.Frame):
 
     def test1(self, evt):
         print 'Reproduciendo'
+
+    def OnScan(self, evt):
+        p = ChannelScan(parent=self)
+        p.Show()
 
     def OnExit(self, evt):
         self.Close()
