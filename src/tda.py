@@ -3,9 +3,10 @@
 
 import wx
 import vlc
+import os.path
 
-from models.channel import ChannelGuide
 from models.audio import Volume
+from models.channel import ChannelGuide
 from models.preferences import Preferences
 
 from views.scan import ChannelScan
@@ -335,7 +336,7 @@ class MainFrame(wx.Frame):
 
 class HuayraTDA(wx.App):
     def __init__(self):
-        self.preferences = Preferences()
+        self.preferences = Preferences(os.path.dirname(os.path.realpath(__file__)))
         self.guide = ChannelGuide(self.preferences)
         self.volume = Volume()
 
