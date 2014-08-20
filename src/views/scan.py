@@ -15,8 +15,15 @@ class ChannelScan(wx.Frame):
 
         self._pref= wx.GetApp().preferences
 
+        titular = wx.Panel(parent=self)
+        txt = wx.StaticText(parent=titular, label="Búsqueda de canales")
+        txt.SetFont(wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.BOLD))
+
+        szr_titular = wx.BoxSizer(wx.HORIZONTAL)
+        szr_titular.Add(txt)
+        titular.SetSizer(szr_titular)
+
         panel = wx.Panel(parent=self)
-        panel.SetBackgroundColour(wx.BLACK)
 
         self.btn_scan = wx.Button(parent=panel, label=u'Escanear')
         self.btn_scan_cancel = wx.Button(parent=panel, label=u'Cancelar')
@@ -35,14 +42,14 @@ class ChannelScan(wx.Frame):
 
         # --
 
-        self.progress_txt = wx.StaticText(parent=self, label="Escanendo %s")
-        self.gauge = wx.StaticText(parent=self, label="Escanendo %s")
+        #self.progress_txt = wx.StaticText(parent=self, label="Escanendo %s")
+        #self.gauge = wx.StaticText(parent=self, label="Escanendo %s")
         # --
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(wx.StaticText('Escanear canales'))
+        sizer.Add(titular, flag=wx.LEFT|wx.ALL, border=5)
         sizer.Add(self.messages, 1, flag=wx.EXPAND)
-        sizer.Add(panel)
+        sizer.Add(panel, flag=wx.ALL|wx.CENTER, border=5)
 
         self.SetSizer(sizer)
 
