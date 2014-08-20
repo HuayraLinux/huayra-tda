@@ -10,7 +10,8 @@ import re
 
 
 class Preferences(object):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, app_path, *args, **kwargs):
+        self.app_path = app_path
         self.user_path = os.path.expanduser('~')
         self._load_pictures_path()
 
@@ -26,4 +27,11 @@ class Preferences(object):
         config.readfp(io.BytesIO(user_config))
 
         self.pictures_path = config.get('XDG_USER_DIR', 'XDG_PICTURES_DIR')
+
+    def load_html(self, html):
+        with open(os.path.join(self.app_path, 'html', '%s.html' % html), 'r') as fd:
+            data = fd.read()
+
+        return data
+
 
