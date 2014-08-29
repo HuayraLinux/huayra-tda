@@ -30,20 +30,28 @@ class ChannelScan(wx.Frame):
         self.btn_close = wx.Button(parent=panel, label=u'Cerrar')
         self.btn_close.Bind(wx.EVT_BUTTON, self.OnClose)
 
+    # -
+        self.progress_txt = wx.StaticText(parent=panel, label="Escanendo %s")
+        self.gauge = wx.Gauge(parent=panel, style=wx.GA_HORIZONTAL)
+        self.gauge.SetRange(100)
+    # -
+
+        szr_panel = wx.BoxSizer(wx.VERTICAL)
+        szr_panel.Add(self.progress_txt, flag=wx.CENTER)
+        szr_panel.Add(self.gauge, flag=wx.BOTTOM|wx.CENTER|wx.EXPAND, border=5)
+
         szr_buttons = wx.BoxSizer(wx.HORIZONTAL)
         szr_buttons.Add(self.btn_scan, flag=wx.RIGHT, border=2)
         szr_buttons.Add(self.btn_scan_cancel, flag=wx.RIGHT, border=2)
         szr_buttons.Add(self.btn_close, flag=wx.RIGHT, border=2)
-        panel.SetSizer(szr_buttons)
+
+        szr_panel.Add(szr_buttons)
+        panel.SetSizer(szr_panel)
 
         # --
         self.messages = wx.html.HtmlWindow(parent=self)
         self.messages.SetPage(self._pref.load_html('scan_start'))
 
-        # --
-
-        #self.progress_txt = wx.StaticText(parent=self, label="Escanendo %s")
-        #self.gauge = wx.StaticText(parent=self, label="Escanendo %s")
         # --
 
         sizer = wx.BoxSizer(wx.VERTICAL)
