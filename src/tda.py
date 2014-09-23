@@ -6,7 +6,8 @@ import vlc
 import os.path
 
 from models.audio import Volume
-from models.channel import ChannelGuide
+from models.channel import ChannelsGuide
+from models.scanner import ChannelsScanner
 from models.preferences import Preferences
 
 from views.scan import ChannelScan
@@ -32,6 +33,7 @@ class MainFrame(wx.Frame):
         self._pref= wx.GetApp().preferences
         self._guide = wx.GetApp().guide
         self._volume= wx.GetApp().volume
+        self._scan_screen = None
 
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.HidePanel, self.timer)
@@ -198,8 +200,16 @@ class MainFrame(wx.Frame):
             vlc.EventType.MediaPlayerPlaying,
             self.test1
         )
+        self.delay_start_timer = wx.Timer()
+        self.delay_start_timer.Bind(wx.EVT_TIMER, self.OnStartTimer)
+        self.delay_start_timer.Start(1000, oneShot = wx.TIMER_ONE_SHOT)
 
-
+    def OnStartTimer(self, evt):
+        if self._guide.current() is None:
+            # No hay canales
+            self.OnScan()
+        else:
+            self.OnTune(self._guide.current())
 
     def test(self, evt):
         print 'Sintonizando'
@@ -207,15 +217,30 @@ class MainFrame(wx.Frame):
     def test1(self, evt):
         print 'Reproduciendo'
 
-    def OnScan(self, evt):
-        p = ChannelScan(parent=self)
-        p.Show()
+    def OnScan(self, evt=None):
+        self.player.stop()
+        if self._scan_screen is None:
+            self._scan_screen = ChannelScan(wx.GetApp().scanner, parent=self)
+            self._scan_screen.Bind(wx.EVT_CLOSE, self.OnScanClose)
+        self._scan_screen.Show()
+
+    def OnScanClose(self, evt):
+        self._scan_screen = None
+        self._guide = ChannelsGuide()
+        self._pref.load_channels_guide(self._guide)
+        self.OnTune(self._guide.current())
+        evt.Skip()
 
     def OnExit(self, evt):
         self.Close()
 
     def OnTune(self, channel):
+        self.player.set_xwindow(self.panel_video.GetHandle())
         self.player.stop()
+
+        if channel is None:
+            self.status_bar.SetStatusText(u'Sin canales', 1)
+            return
 
         self.Media = self.vlc_instance.media_new(
             'dvb-t://frequency=%s' % channel.frequency,
@@ -227,7 +252,6 @@ class MainFrame(wx.Frame):
         title = self.player.get_title() if self.player.get_title() != -1 else channel.name
 
         self.status_bar.SetStatusText(u'Canal: %s' % title, 1)
-        self.player.set_xwindow(self.panel_video.GetHandle())
         self.player.play()
 
     def OnVolume(self):
@@ -316,7 +340,7 @@ class MainFrame(wx.Frame):
             self.player.video_set_aspect_ratio('16:10')
 
     def OnSnapshot(self, evt):
-        self.player.video_take_snapshot(0, self._pref.picture_path, 0, 0)
+        self.player.video_take_snapshot(0, self._pref.pictures_path, 0, 0)
 
     def OnMouseMove(self, evt):
         pc_w, pc_h = self.panel_control.GetSize()
@@ -337,7 +361,9 @@ class MainFrame(wx.Frame):
 class HuayraTDA(wx.App):
     def __init__(self):
         self.preferences = Preferences(os.path.dirname(os.path.realpath(__file__)))
-        self.guide = ChannelGuide(self.preferences)
+        self.guide = ChannelsGuide()
+        self.preferences.load_channels_guide(self.guide)
+        self.scanner = ChannelsScanner(self.preferences.get_frequencies_file_path())
         self.volume = Volume()
 
         super(HuayraTDA, self).__init__(redirect=False)
