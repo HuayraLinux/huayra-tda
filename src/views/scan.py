@@ -59,7 +59,6 @@ class ChannelScan(wx.Frame):
         self.SetMinSize((450, 300))
         self.Center()
 
-        self._state = ''
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
 

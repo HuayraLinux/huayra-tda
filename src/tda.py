@@ -205,7 +205,11 @@ class MainFrame(wx.Frame):
         self.delay_start_timer.Start(1000, oneShot = wx.TIMER_ONE_SHOT)
 
     def OnStartTimer(self, evt):
-        self.OnTune(self._guide.current())
+        if self._guide.current() is None:
+            # No hay canales
+            self.OnScan()
+        else:
+            self.OnTune(self._guide.current())
 
     def test(self, evt):
         print 'Sintonizando'
@@ -213,7 +217,7 @@ class MainFrame(wx.Frame):
     def test1(self, evt):
         print 'Reproduciendo'
 
-    def OnScan(self, evt):
+    def OnScan(self, evt=None):
         self.player.stop()
         if self._scan_screen is None:
             self._scan_screen = ChannelScan(wx.GetApp().scanner, parent=self)

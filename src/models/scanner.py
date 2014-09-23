@@ -9,6 +9,7 @@ class ChannelsScanner:
     """
     def __init__(self, freqs_file):
         self.freqs_file = freqs_file
+        self.process = None
 
     def scan(self):
         self.process = subprocess.Popen(["scan", self.freqs_file], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -18,7 +19,7 @@ class ChannelsScanner:
         self.process.kill()
         
     def terminated(self):
-        return (self.process.poll() is not None)
+        return self.process is None or self.process.poll() is not None
 
     def terminatedOk(self):
         return self.process.returncode == 0
