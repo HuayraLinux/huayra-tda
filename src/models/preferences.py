@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+from channel import ChannelsGuideSerializer
 from xdg import BaseDirectory
 
 import ConfigParser
@@ -34,4 +34,25 @@ class Preferences(object):
 
         return data
 
+    def channels_list_path(self):
+        return self.user_path + '/.huayra-tda-channels.conf'
 
+    def load_channels_guide(self, guide):
+        serializer = ChannelsGuideSerializer()
+        try:
+            serializer.load(self.channels_list_path(), guide)
+        except IOError as e:
+            print e
+        return guide
+
+    def save_channels_guide(self, guide):
+        serializer = ChannelsGuideSerializer()
+        serializer.save(self.channels_list_path(), guide)
+
+    def get_frequencies_file_path(self):
+        if os.path.exists('./isdb-t.txt'):
+            return os.path.abspath('./isdb-t.txt')
+        elif os.path.exists('/etc/huayra-tda-player/isdb-t.txt'):
+            return os.path.abspath('/etc/huayra-tda-player/isdb-t.txt')
+        raise Exception('Frequencies file does not exist')
+         
