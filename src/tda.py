@@ -376,5 +376,13 @@ class HuayraTDA(wx.App):
 
 
 if __name__ == '__main__':
+    import subprocess
+    import atexit
+
+    cmd = ['mate-screensaver-command', '-i']
+    proc = subprocess.Popen(cmd)
+    atexit.register(proc.terminate)
+    pid = proc.pid
+
     app = HuayraTDA()
     app.MainLoop()
