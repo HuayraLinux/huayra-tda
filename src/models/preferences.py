@@ -7,6 +7,7 @@ import ConfigParser
 import io
 import os.path
 import re
+import glob
 
 
 class Preferences(object):
@@ -14,6 +15,7 @@ class Preferences(object):
         self.app_path = app_path
         self.user_path = os.path.expanduser('~')
         self._load_pictures_path()
+        self._scan_messages = glob.glob(os.path.join(self.app_path, 'html', 'scan_messages') + '/*.html')
 
     def _load_pictures_path(self):
         path = os.path.join(BaseDirectory.xdg_config_home, 'user-dirs.dirs')
@@ -33,6 +35,15 @@ class Preferences(object):
             data = fd.read()
 
         return data
+
+    def load_scan_message_html(self, index):
+        with open(self._scan_messages[index], 'r') as fd:
+            data = fd.read()
+
+        return data
+
+    def scan_messages_count(self):
+        return len(self._scan_messages)
 
     def channels_list_path(self):
         return self.user_path + '/.huayra-tda-channels.conf'

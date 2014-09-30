@@ -5,7 +5,6 @@ import wx
 import wx.html
 import wx.lib.scrolledpanel as scrolled
 
-
 class ChannelScan(wx.Frame):
     def __init__(self, scanner, parent=None):
         super(ChannelScan, self).__init__(
@@ -70,6 +69,8 @@ class ChannelScan(wx.Frame):
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
 
+        self._scan_message_idx = 0
+
 
     def OnClose(self, evt):
         self.timer.Stop()
@@ -79,7 +80,7 @@ class ChannelScan(wx.Frame):
 
     def OnScan(self, evt):
         self._scanner.scan()
-        self.timer.Start(1000)
+        self.timer.Start(8000)
 
     def update(self, evt):
         if self._scanner.terminated():
@@ -89,5 +90,13 @@ class ChannelScan(wx.Frame):
                 wx.GetApp().preferences.save_channels_guide(self._scanner.result())
             else:
                 self.messages.SetPage(self._pref.load_html('scan_error'))
+        else:
+            if self._pref.scan_messages_count() > 0:
+                if self._scan_message_idx >= self._pref.scan_messages_count():
+                    self._scan_message_idx = 0
+                self.messages.SetPage(self._pref.load_scan_message_html(self._scan_message_idx))
+                self._scan_message_idx += 1
+                
+
 
 
