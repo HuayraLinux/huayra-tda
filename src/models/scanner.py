@@ -24,10 +24,10 @@ class ChannelsScanner:
 
     def scan(self):
         self.guide = None
-        self.process = subprocess.Popen(
+        self.process = Popen(
             ['scan', '-q', self.freqs_file],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stdout=PIPE,
+            stderr=PIPE
         )
 
     def kill(self):
