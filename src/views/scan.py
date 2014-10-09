@@ -3,7 +3,7 @@
 
 import wx
 import wx.html
-import wx.lib.scrolledpanel as scrolled
+from wx.lib.pubsub import Publisher
 
 class ChannelScan(wx.Frame):
     def __init__(self, scanner, parent=None):
@@ -72,6 +72,10 @@ class ChannelScan(wx.Frame):
 
         self._scan_message_idx = 0
 
+        Publisher().subscribe(self.updateProgress, 'update')
+
+    def updateProgress(self, value):
+        self.gauge.SetValue(value)
 
     def OnClose(self, evt):
         self.timer.Stop()

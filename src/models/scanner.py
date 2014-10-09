@@ -3,15 +3,32 @@
 from subprocess import Popen, PIPE
 from threading import Thread
 
+import re
+
 from channel import ChannelsGuide, Channel
 
 class ScannerThread(Thread):
     def __ini__(self, *args, **kwargs):
-        super(ScannerThread, self).__init__(*args, **kwargs)
+        super(ScannerThread, self).__init__()
+
+        data = open(kwargs['freqs_file'], 'r').read().splitlines()
+        self.frequencies = []
+
+        for line in data:
+            result = re.findall('^T (\d+) ', line)
+            if len(result):
+                self.frequencies.append(result[0])
+
         self.start()
 
     def run(self):
-        pass
+        print self.frequencies
+
+        #self.process = Popen(
+        #    ['scan', '-q', self.freqs_file],
+        #    stdout=PIPE,
+        #    stderr=PIPE
+        #)
 
 
 class ChannelsScanner:
