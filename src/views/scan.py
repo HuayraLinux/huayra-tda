@@ -5,7 +5,6 @@ import wx
 import wx.html
 from wx.lib.pubsub import Publisher
 
-from random import randrange
 
 class ChannelScan(wx.Frame):
     def __init__(self, scanner, parent=None):
@@ -35,7 +34,7 @@ class ChannelScan(wx.Frame):
         self.btn_close.Bind(wx.EVT_BUTTON, self.OnClose)
 
     # -
-        self.progress_txt = wx.StaticText(parent=panel, label="Escanendo %s")
+        self.progress_txt = wx.StaticText(parent=panel, label="-")
         self.gauge = wx.Gauge(parent=panel, style=wx.GA_HORIZONTAL)
         self.gauge.SetRange(100)
         self.gauge.SetValue(18)
@@ -77,8 +76,8 @@ class ChannelScan(wx.Frame):
         Publisher().subscribe(self.updateProgress, 'update')
 
     def updateProgress(self, msg):
-        print msg.data
-        self.gauge.SetValue(randrange(100))
+        self.gauge.SetValue(msg.data)
+        self.progress_txt.SetLabel('Progreso %s%%' % msg.data)
 
     def OnClose(self, evt):
         self.timer.Stop()
