@@ -14,6 +14,7 @@ class ScannerThread(Thread):
     def __init__(self, *args, **kwargs):
         super(ScannerThread, self).__init__()
         self.freqs_file = kwargs['freqs_file']
+        self.output = kwargs['output']
 
         data = open(self.freqs_file, 'r').read().splitlines()
         self.frequencies = []
@@ -50,6 +51,8 @@ class ScannerThread(Thread):
                         percent
                     )
 
+        self.output, err = self.process.communicate()
+
 
 class ChannelsScanner:
     """
@@ -58,9 +61,13 @@ class ChannelsScanner:
     def __init__(self, freqs_file):
         self.freqs_file = freqs_file
         self.process = None
+        self.discovered_channels = None
 
     def scan(self):
-        p = ScannerThread(freqs_file=self.freqs_file)
+        proc = ScannerThread(
+            freqs_file=self.freqs_file,
+            output=self.discovered_channels
+        )
 
     def kill(self):
         if self.process:
@@ -77,11 +84,10 @@ class ChannelsScanner:
             return self.guide
 
         self.guide = ChannelsGuide()
-        (data, err) = self.process.communicate()
 
-        print data
+        print self.discovered_channels
 
-        for line in data.splitlines():
+        for line in self.discovered_channels.splitlines():
             params = line.split(":")
             self.guide.addChannel(Channel({
                         'name': params[0].strip(),
