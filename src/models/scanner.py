@@ -13,8 +13,9 @@ from channel import ChannelsGuide, Channel
 class ScannerThread(Thread):
     def __init__(self, *args, **kwargs):
         super(ScannerThread, self).__init__()
+        self.freqs_file = kwargs['freqs_file']
 
-        data = open(kwargs['freqs_file'], 'r').read().splitlines()
+        data = open(self.freqs_file, 'r').read().splitlines()
         self.frequencies = []
 
         for line in data:
