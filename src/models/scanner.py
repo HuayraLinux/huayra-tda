@@ -3,6 +3,9 @@
 from subprocess import Popen, PIPE
 from threading import Thread
 
+import wx
+from wx.lib.pubsub import Publisher
+
 import re
 
 from channel import ChannelsGuide, Channel
@@ -17,18 +20,32 @@ class ScannerThread(Thread):
         for line in data:
             result = re.findall('^T (\d+) ', line)
             if len(result):
-                self.frequencies.append(result[0])
+                self.frequencies.append(int(result[0]))
 
         self.start()
 
     def run(self):
-        print self.frequencies
+        self.process = Popen(
+            ['scan', '-q', self.freqs_file],
+            stdout=PIPE,
+            stderr=PIPE
+        )
 
-        #self.process = Popen(
-        #    ['scan', '-q', self.freqs_file],
-        #    stdout=PIPE,
-        #    stderr=PIPE
-        #)
+        percent = 100.0/len(self.frequencies)
+        scan_count = 0
+
+        for line in iter(self.process.stderr.readline, ''):
+            if line.startswith('>>>'):
+                freq = int(re.findall(' ([\d]+):', line)[0])
+                if freq in self.frequencies:
+                    scan_count += 1
+                    del(self.frequencies[self.frequencies.index(freq)])
+
+                    wx.CallAfter(
+                        Publisher().sendMessage,
+                        'update',
+                        int(round(scan_count * percent))
+                    )
 
 
 class ChannelsScanner:
@@ -41,12 +58,12 @@ class ChannelsScanner:
 
     def scan(self):
         p = ScannerThread(freqs_file=self.freqs_file)
-        self.guide = None
-        self.process = Popen(
-            ['scan', '-q', self.freqs_file],
-            stdout=PIPE,
-            stderr=PIPE
-        )
+        #self.guide = None
+        #self.process = Popen(
+        #    ['scan', '-q', self.freqs_file],
+        #    stdout=PIPE,
+        #    stderr=PIPE
+        #)
 
     def kill(self):
         if self.process:
