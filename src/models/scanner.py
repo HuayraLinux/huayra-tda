@@ -40,6 +40,7 @@ class ChannelsScanner:
         self.process = None
 
     def scan(self):
+        p = ScannerThread(freqs_file=self.freqs_file)
         self.guide = None
         self.process = Popen(
             ['scan', '-q', self.freqs_file],
