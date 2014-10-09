@@ -5,6 +5,8 @@ import wx
 import wx.html
 from wx.lib.pubsub import Publisher
 
+from random import randrange
+
 class ChannelScan(wx.Frame):
     def __init__(self, scanner, parent=None):
         super(ChannelScan, self).__init__(
@@ -72,15 +74,11 @@ class ChannelScan(wx.Frame):
 
         self._scan_message_idx = 0
 
-        self.caca = 0
-
         Publisher().subscribe(self.updateProgress, 'update')
 
-    def updateProgress(self, value):
-        print value
-        print type(value)
-        self.caca += 1
-        self.gauge.SetValue(self.caca)
+    def updateProgress(self, msg):
+        print msg.data
+        self.gauge.SetValue(randrange(100))
 
     def OnClose(self, evt):
         self.timer.Stop()
