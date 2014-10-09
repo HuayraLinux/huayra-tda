@@ -37,7 +37,6 @@ class ChannelScan(wx.Frame):
         self.progress_txt = wx.StaticText(parent=panel, label="-")
         self.gauge = wx.Gauge(parent=panel, style=wx.GA_HORIZONTAL)
         self.gauge.SetRange(100)
-        self.gauge.SetValue(18)
     # -
 
         szr_panel = wx.BoxSizer(wx.VERTICAL)

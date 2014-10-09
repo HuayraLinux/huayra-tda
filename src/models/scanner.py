@@ -44,8 +44,6 @@ class ScannerThread(Thread):
                     scan_count += 1
                     percent = int(round(scan_count * per))
 
-                    print 'Canal: %s - %s%%' % (scan_count, percent)
-
                     wx.CallAfter(
                         Publisher().sendMessage,
                         'update',
@@ -63,12 +61,6 @@ class ChannelsScanner:
 
     def scan(self):
         p = ScannerThread(freqs_file=self.freqs_file)
-        #self.guide = None
-        #self.process = Popen(
-        #    ['scan', '-q', self.freqs_file],
-        #    stdout=PIPE,
-        #    stderr=PIPE
-        #)
 
     def kill(self):
         if self.process:
@@ -86,6 +78,8 @@ class ChannelsScanner:
 
         self.guide = ChannelsGuide()
         (data, err) = self.process.communicate()
+
+        print data
 
         for line in data.splitlines():
             params = line.split(":")
