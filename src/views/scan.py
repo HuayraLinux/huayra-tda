@@ -34,7 +34,7 @@ class ChannelScan(wx.Frame):
         self.btn_close.Bind(wx.EVT_BUTTON, self.OnClose)
 
     # -
-        self.progress_txt = wx.StaticText(parent=panel, label="-")
+        self.progress_txt = wx.StaticText(parent=panel, label="-", style=wx.ALIGN_CENTRE)
         self.gauge = wx.Gauge(parent=panel, style=wx.GA_HORIZONTAL)
         self.gauge.SetRange(100)
     # -
