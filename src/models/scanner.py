@@ -11,7 +11,7 @@ import re
 from channel import ChannelsGuide, Channel
 
 class ScannerThread(Thread):
-    def __ini__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(ScannerThread, self).__init__()
 
         data = open(kwargs['freqs_file'], 'r').read().splitlines()
