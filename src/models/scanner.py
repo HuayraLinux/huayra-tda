@@ -31,20 +31,24 @@ class ScannerThread(Thread):
             stderr=PIPE
         )
 
-        percent = 100.0/len(self.frequencies)
+        per = 100.0/len(self.frequencies)
         scan_count = 0
 
         for line in iter(self.process.stderr.readline, ''):
             if line.startswith('>>>'):
                 freq = int(re.findall(' ([\d]+):', line)[0])
                 if freq in self.frequencies:
-                    scan_count += 1
                     del(self.frequencies[self.frequencies.index(freq)])
+
+                    scan_count += 1
+                    percent = int(round(scan_count * per))
+
+                    print 'Canal: %s - %s%%' % (scan_count, percent)
 
                     wx.CallAfter(
                         Publisher().sendMessage,
                         'update',
-                        int(round(scan_count * percent))
+                        percent
                     )
 
 

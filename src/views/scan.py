@@ -72,10 +72,15 @@ class ChannelScan(wx.Frame):
 
         self._scan_message_idx = 0
 
+        self.caca = 0
+
         Publisher().subscribe(self.updateProgress, 'update')
 
     def updateProgress(self, value):
-        self.gauge.SetValue(value)
+        print value
+        print type(value)
+        self.caca += 1
+        self.gauge.SetValue(self.caca)
 
     def OnClose(self, evt):
         self.timer.Stop()
