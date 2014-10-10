@@ -51,9 +51,10 @@ class ScannerThread(Thread):
                         percent
                     )
 
-        print self.process.returncode
 
         self.output, err = self.process.communicate()
+
+        print self.process.returncode
 
         print self.output, err
 
