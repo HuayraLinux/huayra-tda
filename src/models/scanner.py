@@ -79,6 +79,7 @@ class ChannelsScanner:
     def __init__(self, freqs_file):
         self.freqs_file = freqs_file
         self.process = None
+        self.guide = None
         self.discovered_channels = None
 
     def scan(self):
