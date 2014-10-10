@@ -51,8 +51,13 @@ class ScannerThread(Thread):
                         percent
                     )
 
+        print self.process.returncode
+
+        self.output, err = self.process.communicate()
+
+        print self.output, err
+
         if self.process.returncode == 0:
-            self.output, err = self.process.communicate()
             wx.CallAfter(
                 Publisher().sendMessage,
                 'update',
