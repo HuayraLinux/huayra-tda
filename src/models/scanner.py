@@ -51,7 +51,20 @@ class ScannerThread(Thread):
                         percent
                     )
 
-        self.output, err = self.process.communicate()
+        if self.process.returncode == 0:
+            self.output, err = self.process.communicate()
+            wx.CallAfter(
+                Publisher().sendMessage,
+                'update',
+                'output_ready'
+            )
+
+        else:
+            wx.CallAfter(
+                Publisher().sendMessage,
+                'update',
+                'scan_failed'
+            )
 
 
 class ChannelsScanner:

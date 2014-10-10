@@ -75,18 +75,27 @@ class ChannelScan(wx.Frame):
         Publisher().subscribe(self.updateProgress, 'update')
 
     def updateProgress(self, msg):
-        self.gauge.SetValue(msg.data)
-        self.progress_txt.SetLabel('Progreso %s%%' % msg.data)
+        if isinstance(msg.data, int):
+            self.gauge.SetValue(msg.data)
+            self.progress_txt.SetLabel('Progreso %s%%' % msg.data)
+
+        else:
+            if msg.data == 'output_ready':
+                self.messages.SetPage(self._pref.load_html('scan_end'))
+                wx.GetApp().preferences.save_channels_guide(self._scanner.result())
+
+            elif msg.data == 'scan_failed':
+                self.messages.SetPage(self._pref.load_html('scan_error'))
 
     def OnClose(self, evt):
-        self.timer.Stop()
+        #self.timer.Stop()
         if not self._scanner.terminated():
             self._scanner.kill()
         self.Close()
 
     def OnScan(self, evt):
         self._scanner.scan()
-        self.timer.Start(8000)
+        #self.timer.Start(8000)
 
     def update(self, evt):
         if self._scanner.terminated():
