@@ -39,17 +39,17 @@ class ChannelScan(wx.Frame):
         self.gauge.SetRange(100)
     # -
 
-        szr_panel = wx.BoxSizer(wx.VERTICAL)
-        szr_panel.Add(self.progress_txt, flag=wx.CENTER)
-        szr_panel.Add(self.gauge, flag=wx.BOTTOM|wx.CENTER|wx.EXPAND, border=5)
+        self.szr_panel = wx.BoxSizer(wx.VERTICAL)
+        self.szr_panel.Add(self.progress_txt, flag=wx.CENTER)
+        self.szr_panel.Add(self.gauge, flag=wx.BOTTOM|wx.CENTER|wx.EXPAND, border=5)
 
         szr_buttons = wx.BoxSizer(wx.HORIZONTAL)
         szr_buttons.Add(self.btn_scan, flag=wx.RIGHT, border=2)
         szr_buttons.Add(self.btn_scan_cancel, flag=wx.RIGHT, border=2)
         szr_buttons.Add(self.btn_close, flag=wx.RIGHT, border=2)
 
-        szr_panel.Add(szr_buttons)
-        panel.SetSizer(szr_panel)
+        self.szr_panel.Add(szr_buttons)
+        panel.SetSizer(self.szr_panel)
 
         # --
         self.messages = wx.html.HtmlWindow(parent=self)
@@ -67,10 +67,7 @@ class ChannelScan(wx.Frame):
         self.SetMinSize((450, 300))
         self.Center()
 
-        self.timer = wx.Timer(self)
-        self.Bind(wx.EVT_TIMER, self.update, self.timer)
-
-        self._scan_message_idx = 0
+        self._scan_message_idx = -1
 
         Publisher().subscribe(self.updateProgress, 'update')
 
@@ -78,7 +75,12 @@ class ChannelScan(wx.Frame):
         if isinstance(msg.data, int):
             self.gauge.SetValue(msg.data)
             self.progress_txt.SetLabel('Progreso %s%%' % msg.data)
-
+            self.szr_panel.Layout()
+            if self._pref.scan_messages_count() > 0: 
+                tmp = int(msg.data / 101. *  self._pref.scan_messages_count())
+                if tmp != self._scan_message_idx:
+                    self._scan_message_idx = tmp
+                    self.messages.SetPage(self._pref.load_scan_message_html(self._scan_message_idx))
         else:
             if msg.data == 'output_ready':
                 self.messages.SetPage(self._pref.load_html('scan_end'))
@@ -95,22 +97,7 @@ class ChannelScan(wx.Frame):
 
     def OnScan(self, evt):
         self._scanner.scan()
-        #self.timer.Start(8000)
 
-    def update(self, evt):
-        if self._scanner.terminated():
-            self.timer.Stop()
-            if self._scanner.terminatedOk():
-                self.messages.SetPage(self._pref.load_html('scan_end'))
-                wx.GetApp().preferences.save_channels_guide(self._scanner.result())
-            else:
-                self.messages.SetPage(self._pref.load_html('scan_error'))
-        else:
-            if self._pref.scan_messages_count() > 0:
-                if self._scan_message_idx >= self._pref.scan_messages_count():
-                    self._scan_message_idx = 0
-                self.messages.SetPage(self._pref.load_scan_message_html(self._scan_message_idx))
-                self._scan_message_idx += 1
 
 
 

@@ -16,6 +16,7 @@ class Preferences(object):
         self.user_path = os.path.expanduser('~')
         self._load_pictures_path()
         self._scan_messages = glob.glob(os.path.join(self.app_path, 'html', 'scan_messages') + '/*.html')
+        self._scan_messages.sort()
 
     def _load_pictures_path(self):
         path = os.path.join(BaseDirectory.xdg_config_home, 'user-dirs.dirs')
@@ -39,7 +40,7 @@ class Preferences(object):
     def load_scan_message_html(self, index):
         with open(self._scan_messages[index], 'r') as fd:
             data = fd.read()
-
+        data = data.replace("{{ app_path }}", self.app_path)
         return data
 
     def scan_messages_count(self):
