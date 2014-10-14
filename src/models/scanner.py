@@ -2,6 +2,7 @@
 
 from subprocess import Popen, PIPE
 from threading import Thread
+from Queue import Queue
 
 import wx
 from wx.lib.pubsub import Publisher
@@ -52,11 +53,9 @@ class ScannerThread(Thread):
                     )
 
 
-        self.output, err = self.process.communicate()
+        out, err = self.process.communicate()
 
-        print self.process.returncode
-
-        print self.output, err
+        self.output.put(out)
 
         if self.process.returncode == 0:
             wx.CallAfter(
@@ -81,7 +80,7 @@ class ChannelsScanner:
         self.freqs_file = freqs_file
         self.process = None
         self.guide = None
-        self.discovered_channels = None
+        self.discovered_channels = Queue(1)
 
     def scan(self):
         proc = ScannerThread(
@@ -105,9 +104,9 @@ class ChannelsScanner:
 
         self.guide = ChannelsGuide()
 
-        print self.discovered_channels
+        dc = self.discovered_channels.get(block=False)
 
-        for line in self.discovered_channels.splitlines():
+        for line in dc.splitlines():
             params = line.split(":")
             self.guide.addChannel(Channel({
                         'name': params[0].strip(),
