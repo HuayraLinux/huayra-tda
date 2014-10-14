@@ -53,4 +53,11 @@ class ChannelsGuide(object):
     def addChannel(self, channel):
         self._channels.append(channel)
         self._max_index = len(self._channels) - 1
+
+    def goto(self, channelIndex):
+        self._current_index = channelIndex
+        return self.current()
+
+    def currentIndex(self):
+        return self._current_index
         

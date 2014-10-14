@@ -141,11 +141,17 @@ class MainFrame(wx.Frame):
         szr_control.Add(channel_down, flag=wx.RIGHT, border=2)
         szr_control.Add(channel_up, flag=wx.RIGHT, border=2)
         self.panel_control.SetSizer(szr_control)
+        
+        self.channels_list_box = wx.ListBox(choices=[], name='channelsListBox', parent=self)
+        self.Bind(wx.EVT_LISTBOX, self.OnChannelsListBox, self.channels_list_box)
 
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(self.panel_video, 1, flag=wx.EXPAND)
-        sizer.Add(self.panel_control, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=2)
-        self.SetSizer(sizer)
+        self.updateChannelsList()
+
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer.Add(self.panel_video, 4, flag=wx.EXPAND)
+        self.sizer.Add(self.panel_control, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=2)
+        self.sizer.Add(self.channels_list_box, 1, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=2)
+        self.SetSizer(self.sizer)
 
         self.SetMinSize((450, 300))
         self.Center()
@@ -156,6 +162,8 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnChannelUp, channel_up)
         self.Bind(wx.EVT_BUTTON, self.OnChannelDown, channel_down)
         self.Bind(wx.EVT_BUTTON, self.OnToggleFullScreen, self.full_screen)
+        self.Bind(wx.EVT_BUTTON, self.OnShowChannelsList, channel_list)
+        
         take_picture.Bind(wx.EVT_BUTTON, self.OnSnapshot)
         self.volume_mute.Bind(wx.EVT_BUTTON, self.OnMute)
 
@@ -204,6 +212,7 @@ class MainFrame(wx.Frame):
         self.delay_start_timer.Bind(wx.EVT_TIMER, self.OnStartTimer)
         self.delay_start_timer.Start(1000, oneShot = wx.TIMER_ONE_SHOT)
 
+
     def OnStartTimer(self, evt):
         if self._guide.current() is None:
             # No hay canales
@@ -224,10 +233,16 @@ class MainFrame(wx.Frame):
             self._scan_screen.Bind(wx.EVT_CLOSE, self.OnScanClose)
         self._scan_screen.Show()
 
+    def updateChannelsList(self):
+        self.channels_list_box.Clear()
+        for channel in self._guide.channels():
+            self.channels_list_box.Append(channel.name)
+
     def OnScanClose(self, evt):
         self._scan_screen = None
         self._guide = ChannelsGuide()
         self._pref.load_channels_guide(self._guide)
+        self.updateChannelsList()
         self.OnTune(self._guide.current())
         evt.Skip()
 
@@ -253,6 +268,9 @@ class MainFrame(wx.Frame):
 
         self.status_bar.SetStatusText(u'Canal: %s' % title, 1)
         self.player.play()
+        self.channels_list_box.SetSelection(self._guide.currentIndex())
+        self.channels_list_box.EnsureVisible(self._guide.currentIndex())
+
 
     def OnVolume(self):
         self.player.audio_set_volume(self._volume.current)
@@ -270,7 +288,6 @@ class MainFrame(wx.Frame):
             self.ShowFullScreen(False)
             self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-fullscreen'))
             self.panel_control.Show()
-
         else:
             self.Bind(wx.EVT_MENU, self.OnToggleFullScreen, id=self.id_ESC)
             self.panel_video.Bind(wx.EVT_MOTION, self.OnMouseMove)
@@ -278,7 +295,9 @@ class MainFrame(wx.Frame):
             self.ShowFullScreen(True)
             self.full_screen.SetBitmapLabel(wx.ArtProvider.GetBitmap('view-restore'))
             self.panel_control.Hide()
+            self.channels_list_box.Hide()
             self.panel_video.SetFocus()
+        self.sizer.Layout()
 
     def OnChannelUp(self, evt):
         self.OnTune(self._guide.next())
@@ -349,14 +368,28 @@ class MainFrame(wx.Frame):
         x = (pv_w / 2) - (pc_w / 2)
         y = pv_h - (2 * pc_h)
 
-        self.panel_control.SetPosition((x, y))
+        #self.panel_control.SetPosition((x, y))
         self.panel_control.Show()
-
+        self.sizer.Layout()
         self.timer.Start(5000)
 
     def HidePanel(self, evt):
         self.timer.Stop()
         self.panel_control.Hide()
+        self.channels_list_box.Hide()
+        self.sizer.Layout()
+
+    def OnShowChannelsList(self, evt):
+        if self.channels_list_box.IsShown():
+            self.channels_list_box.Hide()
+        else:
+            self.channels_list_box.Show()
+        self.sizer.Layout()
+
+    def OnChannelsListBox(self, evt):
+        selection = self.channels_list_box.GetSelections()
+        if len(selection) > 0:
+            self.OnTune(self._guide.goto(selection[0]))
 
 class HuayraTDA(wx.App):
     def __init__(self):
