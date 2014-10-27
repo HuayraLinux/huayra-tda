@@ -1,3 +1,9 @@
+huayra-tda (0.3.8.10) unstable; urgency=low
+
+  * Primer paquete version wx
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Thu, 23 Oct 2014 14:39:10 -0300
+
 huayra-tda (0.3.8.9) unstable; urgency=medium
 
   * Quito tildes y mergeo codigos que se habian bifurcado. (!?)
