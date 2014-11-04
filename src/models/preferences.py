@@ -35,6 +35,7 @@ class Preferences(object):
         with open(os.path.join(self.app_path, 'html', '%s.html' % html), 'r') as fd:
             data = fd.read()
 
+        data = data.replace("{{ app_path }}", self.app_path)
         return data
 
     def load_scan_message_html(self, index):

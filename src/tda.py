@@ -11,6 +11,7 @@ from models.scanner import ChannelsScanner
 from models.preferences import Preferences
 
 from views.scan import ChannelScan
+from views.about import AboutDialog
 
 VLC_SETTINGS = [
     '--video-title-show',
@@ -34,6 +35,7 @@ class MainFrame(wx.Frame):
         self._guide = wx.GetApp().guide
         self._volume= wx.GetApp().volume
         self._scan_screen = None
+        self._about_screen = None
 
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.HidePanel, self.timer)
@@ -77,11 +79,17 @@ class MainFrame(wx.Frame):
         options_menu = wx.Menu()
         options_menu.AppendSubMenu(opt_deinterlace_menu, 'Desentrelazado')
         options_menu.AppendSubMenu(opt_aspect_menu, 'Aspecto')
+        
+        # Menú archivo
+        help_menu = wx.Menu()
+        btn_about = help_menu.Append(id=-1, text=u'Acerca de...')
+        self.Bind(wx.EVT_MENU, self.OnAbout, btn_about)
 
         # Asignación de Menú
         menu_bar = wx.MenuBar()
         menu_bar.Append(file_menu, u'Archivo')
         menu_bar.Append(options_menu, u'Opciones')
+        menu_bar.Append(help_menu, u'Ayuda')
         self.SetMenuBar(menu_bar)
 
         # Panel de video
@@ -232,7 +240,11 @@ class MainFrame(wx.Frame):
             self._scan_screen = ChannelScan(wx.GetApp().scanner, parent=self)
             self._scan_screen.Bind(wx.EVT_CLOSE, self.OnScanClose)
         self._scan_screen.Show()
-
+    
+    def OnAbout(self, evt=None):
+        self._about_screen = AboutDialog(parent=self)
+        self._about_screen.Show()
+    
     def updateChannelsList(self):
         self.channels_list_box.Clear()
         for channel in self._guide.channels():
