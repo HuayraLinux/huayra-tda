@@ -1,3 +1,11 @@
+huayra-tda (1:0.3.8.13) unstable; urgency=low
+
+  * Fix cambio de canal cuando no hay canales
+  * Quito boton cancelar de pantalla de scan
+  * Fix link a ejecutable 
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Tue, 18 Nov 2014 14:12:46 -0300
+
 huayra-tda (1:0.3.8.12) unstable; urgency=low
 
   * Fix numero de version

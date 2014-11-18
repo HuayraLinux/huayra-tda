@@ -29,7 +29,7 @@ class ChannelScan(wx.Frame):
 
         self.btn_scan = wx.Button(parent=panel, label=u'Escanear')
         self.btn_scan.Bind(wx.EVT_BUTTON, self.OnScan)
-        self.btn_scan_cancel = wx.Button(parent=panel, label=u'Cancelar')
+        #self.btn_scan_cancel = wx.Button(parent=panel, label=u'Cancelar')
         self.btn_close = wx.Button(parent=panel, label=u'Cerrar')
         self.btn_close.Bind(wx.EVT_BUTTON, self.OnClose)
 
@@ -45,7 +45,7 @@ class ChannelScan(wx.Frame):
 
         szr_buttons = wx.BoxSizer(wx.HORIZONTAL)
         szr_buttons.Add(self.btn_scan, flag=wx.RIGHT, border=2)
-        szr_buttons.Add(self.btn_scan_cancel, flag=wx.RIGHT, border=2)
+        #szr_buttons.Add(self.btn_scan_cancel, flag=wx.RIGHT, border=2)
         szr_buttons.Add(self.btn_close, flag=wx.RIGHT, border=2)
 
         self.szr_panel.Add(szr_buttons)

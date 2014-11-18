@@ -33,7 +33,7 @@ class ChannelsGuide(object):
         return self._channels
 
     def current(self):
-        if self._current_index < self._max_index:
+        if self._current_index >= 0 and self._current_index < self._max_index:
             return self._channels[self._current_index]
         else:
             return None
@@ -41,14 +41,14 @@ class ChannelsGuide(object):
     def previous(self):
         tmp = self._current_index - 1
         self._current_index = self._max_index if tmp < 0 else tmp
-
-        return self._channels[self._current_index]
+        
+        return self.current()
 
     def next(self):
         tmp = self._current_index + 1
         self._current_index = 0 if tmp > self._max_index else tmp
 
-        return self._channels[self._current_index]
+        return self.current()
 
     def addChannel(self, channel):
         self._channels.append(channel)
