@@ -9,9 +9,13 @@ from models.audio import Volume
 from models.channel import ChannelsGuide
 from models.scanner import ChannelsScanner
 from models.preferences import Preferences
+from models.signal_level import SignalLevelThread
 
 from views.scan import ChannelScan
 from views.about import AboutDialog
+
+from wx.lib.pubsub import Publisher
+import atexit
 
 VLC_SETTINGS = [
     '--video-title-show',
@@ -40,8 +44,10 @@ class MainFrame(wx.Frame):
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.HidePanel, self.timer)
 
+        self.Bind(wx.EVT_CLOSE, self.OnClose)
+
         self.status_bar = self.CreateStatusBar()
-        self.status_bar.SetFields((u'', u'Canal: ', u'Señal: '))
+        self.status_bar.SetFields((u'', u'Canal: ', u'SNR: '))
 
         # Menú archivo
         file_menu = wx.Menu()
@@ -219,7 +225,13 @@ class MainFrame(wx.Frame):
         self.delay_start_timer = wx.Timer()
         self.delay_start_timer.Bind(wx.EVT_TIMER, self.OnStartTimer)
         self.delay_start_timer.Start(1000, oneShot = wx.TIMER_ONE_SHOT)
+        self.signal_level_thread = SignalLevelThread()
+        atexit.register(self.signal_level_thread.terminate)
+        Publisher().subscribe(self.signalLevelUpdate, 'signalLevelUpdate')
 
+
+    def signalLevelUpdate(self, msg):
+        self.status_bar.SetStatusText(u'SNR: ' + str(msg.data), 2)
 
     def OnStartTimer(self, evt):
         if self._guide.current() is None:
@@ -403,6 +415,12 @@ class MainFrame(wx.Frame):
         if len(selection) > 0:
             self.OnTune(self._guide.goto(selection[0]))
 
+    def OnClose(self, evt):
+        self.player.stop()
+        self.signal_level_thread.terminate()
+        self.Destroy()
+
+
 class HuayraTDA(wx.App):
     def __init__(self):
         self.preferences = Preferences(os.path.dirname(os.path.realpath(__file__)))
@@ -422,7 +440,6 @@ class HuayraTDA(wx.App):
 
 if __name__ == '__main__':
     import subprocess
-    import atexit
 
     cmd = ['mate-screensaver-command', '-i']
     proc = subprocess.Popen(cmd)
