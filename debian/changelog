@@ -1,3 +1,9 @@
+huayra-tda (1:0.3.8.14) unstable; urgency=low
+
+  * Implemento nivel de señal
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Wed, 03 Dec 2014 14:11:31 -0300
+
 huayra-tda (1:0.3.8.13) unstable; urgency=low
 
   * Fix cambio de canal cuando no hay canales
