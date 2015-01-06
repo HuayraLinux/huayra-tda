@@ -1,3 +1,35 @@
+huayra-tda (1:0.3.8.14) unstable; urgency=low
+
+  * Implemento nivel de señal
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Wed, 03 Dec 2014 14:11:31 -0300
+
+huayra-tda (1:0.3.8.13) unstable; urgency=low
+
+  * Fix cambio de canal cuando no hay canales
+  * Quito boton cancelar de pantalla de scan
+  * Fix link a ejecutable 
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Tue, 18 Nov 2014 14:12:46 -0300
+
+huayra-tda (1:0.3.8.12) unstable; urgency=low
+
+  * Fix numero de version
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Tue, 18 Nov 2014 13:10:25 -0300
+
+huayra-tda (0.3.8.11) unstable; urgency=low
+
+  * Incorpora about dialog
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Thu, 06 Nov 2014 11:20:54 -0300
+
+huayra-tda (0.3.8.10) unstable; urgency=low
+
+  * Primer paquete version wx
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Thu, 23 Oct 2014 14:39:10 -0300
+
 huayra-tda (0.3.8.9) unstable; urgency=medium
 
   * Quito tildes y mergeo codigos que se habian bifurcado. (!?)
