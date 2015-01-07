@@ -1,3 +1,9 @@
+huayra-tda (1:0.3.9.0) unstable; urgency=low
+
+  * Port a wx 3.0
+
+ -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Wed, 07 Jan 2015 15:08:27 -0300
+
 huayra-tda (1:0.3.8.14) unstable; urgency=low
 
   * Implemento nivel de señal
