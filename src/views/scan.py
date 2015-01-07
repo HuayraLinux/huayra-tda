@@ -3,7 +3,7 @@
 
 import wx
 import wx.html
-from wx.lib.pubsub import Publisher
+from wx.lib.pubsub import pub
 
 
 class ChannelScan(wx.Frame):
@@ -69,25 +69,26 @@ class ChannelScan(wx.Frame):
 
         self._scan_message_idx = -1
 
-        Publisher().subscribe(self.updateProgress, 'update')
+        pub.subscribe(self.onUpdateProgress, 'scan-update')
+        pub.subscribe(self.onScanOutputReady, 'scan-output-ready')
+        pub.subscribe(self.onScanFailed, 'scan-failed')
 
-    def updateProgress(self, msg):
-        if isinstance(msg.data, int):
-            self.gauge.SetValue(msg.data)
-            self.progress_txt.SetLabel('Progreso %s%%' % msg.data)
-            self.szr_panel.Layout()
-            if self._pref.scan_messages_count() > 0: 
-                tmp = int(msg.data / 101. *  self._pref.scan_messages_count())
-                if tmp != self._scan_message_idx:
-                    self._scan_message_idx = tmp
-                    self.messages.SetPage(self._pref.load_scan_message_html(self._scan_message_idx))
-        else:
-            if msg.data == 'output_ready':
-                self.messages.SetPage(self._pref.load_html('scan_end'))
-                wx.GetApp().preferences.save_channels_guide(self._scanner.result())
+    def onUpdateProgress(self, percent):
+        self.gauge.SetValue(percent)
+        self.progress_txt.SetLabel('Progreso %d%%' % percent)
+        self.szr_panel.Layout()
+        if self._pref.scan_messages_count() > 0: 
+            tmp = int(percent / 101. *  self._pref.scan_messages_count())
+            if tmp != self._scan_message_idx:
+                self._scan_message_idx = tmp
+                self.messages.SetPage(self._pref.load_scan_message_html(self._scan_message_idx))
 
-            elif msg.data == 'scan_failed':
-                self.messages.SetPage(self._pref.load_html('scan_error'))
+    def onScanOutputReady(self):
+        self.messages.SetPage(self._pref.load_html('scan_end'))
+        wx.GetApp().preferences.save_channels_guide(self._scanner.result())
+
+    def onScanFailed(self):
+        self.messages.SetPage(self._pref.load_html('scan_error'))
 
     def OnClose(self, evt):
         #self.timer.Stop()

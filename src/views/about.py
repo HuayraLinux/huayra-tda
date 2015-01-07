@@ -3,8 +3,6 @@
 
 import wx
 import wx.html
-from wx.lib.pubsub import Publisher
-
 
 class AboutDialog(wx.Frame):
     def __init__(self, parent=None):

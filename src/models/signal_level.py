@@ -5,7 +5,7 @@ from threading import Thread
 from Queue import Queue
 
 import wx
-from wx.lib.pubsub import Publisher
+from wx.lib.pubsub import pub
 import re
 
 class SignalLevelThread(Thread):
@@ -29,9 +29,9 @@ class SignalLevelThread(Thread):
                 snr = re.findall('snr ([\dabcdef]+) ', line)[0]
                 snr = int(snr, base=16)
                 wx.CallAfter(
-                    Publisher().sendMessage,
+                    pub.sendMessage,
                     'signalLevelUpdate',
-                    snr
+                    level=snr
                 )
 
     def terminate(self):

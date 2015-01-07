@@ -5,7 +5,7 @@ from threading import Thread
 from Queue import Queue
 
 import wx
-from wx.lib.pubsub import Publisher
+from wx.lib.pubsub import pub
 
 import re
 
@@ -47,9 +47,9 @@ class ScannerThread(Thread):
                     percent = int(round(scan_count * per))
 
                     wx.CallAfter(
-                        Publisher().sendMessage,
-                        'update',
-                        percent
+                        pub.sendMessage,
+                        'scan-update',
+                        percent=percent
                     )
 
 
@@ -59,16 +59,14 @@ class ScannerThread(Thread):
 
         if self.process.returncode == 0:
             wx.CallAfter(
-                Publisher().sendMessage,
-                'update',
-                'output_ready'
+                pub.sendMessage,
+                'scan-output-ready'
             )
 
         else:
             wx.CallAfter(
-                Publisher().sendMessage,
-                'update',
-                'scan_failed'
+                pub.sendMessage,
+                'scan-failed'
             )
 
 

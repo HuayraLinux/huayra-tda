@@ -14,7 +14,7 @@ from models.signal_level import SignalLevelThread
 from views.scan import ChannelScan
 from views.about import AboutDialog
 
-from wx.lib.pubsub import Publisher
+from wx.lib.pubsub import pub
 import atexit
 
 VLC_SETTINGS = [
@@ -227,11 +227,11 @@ class MainFrame(wx.Frame):
         self.delay_start_timer.Start(1000, oneShot = wx.TIMER_ONE_SHOT)
         self.signal_level_thread = SignalLevelThread()
         atexit.register(self.signal_level_thread.terminate)
-        Publisher().subscribe(self.signalLevelUpdate, 'signalLevelUpdate')
+        pub.subscribe(self.signalLevelUpdate, 'signalLevelUpdate')
 
 
-    def signalLevelUpdate(self, msg):
-        self.status_bar.SetStatusText(u'SNR: ' + str(msg.data), 2)
+    def signalLevelUpdate(self, level):
+        self.status_bar.SetStatusText(u'SNR: ' + str(level), 2)
 
     def OnStartTimer(self, evt):
         if self._guide.current() is None:
