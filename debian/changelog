@@ -1,6 +1,12 @@
+huayra-tda (1:0.3.9.2) unstable; urgency=low
+
+  * Cambio de ChangeLog, wx3.0 listo.
+
+ -- Ignacio Juan Martín Benedetti <tranceway@gmail.com>  Thu, 22 Jan 2015 12:51:38 -0300
+
 huayra-tda (1:0.3.9.1) unstable; urgency=low
 
-  * elimino archivo .pyc 
+  * elimino archivo .pyc
 
  -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Wed, 07 Jan 2015 16:42:52 -0300
 
@@ -20,7 +26,7 @@ huayra-tda (1:0.3.8.13) unstable; urgency=low
 
   * Fix cambio de canal cuando no hay canales
   * Quito boton cancelar de pantalla de scan
-  * Fix link a ejecutable 
+  * Fix link a ejecutable
 
  -- Miguel Angel Garcia <miguel.garcia@gmail.com>  Tue, 18 Nov 2014 14:12:46 -0300
 
