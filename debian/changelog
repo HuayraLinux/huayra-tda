@@ -1,3 +1,10 @@
+huayra-tda (1:0.3.9.3) unstable; urgency=low
+
+  * Traduce opcion de menu salir.
+  * Invierte teclas de subir y bajar canal para que repondan acorde a la lista.
+
+ -- Matias De lellis <mati86dl@gmail.com>  Wed, 11 Mar 2015 15:01:27 -0300
+
 huayra-tda (1:0.3.9.2) unstable; urgency=low
 
   * Cambio de ChangeLog, wx3.0 listo.

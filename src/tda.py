@@ -53,7 +53,7 @@ class MainFrame(wx.Frame):
         file_menu = wx.Menu()
         btn_scan = file_menu.Append(id=-1, text=u'Escanear canales')
         file_menu.AppendSeparator()
-        file_menu.Append(wx.ID_EXIT)
+        file_menu.Append(wx.ID_EXIT, 'Salir', 'Salir de HuayraTDA')
 
             # Submenú desentrelazado
         opt_deinterlace_menu = wx.Menu()
@@ -324,10 +324,10 @@ class MainFrame(wx.Frame):
         self.sizer.Layout()
 
     def OnChannelUp(self, evt):
-        self.OnTune(self._guide.next())
+        self.OnTune(self._guide.previous())
 
     def OnChannelDown(self, evt):
-        self.OnTune(self._guide.previous())
+        self.OnTune(self._guide.next())
 
     def OnVolumeUp(self, evt):
         self._volume.up()
