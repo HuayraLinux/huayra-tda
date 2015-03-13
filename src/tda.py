@@ -251,10 +251,12 @@ class MainFrame(wx.Frame):
         if self._scan_screen is None:
             self._scan_screen = ChannelScan(wx.GetApp().scanner, parent=self)
             self._scan_screen.Bind(wx.EVT_CLOSE, self.OnScanClose)
+        self._scan_screen.SetIcon(wx.Icon("/usr/share/icons/huayra-liso/128x128/apps/tda.png", wx.BITMAP_TYPE_PNG))
         self._scan_screen.Show()
     
     def OnAbout(self, evt=None):
         self._about_screen = AboutDialog(parent=self)
+        self._about_screen.SetIcon(wx.Icon("/usr/share/icons/huayra-liso/128x128/apps/tda.png", wx.BITMAP_TYPE_PNG))
         self._about_screen.Show()
     
     def updateChannelsList(self):
@@ -433,6 +435,7 @@ class HuayraTDA(wx.App):
 
     def OnInit(self):
         self.frame = MainFrame()
+        self.frame.SetIcon(wx.Icon("/usr/share/icons/huayra-liso/128x128/apps/tda.png", wx.BITMAP_TYPE_PNG))
         self.frame.Show()
         self.SetTopWindow(self.frame)
         return True
