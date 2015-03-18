@@ -1,3 +1,10 @@
+huayra-tda (1:0.3.10) unstable; urgency=low
+
+  * Agrega iconos a las ventanas
+  * Reduce imagen covertura en el dialog de escaneo.
+
+ -- Matias De lellis <mati86dl@gmail.com>  Mon, 16 Mar 2015 11:05:12 -0300
+
 huayra-tda (1:0.3.9.3) unstable; urgency=low
 
   * Traduce opcion de menu salir.
