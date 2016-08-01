@@ -3,7 +3,7 @@ huayra-tda
 
 Reproductor de Televisión Digital para Linux
 
-Escrita en Python + Qt4 y utiliza vlc para reproducir video y audio.
+Escrita en Python + wxWindows y utiliza vlc para reproducir video y audio.
 
 Roadmap
 ----------------------------
