@@ -1,3 +1,9 @@
+huayra-tda (1:0.3.11) unstable; urgency=low
+
+  * Agregada la dependencia python-xdg
+
+ -- Ignacio Losiggio <iglosiggio@gmail.com>  Fri, 02 Sep 2016 11:18:48 -0300
+
 huayra-tda (1:0.3.10) unstable; urgency=low
 
   * Agrega iconos a las ventanas

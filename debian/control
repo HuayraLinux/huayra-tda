@@ -10,7 +10,7 @@ Vcs-Browser: https://github.com/HuayraLinux/huayra-tda
 
 Package: huayra-tda-player
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, python-support (>= 0.90), python, dvb-apps, python-wxgtk3.0, vlc, xdg-user-dirs
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-support (>= 0.90), python, dvb-apps, python-wxgtk3.0, vlc, xdg-user-dirs, python-xdg
 Provides: huayra-tda
 Conflicts: huayra-tda
 Replaces: huayra-tda
