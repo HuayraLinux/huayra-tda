@@ -246,8 +246,16 @@ class MainFrame(wx.Frame):
     def test1(self, evt):
         print 'Reproduciendo'
 
-    def OnScan(self, evt=None):
+    def play(self):
+        self.player.play()
+        suspend_screensaver()
+
+    def stop(self):
         self.player.stop()
+        resume_screensaver()
+
+    def OnScan(self, evt=None):
+        self.stop()
         if self._scan_screen is None:
             self._scan_screen = ChannelScan(wx.GetApp().scanner, parent=self)
             self._scan_screen.Bind(wx.EVT_CLOSE, self.OnScanClose)
@@ -277,7 +285,7 @@ class MainFrame(wx.Frame):
 
     def OnTune(self, channel):
         self.player.set_xwindow(self.panel_video.GetHandle())
-        self.player.stop()
+        self.stop()
 
         if channel is None:
             self.status_bar.SetStatusText(u'Sin canales', 1)
@@ -293,7 +301,7 @@ class MainFrame(wx.Frame):
         title = self.player.get_title() if self.player.get_title() != -1 else channel.name
 
         self.status_bar.SetStatusText(u'Canal: %s' % title, 1)
-        self.player.play()
+        self.play()
         self.channels_list_box.SetSelection(self._guide.currentIndex())
         self.channels_list_box.EnsureVisible(self._guide.currentIndex())
 
@@ -303,7 +311,7 @@ class MainFrame(wx.Frame):
         self.volume_slider.SetValue(self._volume.current)
 
     def OnStop(self, evt):
-        self.player.stop()
+        self.stop()
 
     def OnToggleFullScreen(self, evt):
         if self.IsFullScreen():
@@ -418,7 +426,7 @@ class MainFrame(wx.Frame):
             self.OnTune(self._guide.goto(selection[0]))
 
     def OnClose(self, evt):
-        self.player.stop()
+        self.stop()
         self.signal_level_thread.terminate()
         self.Destroy()
 
@@ -439,20 +447,28 @@ class HuayraTDA(wx.App):
         if self.instance.IsAnotherRunning():
             wx.MessageBox("Huayra TDA ya está ejecutándose", "Aviso")
             return False
+
         self.frame = MainFrame()
         self.frame.SetIcon(wx.Icon(os.path.dirname(os.path.realpath(__file__))+"/icono-tda.png", wx.BITMAP_TYPE_PNG))
         self.frame.Show()
         self.SetTopWindow(self.frame)
+
         return True
 
-
-if __name__ == '__main__':
+def suspend_screensaver():
     import subprocess
 
-    cmd = ['mate-screensaver-command', '-i']
-    proc = subprocess.Popen(cmd)
-    atexit.register(proc.terminate)
-    pid = proc.pid
+    handle = wx.GetApp().frame.GetHandle()
+    cmd = ['xdg-screensaver', 'suspend', str(handle)]
+    proc = subprocess.call(cmd)
 
+def resume_screensaver():
+    import subprocess
+
+    handle = wx.GetApp().frame.GetHandle()
+    cmd = ['xdg-screensaver', 'resume', str(handle)]
+    proc = subprocess.call(cmd)
+
+if __name__ == '__main__':
     app = HuayraTDA()
     app.MainLoop()
