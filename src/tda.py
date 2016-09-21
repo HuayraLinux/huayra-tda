@@ -434,6 +434,11 @@ class HuayraTDA(wx.App):
         super(HuayraTDA, self).__init__(redirect=False)
 
     def OnInit(self):
+        # Instancia de la app (issue#8)
+        self.instance = wx.SingleInstanceChecker("huayra-tda")
+        if self.instance.IsAnotherRunning():
+            wx.MessageBox("Huayra TDA ya está ejecutándose", "Aviso")
+            return False
         self.frame = MainFrame()
         self.frame.SetIcon(wx.Icon(os.path.dirname(os.path.realpath(__file__))+"/icono-tda.png", wx.BITMAP_TYPE_PNG))
         self.frame.Show()
