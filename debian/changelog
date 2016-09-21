@@ -1,3 +1,12 @@
+huayra-tda (1:0.3.12) unstable; urgency=medium
+
+  * La aplicación es instancia única
+  * El bloqueo del screensaver ya no depende de mate sino que usa el script de
+    de freedesktop.org (xdg-screensaver) para ser portable entre entornos de
+    escritorio
+
+ -- Ignacio Losiggio <iglosiggio@gmail.com>  Wed, 21 Sep 2016 16:32:27 -0300
+
 huayra-tda (1:0.3.11) unstable; urgency=low
 
   * Agregada la dependencia python-xdg
