@@ -428,6 +428,7 @@ class MainFrame(wx.Frame):
     def OnClose(self, evt):
         self.stop()
         self.signal_level_thread.terminate()
+        wx.GetApp().scanner.terminate()
         self.Destroy()
 
 

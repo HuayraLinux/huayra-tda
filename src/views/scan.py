@@ -93,13 +93,8 @@ class ChannelScan(wx.Frame):
     def OnClose(self, evt):
         #self.timer.Stop()
         if not self._scanner.terminated():
-            self._scanner.kill()
+            self._scanner.terminate()
         self.Close()
 
     def OnScan(self, evt):
         self._scanner.scan()
-
-
-
-
-

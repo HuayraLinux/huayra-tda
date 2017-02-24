@@ -16,6 +16,11 @@ class ScannerThread(Thread):
         super(ScannerThread, self).__init__()
         self.freqs_file = kwargs['freqs_file']
         self.output = kwargs['output']
+        self.process = Popen(
+            ['scan', '-q', self.freqs_file],
+            stdout=PIPE,
+            stderr=PIPE
+        )
 
         data = open(self.freqs_file, 'r').read().splitlines()
         self.frequencies = []
@@ -27,13 +32,11 @@ class ScannerThread(Thread):
 
         self.start()
 
-    def run(self):
-        self.process = Popen(
-            ['scan', '-q', self.freqs_file],
-            stdout=PIPE,
-            stderr=PIPE
-        )
+    def stop(self):
+        self.process.terminate()
+        self.returncode = self.process.returncode
 
+    def run(self):
         per = 100.0/len(self.frequencies)
         scan_count = 0
 
@@ -52,23 +55,17 @@ class ScannerThread(Thread):
                         percent=percent
                     )
 
-
         out, err = self.process.communicate()
 
         self.output.put(out)
 
         if self.process.returncode == 0:
-            wx.CallAfter(
-                pub.sendMessage,
-                'scan-output-ready'
-            )
+            wx.CallAfter(pub.sendMessage, 'scan-output-ready')
 
         else:
-            wx.CallAfter(
-                pub.sendMessage,
-                'scan-failed'
-            )
+            wx.CallAfter(pub.sendMessage, 'scan-failed')
 
+        self.returncode = self.process.returncode
 
 class ChannelsScanner:
     """
@@ -76,25 +73,27 @@ class ChannelsScanner:
     """
     def __init__(self, freqs_file):
         self.freqs_file = freqs_file
-        self.process = None
+        self.scanner = None
         self.guide = None
         self.discovered_channels = Queue(1)
 
     def scan(self):
-        proc = ScannerThread(
-            freqs_file=self.freqs_file,
-            output=self.discovered_channels
-        )
+        if self.terminated(): # Si el proceso anterior termino
+            self.scanner = ScannerThread(
+                freqs_file=self.freqs_file,
+                output=self.discovered_channels
+            )
 
-    def kill(self):
-        if self.process:
-            self.process.kill()
+    def terminate(self):
+        if self.scanner.is_alive():
+            self.scanner.stop()
+            self.discovered_channels = Queue(1)
 
     def terminated(self):
-        return self.process is None or self.process.poll() is not None
+        return self.scanner is None or self.scanner.is_alive() is not True
 
     def terminatedOk(self):
-        return self.process.returncode == 0
+        return self.scanner.returncode == 0
 
     def result(self):
         if self.guide is not None:
