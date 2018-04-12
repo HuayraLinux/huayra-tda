@@ -1,3 +1,9 @@
+huayra-tda (1:0.3.13) unstable; urgency=medium
+
+  * Corrección de dependencias de python
+
+ -- Fernando Toledo <ragnarok@docksud.com.ar>  Thu, 12 Apr 2018 14:21:47 -0300
+
 huayra-tda (1:0.3.12) unstable; urgency=medium
 
   * La aplicación es instancia única
