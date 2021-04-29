@@ -1,3 +1,9 @@
+huayra-tda (1:0.3.15) unstable; urgency=medium
+
+  * Ajustando dependencias para Huayra 5
+
+ -- Fernando Toledo <ragnarok@docksud.com.ar>  Thu, 29 Apr 2021 00:51:18 -0300
+
 huayra-tda (1:0.3.13) unstable; urgency=medium
 
   * Corrección de dependencias de python
